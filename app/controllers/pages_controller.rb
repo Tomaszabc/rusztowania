@@ -4,7 +4,7 @@ class PagesController < ApplicationController
     @parts = Part.all
     @parts = @parts.where(system: params[:system]) if params[:system]
     @parts = @parts.where(category: params[:category]) if params[:category]
-    @parts = @parts.where(description: params[:description]) if params[:description]
+    @part = @parts.where(description: params[:description]) if params[:description]
    
   end
 
