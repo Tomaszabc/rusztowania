@@ -1,0 +1,44 @@
+
+<div class="flex justify-center border-2 rounded-lg w-80 h-120 shadow-xl">
+  <div class=" text-center w-80">
+    Select system:
+    <div class=" text-center w-80">
+      <div class="m-3 flex text-center justify-center border-b-2 ">
+        <%= link_to  pages_index_path(system: 'peri')  do %>
+        PERI
+        <%= image_tag("peri.jpg", alt: "Peri", size: "60x50") %>
+        <% end %>
+      </div>
+      <div class="m-3 flex text-center justify-center border-b-2">
+        <%= link_to  pages_index_path(system: 'haki')   do %>
+        HAKI
+        <%= image_tag("haki.jpg", alt: "Haki", size: "100x100") %>
+        <% end %>
+      </div>
+      <div class="m-3 flex text-center justify-center border-b-2">
+        <%= link_to  pages_index_path(system: 'alfix')   do %>
+        ALFIX
+        <%= image_tag("alfix.jpg", alt: "Alfix", size: "70x100") %>
+        <% end %>
+      </div>
+      <div class="m-3 flex text-center justify-center border-b-2">
+        <%= link_to  pages_index_path(system: 'combisafe')   do %>
+        COMBISAFE
+        <%= image_tag("combisafe.jpg", alt: "Combisafe", size: "100x100") %>
+        <% end %>
+      </div>
+      <div class="m-3 flex text-center justify-center border-b-2">
+        <%= link_to  pages_index_path(system: 'rullestias')   do %>
+        RULLESTIAS
+        <%= image_tag("rullestias.jpg", alt: "Rullestias", size: "100x100") %>
+        <% end %>
+      </div>
+      <div class="m-3 flex text-center justify-center border-b-2">
+        <%= link_to  pages_index_path(system: 'other')   do %>
+        OTHER
+        <%= image_tag("other.jpg", alt: "Other", size: "100x100") %>
+        <% end %>
+      </div>
+    </div>
+  <div>
+</div>

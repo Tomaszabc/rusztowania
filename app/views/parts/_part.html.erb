@@ -1,0 +1,42 @@
+<div id="<%= dom_id part %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= part.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= part.description %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Weight:</strong>
+    <%= part.weight %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">System:</strong>
+    <%= part.system %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Category:</strong>
+    <%= part.category %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Multipack:</strong>
+    <%= part.multipack %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Image:</strong>
+    <%= part.image %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this part", part, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this part', edit_part_path(part), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
