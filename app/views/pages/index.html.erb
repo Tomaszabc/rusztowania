@@ -1,25 +1,23 @@
-
-<div class="flex justify-center border-2 rounded-lg w-80 h-120 shadow-xl">
-<div class="flex flex-col items-center w-80 justify-center">
-    <% if params[:system] %>
+  <div class="text-center">
+  <% if params[:system] %>
     <h2>Current System: <%= params[:system].upcase %></h2>
-    <p class="m-1"><%= image_tag("#{params[:system]}.jpg", alt: "System", size: "30x30") %></p>
-    <% end %>
-    Select scaffold elements:
-  
-    <div class="mt-3 mb-3">
-      <%= form_with(url: pages_index_path, method: :get) do |form| %>
+    <p class="m-1 flex justify-center"><%= image_tag("#{params[:system]}.jpg", alt: "System", size: "30x30") %></p>
+  <% end %>
+  Select scaffold elements:
+  </div>
+  <div class="mt-3 mb-3 flex">
+    <%= form_with(url: pages_index_path, method: :get) do |form| %>
       <%= form.hidden_field :system, value: params[:system] %>
       <%= form.select :category, 
       Part.pluck(:category).uniq.map { |category| [category.capitalize, category ] }, 
       { selected: params[:category] },
       { class: "rounded-md border-2 " } %>
       <%= form.submit "OK" %>
-      <% end %>
-    </div>
+    <% end %>
+  </div>
 
-    <div class="mt-3 mb-3">
-      <% if params[:category]%>
+  <div class="mt-3 mb-3 ">
+    <% if params[:category]%>
       <%= form_with(url: pages_index_path, method: :get) do |form| %>
       <%= form.hidden_field :system, value: params[:system] %>
       <%= form.hidden_field :category, value: params[:category] %>
@@ -29,40 +27,39 @@
       { class: "rounded-md border border-black-500 w-52" } %>
       <%= form.submit "OK" %>
       <% end %>
-      <% end %>
-    </div>
+    <% end %>
+  </div>
 
-    <% if params[:system] && params[:category] && params[:description] %>
-    <div class="border-t-2  justify-between mt-8">
-      
-      <p class="text-center m-2"><%= @part.description %></p>
-      <div class="columns-2">
-        <div class="ml-2">
+  <% if params[:system] && params[:category] && params[:description] %>
+  <div class="border-t-2  justify-between mt-8">
+    <p class="text-center m-2"><%= @part.description %></p>
+    <div class="columns-2">
+      <div class="ml-2">
         How many:
-          <input id="number" type="number" value="1" class="w-24 mb-1" />
-          <button type="button" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
-        Add
-        <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717L5.07 1.243zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3z"/>
-        </svg>
-        </button>
-        </div>
-        <div class="flex justify-end">
-          <%= image_tag("scaffold_img.jpg", alt: "scaffold", size: "120x100") %>
-        
-        </div>
+        <%= form_with(model: [ @cart, CartItem.new ], local: true) do |form| %>
+          <%= form.hidden_field :part_id, value: @part.id %> <!-- You need to replace @part.id with your actual part id -->
+          <%= form.select :quantity, options_for_select((1..100).to_a), class: "m-2 w-20" %>
+          <button type="submit" class="bg-green-500 hover:bg-green-600 text-white rounded-full p-2 inline-flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+          </button>
+        <% end %>
+      </div>
+      <div class="flex justify-end">
+        <%= image_tag("scaffold_img.jpg", alt: "scaffold", size: "120x100") %>
       </div>
     </div>
-      <div class="mt-10 mb-3">
-        <button type="button" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-slate-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
-        Go to Order list
-        <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717L5.07 1.243zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3z"/>
-        </svg>
-        </button>
-      </div>
+  </div>
+  <div class="mt-10 mb-3 flex justify-center">
+    <%= link_to cart_path(current_cart.id), class: "py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-slate-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" do %>
+    Go to Order list
+    <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717L5.07 1.243zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3z"/>
+    </svg>
+    <% end %>
   <% end %>
-</div>
+  </div>
 
 
 

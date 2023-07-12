@@ -15,10 +15,12 @@
   <nav class="flex justify-center">
   <%= render 'shared/navbar'%>
   </nav>
-    <main class="flex  justify-center mt-4 px-5 ">
-      
-        <%= yield %>
-     
+    <main class="flex justify-center mt-4 px-5 ">
+      <div class="border-2 rounded-lg w-96 shadow-xl">
+        <div class="flex flex-col items-center justify-center">
+          <%= yield %>
+        </div>
+      </div>  
     </main>
   </body>
 </html>

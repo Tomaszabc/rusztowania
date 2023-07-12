@@ -13,7 +13,7 @@
         <% end %>
   </div>
   <div>
-  <%= link_to root_path, class: " items-center" do %>
+  <%= link_to cart_path(current_cart.id), class: " items-center" do %>
       <p class="">Order Cart</p>
       <p class="ml-6"><%= image_tag("cart_black.png", alt: "Opis", size: "30x30") %></p>
     <% end %>
