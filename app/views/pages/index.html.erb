@@ -1,3 +1,4 @@
+
 <div class="flex justify-center border-2 rounded-lg w-80 h-120 shadow-xl">
 <div class="flex flex-col items-center w-80 justify-center">
     <% if params[:system] %>
@@ -24,7 +25,7 @@
       <%= form.hidden_field :category, value: params[:category] %>
       <%= form.select :description,
       @parts.pluck(:description).uniq ,
-      { },
+      { selected: params[:description] },
       { class: "rounded-md border border-black-500 w-52" } %>
       <%= form.submit "OK" %>
       <% end %>
@@ -37,22 +38,24 @@
       <p class="text-center m-2"><%= @part.description %></p>
       <div class="columns-2">
         <div class="ml-2">
-          <input id="number" type="number" value="1" class="w-24" />
-          <a href="#_" class="mt-1 relative inline-block px-4 py-2 font-medium group">
-          <span class="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-          <span class="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>
-          <span class="relative text-black group-hover:text-white">Add to cart</span>
-          </a>
+        How many:
+          <input id="number" type="number" value="1" class="w-24 mb-1" />
+          <button type="button" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+        Add
+        <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717L5.07 1.243zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3z"/>
+        </svg>
+        </button>
         </div>
         <div class="flex justify-end">
-          <%= image_tag("scaffold_img.jpg", alt: "scaffold", size: "100x100") %>
+          <%= image_tag("scaffold_img.jpg", alt: "scaffold", size: "120x100") %>
         
         </div>
       </div>
     </div>
-      <div class="mt-10">
+      <div class="mt-10 mb-3">
         <button type="button" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-slate-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
-        Go to Cart
+        Go to Order list
         <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
         <path d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717L5.07 1.243zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3z"/>
         </svg>
