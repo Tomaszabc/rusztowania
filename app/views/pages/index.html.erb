@@ -1,3 +1,5 @@
+
+ 
   <div class="text-center">
   <% if params[:system] %>
     <h2>Current System: <%= params[:system].upcase %></h2>
@@ -34,12 +36,15 @@
   <% if params[:system] && params[:category] && params[:description] %>
   <div class="border-t-2 mb-4  justify-between mt-8">
     <p class="text-center m-2"><%= @part.description %></p>
+    <% if @part.multipack > 1 %>
+    <p class=" m-2"><strong>Multipack: <%= @part.multipack%></strong></p>
+    <% end %>
     <div class="columns-2">
       <div class="ml-2">
-        How many:
-        <%= form_with(model: [ @cart, CartItem.new ], local: true) do |form| %>
-          <%= form.hidden_field :part_id, value: @part.id %> <!-- You need to replace @part.id with your actual part id -->
-          <%= form.select :quantity, options_for_select((1..100).to_a), class: "m-2 w-20" %>
+     
+        <%= form_with(model: [ @cart, CartItem.new ], local: true, html: { id: 'add-to-cart-form' }) do |form| %>
+          <%= form.hidden_field :part_id, value: @part.id %>
+          <%= form.select :quantity, options_for_select((1..100).to_a), class: "m-2 w-20", id: "quantity-field" %>
           <button type="submit" class="bg-green-500 hover:bg-green-600 text-white rounded-full p-2 inline-flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -52,8 +57,8 @@
       </div>
     </div>
   </div>
-  
-  <% end %>
+ 
+<% end %>
 
 
 

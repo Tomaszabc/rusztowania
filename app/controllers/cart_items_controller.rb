@@ -7,7 +7,7 @@ class CartItemsController < ApplicationController
     if @existing_cart_item
         @existing_cart_item.quantity = params[:cart_item][:quantity].to_i
         if @existing_cart_item.save
-
+            
         else
           render :new
         end
