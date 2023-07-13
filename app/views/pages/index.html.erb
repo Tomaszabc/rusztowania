@@ -6,29 +6,30 @@
   Select scaffold elements:
   </div>
   <div class="mt-3 mb-3 flex">
-    <%= form_with(url: pages_index_path, method: :get) do |form| %>
-      <%= form.hidden_field :system, value: params[:system] %>
-      <%= form.select :category, 
-      Part.pluck(:category).uniq.map { |category| [category.capitalize, category ] }, 
-      { selected: params[:category] },
-      { class: "rounded-md border-2 " } %>
-      <%= form.submit "OK" %>
-    <% end %>
-  </div>
+  <%= form_with(url: pages_index_path, method: :get, html: { id: 'category-form' }) do |form| %>
+    <%= form.hidden_field :system, value: params[:system] %>
+    <%= form.select :category, 
+  [["Select category", nil]] + Part.pluck(:category).uniq.map { |category| [category.capitalize, category ] }, 
+  { selected: params[:category] },
+  { class: "rounded-md border-2 ", onchange: 'this.form.submit()' } %>
+    <%# Usuwamy przycisk OK %>
+  <% end %>
+</div>
 
-  <div class="mt-3 mb-3 ">
-    <% if params[:category]%>
-      <%= form_with(url: pages_index_path, method: :get) do |form| %>
-      <%= form.hidden_field :system, value: params[:system] %>
-      <%= form.hidden_field :category, value: params[:category] %>
-      <%= form.select :description,
-      @parts.pluck(:description).uniq ,
-      { selected: params[:description] },
-      { class: "rounded-md border border-black-500 w-52" } %>
-      <%= form.submit "OK" %>
-      <% end %>
+<div class="mt-3 mb-3 ">
+  <% if params[:category]%>
+    <%= form_with(url: pages_index_path, method: :get, html: { id: 'description-form' }) do |form| %>
+    <%= form.hidden_field :system, value: params[:system] %>
+    <%= form.hidden_field :category, value: params[:category] %>
+    <%= form.select :description, 
+  [["Select Part", nil]] +
+    @parts.pluck(:description).uniq ,
+    { selected: params[:description] },
+    { class: "rounded-md border border-black-500 w-52", onchange: 'this.form.submit()' } %>
+    <%# Usuwamy przycisk OK %>
     <% end %>
-  </div>
+  <% end %>
+</div>
 
   <% if params[:system] && params[:category] && params[:description] %>
   <div class="border-t-2 mb-4  justify-between mt-8">
