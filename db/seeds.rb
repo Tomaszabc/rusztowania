@@ -17,7 +17,7 @@ Part.create!(name: '104029', description: 'Stalplank UDI 25x50', weight: 5.0, sy
 Part.create!(name: '104028', description: 'Stalplank UDI 25x75', weight: 5.0, system: 'peri', category: 'stalplank', multipack: 1, image: 'image')
 Part.create!(name: '104027', description: 'Stalplank UDI 25x100', weight: 5.0, system: 'peri', category: 'stalplank', multipack: 1, image: 'image')
 
-
 Site.create!(name: 'Oslo')
 Site.create!(name: 'Oslo-centrum')
 Site.create!(name: 'Bergen')
+
