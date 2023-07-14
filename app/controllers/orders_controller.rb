@@ -13,13 +13,22 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-
+    @cart = current_cart
+  
     if @order.save
+      @cart.cart_items.each do |cart_item|
+        @order.order_lists.create(
+          part_id: cart_item.part_id,
+          quantity: cart_item.quantity,
+          description: cart_item.part.description
+        )
+      end
       redirect_to order_path(@order)
     else
       render :new
     end
   end
+  
 
   def show
     @order = Order.find(params[:id])

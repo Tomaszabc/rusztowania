@@ -25,7 +25,13 @@
       <div class="flex justify-center mb-4">
       <%= form.date_field :delivery_date %>
     </div>
-
+<% @cart.cart_items.each do |cart_item| %>
+    <%= form.fields_for :order_lists, OrderList.new do |order_list_fields| %>
+      <%= order_list_fields.hidden_field :part_id, value: cart_item.part_id %>
+      <%= order_list_fields.hidden_field :quantity, value: cart_item.quantity %>
+      <%= order_list_fields.hidden_field :description, value: cart_item.part.description %>
+    <% end %>
+  <% end %>
     <div class="flex justify-center">
       <%= form.label :info, "Additional info:" %>
       </div>
