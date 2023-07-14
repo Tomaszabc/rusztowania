@@ -1,23 +1,26 @@
-<div class="flex justify-between w-80">
-  <div>
-    <%= link_to root_path, class: " items-center" do %>
-      <p class="">Back to Systems:</p>
-        <div class="flex inline ml-3">
-          <%= image_tag("peri.jpg", alt: "Opis", size: "20x20") %>
-          <%= image_tag("haki.jpg", alt: "Opis", size: "20x20") %>
-          <%= image_tag("alfix.jpg", alt: "Opis", size: "20x20") %>
-          <%= image_tag("rullestias.jpg", alt: "Opis", size: "20x20") %>
-          <%= image_tag("combisafe.jpg", alt: "Opis", size: "20x20") %>
-          
-        </div>
-        <% end %>
-  </div>
-  <div>
-  
-  <%= link_to cart_path(current_cart.id), class: " items-center" do %>
-      <p class="">Go to Order Cart</p>
-      <p class="ml-12"><%= image_tag("cart_2.png", alt: "Opis", size: "30x30")%></p>
-    <% end %>
-  
+<div>
+  <div class="flex justify-between w-80">
+      <div>
+        <%= link_to root_path, class: " items-center" do %>
+          <p class="">Back to Systems:</p>
+            <div class="flex inline ml-3">
+              <%= image_tag("peri.jpg", alt: "Opis", size: "20x20") %>
+              <%= image_tag("haki.jpg", alt: "Opis", size: "20x20") %>
+              <%= image_tag("alfix.jpg", alt: "Opis", size: "20x20") %>
+              <%= image_tag("rullestias.jpg", alt: "Opis", size: "20x20") %>
+              <%= image_tag("combisafe.jpg", alt: "Opis", size: "20x20") %>
+            </div>
+            <% end %>
+      </div>
+
+    <div>
+    <%= link_to cart_path(current_cart.id), class: " items-center" do %>
+        <p class="">Go to Order Cart</p>
+        <p class="ml-12"><%= image_tag("cart_2.png", alt: "Opis", size: "30x30")%></p>
+      <% end %>
+    
+    </div>
+    
   </div>
 </div>
+

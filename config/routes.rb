@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
    get '/pages/index', to: 'pages#index'
   resources :parts
   resources :cart_items, only: [:create]
