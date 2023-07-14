@@ -24,6 +24,8 @@ class OrdersController < ApplicationController
           weight: cart_item.part.weight
         )
       end
+      @cart.destroy
+      session[:cart_id] = nil
       redirect_to order_path(@order)
     else
       render :new
