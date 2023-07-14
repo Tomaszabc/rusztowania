@@ -20,7 +20,8 @@ class OrdersController < ApplicationController
         @order.order_lists.create(
           part_id: cart_item.part_id,
           quantity: cart_item.quantity,
-          description: cart_item.part.description
+          description: cart_item.part.description,
+          weight: cart_item.part.weight
         )
       end
       redirect_to order_path(@order)

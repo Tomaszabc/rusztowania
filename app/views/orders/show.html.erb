@@ -1,20 +1,25 @@
 
 
-<div class="container">
-  <h1>Order Details</h1>
-
+<div class="container ml-3">
+  <h1>Order Details:</h1>
+<br>
   <div>
     <p><strong>Building Site:</strong> <%= @order.building_site %></p>
     <p><strong>Delivery Date:</strong> <%= @order.delivery_date %></p>
-    <p><strong>Additional Info:</strong> <%= @order.info %></p>
+    <p class=""><strong>Additional Info:</strong></p> <%= @order.info %>
+     <p><%= @order.info %><p>
   </div>
+  <br>
 
  <h2>Ordered Parts:</h2>
 
+ <% total_weight = 0 %>
 <% @order.order_lists.each do |order_list| %>
-  <div class="m-2 ml-4 border-b-2">
-    <p><strong>Description:</strong> <%= order_list.description %></p>
-    <p><strong>Quantity:</strong> <%= order_list.quantity %></p>
+  <div class="m-2 ml-1 border-b-2">
+    <p><strong> <%= order_list.description %></strong></p>
+    <p>Quantity:<strong> <%= order_list.quantity %></strong> Weight <%= order_list.weight %>kg</p>
+  <% total_weight += order_list.quantity * order_list.weight %>
   </div>
 <% end %>
+<p class="text-center m-4"><strong>Total Weight:</strong> <%= total_weight %>kg</p>
 </div>

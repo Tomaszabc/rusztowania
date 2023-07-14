@@ -42,11 +42,11 @@
     <%= image_tag "weight.png", size: "40x20", alt:"weight"%>
   <p class="text-center m-2">Total Weight: <%= @total_weight %> kg</p>
 </div>
-<div class="mt-3">
+<div class="m-3">
   <%= button_to new_order_path(cart_id: @cart.id), method: :get, 
     class: "inline-flex items-center px-4 py-2 bg-gray-500 hover:bg-gray-700 text-white font-semibold rounded-md",
     disabled: @cart.cart_items.empty? do %>
   <%= image_tag "cart.png", size: "40x20", alt: "Order" %>
-  <span class="ml-2">GO to Order</span>
+  <span class="ml-2 ">GO to Order</span>
   <% end %>
 </div>
