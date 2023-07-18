@@ -14,5 +14,23 @@ ActiveAdmin.register Order do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+  # permit_params :building_site, :delivery_date, :info, :part_number, :part_description, :quantity, :weight
+  #
+  show do
+    attributes_table do
+      row :building_site
+      row :delivery_date
+      # ... tu wypisz atrybuty Ordera
+    end
+
+    panel 'Order Lists' do
+      table_for order.order_lists do
+        column :quantity
+        column :description
+        column :weight
+        # ... tu wypisz atrybuty, które chcesz wyświetlać z OrderList
+      end
+    end
+  end  
   
 end
