@@ -21,3 +21,4 @@ Site.create!(name: 'Oslo')
 Site.create!(name: 'Oslo-centrum')
 Site.create!(name: 'Bergen')
 
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
