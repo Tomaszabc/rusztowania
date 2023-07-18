@@ -42,7 +42,7 @@
       <% if @cart.present? %>
           <% current_quantity = @cart.cart_items.where(part_id: @part.id).sum(:quantity) %>
           <% if current_quantity > 0 %>
-            <p class="text-center m-2">Currently in cart: <strong><%= current_quantity %></strong></p>
+            <p class="text-center text-lg text-indigo-900 m-2">Currently in cart: <strong><%= current_quantity %></strong></p>
           <% end %>
       <% end %>
     <div class="columns-2">
@@ -50,7 +50,7 @@
      
         <%= form_with(model: [ @cart, CartItem.new ], local: true, html: { id: 'add-to-cart-form' }) do |form| %>
           <%= form.hidden_field :part_id, value: @part.id %>
-          <%= form.select :quantity, options_for_select((1..100).to_a), class: "m-2 w-20", id: "quantity-field" %>
+          <%= form.select :quantity, options_for_select((1..100).to_a, current_quantity), class: "m-2 w-20", id: "quantity-field" %>
           <button type="submit" class="bg-green-500 hover:bg-green-600 text-white rounded-full p-2 inline-flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

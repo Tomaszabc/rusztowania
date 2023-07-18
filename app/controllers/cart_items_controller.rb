@@ -7,7 +7,7 @@ class CartItemsController < ApplicationController
     if @existing_cart_item
         @existing_cart_item.quantity = params[:cart_item][:quantity].to_i
         if @existing_cart_item.save
-            
+          redirect_to request.referrer || root_path
         else
           render :new
         end
@@ -15,7 +15,7 @@ class CartItemsController < ApplicationController
       @cart_item = @cart.cart_items.build(cart_item_params)
       if @cart_item.save
         flash[:notice] = "Successfully added"
-    
+        redirect_to request.referrer || root_path
       else
       render :new
       end
