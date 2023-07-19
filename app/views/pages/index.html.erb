@@ -33,39 +33,43 @@
   <% end %>
 </div>
 
-  <% if params[:system] && params[:category] && params[:description] %>
-  <div class="border-t-2 mb-4  justify-between mt-8">
-    <p class="text-center m-2"><%= @part.description %></p>
+<% if params[:system] && params[:category] && params[:description] %>
+<div class="border-t-2 mb-4  justify-between mt-8">
+  <p class="text-center m-2"><%= @part.description %></p>
     <% if @part.multipack > 1 %>
-    <p class=" m-2"><strong>Multipack: <%= @part.multipack%></strong></p>
+      <p class=" m-2"><strong>Multipack: <%= @part.multipack%></strong></p>
     <% end %>
-      <% if @cart.present? %>
-          <% current_quantity = @cart.cart_items.where(part_id: @part.id).sum(:quantity) %>
-          <% if current_quantity > 0 %>
-            <p class="text-center text-lg text-indigo-900 m-2">Currently in cart: <strong><%= current_quantity %></strong></p>
-          <% end %>
-      <% end %>
-    <div class="columns-2">
-      <div class="ml-2">
-     
+    <% if @cart.present? %>
+      <% current_quantity = @cart.cart_items.where(part_id: @part.id).sum(:quantity) %>
+    <% end %>
+  <div class="columns-2">
+    <div class="ml-2">
+      <div>
         <%= form_with(model: [ @cart, CartItem.new ], local: true, html: { id: 'add-to-cart-form' }) do |form| %>
           <%= form.hidden_field :part_id, value: @part.id %>
           <%= form.select :quantity, options_for_select((1..100).to_a, current_quantity), class: "m-2 w-20", id: "quantity-field" %>
-          <button type="submit" class="bg-green-500 hover:bg-green-600 text-white rounded-full p-2 inline-flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-          </button>
-          
+      </div>
+      <div class="mt-1 ml-3"> 
+          <%= button_tag type: 'submit', class: " bg-green-500 hover:bg-green-600 rounded-full p-2 inline-flex items-center" do %>
+            <%= image_tag("cart_2.png", alt: "Cart", class: "h-8 w-8") %>
+          <% end %>
         <% end %>
-       
-      </div>
-      <div class="flex justify-end">
-        <%= image_tag("scaffold_img.jpg", alt: "scaffold", size: "120x100") %>
-      </div>
-    </div>
+    </div>    
+      
   </div>
- 
+  <div>
+    <% if @cart.present? %>
+      <% current_quantity = @cart.cart_items.where(part_id: @part.id).sum(:quantity) %>
+      <% if current_quantity > 0 %>
+        <p class=" ml-1 text-lg text-red-500 ">In cart: <strong><%= current_quantity %></strong></p>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="flex justify-end">
+    <%= image_tag("scaffold_img.jpg", alt: "scaffold", size: "120x100") %>
+  </div> 
+</div>
+
 <% end %>
 
 
