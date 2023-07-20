@@ -1,0 +1,19 @@
+<p>Thank you for your order!</p>
+<p>Your order details:</p>
+<p>Building Site: <%= @order.building_site %></p>
+<p>Delivery Date: <%= @order.delivery_date %></p>
+<p>Additional info: <%= @order.info %></p>
+
+<p>Order Items:</p>
+<% total_weight = 0 %>
+<% @order.order_lists.each do |item| %>
+  <% total_weight += item.weight * item.quantity %>
+  <p>
+    
+    Quantity: <%= item.quantity %><br>
+    Description: <%= item.description %><br>
+    Weight: <%= item.weight %>
+  </p>
+<% end %>
+
+<p>Total Weight: <%= total_weight %></p>

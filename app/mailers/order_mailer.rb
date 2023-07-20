@@ -1,0 +1,10 @@
+class OrderMailer < ApplicationMailer
+
+  default from: 'stillasstillas6@gmail.com'
+ 
+  def order_confirmation(order)
+    @order = order
+    mail(to: 'stillasstillas6@gmail.com', subject: 'Order Confirmation')
+  end
+
+end

@@ -78,3 +78,4 @@ gem "dockerfile-rails", ">= 1.5", :group => :development
 gem 'devise'
 gem 'activeadmin'
 gem 'sass-rails'
+gem 'mail'

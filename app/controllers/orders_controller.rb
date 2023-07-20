@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
     @cart = current_cart
   
     if @order.save
+      
       @cart.cart_items.each do |cart_item|
         @order.order_lists.create(
           part_id: cart_item.part_id,
@@ -24,6 +25,7 @@ class OrdersController < ApplicationController
           weight: cart_item.part.weight
         )
       end
+      OrderMailer.order_confirmation(@order).deliver_now
       @cart.destroy
       session[:cart_id] = nil
       redirect_to order_path(@order)
