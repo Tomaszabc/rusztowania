@@ -30,7 +30,9 @@
   </p>
 
   <p class="my-5">
-    <%= image_tag(part.image.variant(resize: "120x120")) if part.image.attached? %>
+   <% if part.image.attached? %>
+  <%= image_tag(part.image, alt: "Part Image", size: "140x140") %>
+  <%end%>
   </p>
 
 

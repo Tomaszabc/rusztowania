@@ -43,7 +43,7 @@
       <% current_quantity = @cart.cart_items.where(part_id: @part.id).sum(:quantity) %>
     <% end %>
   <div class="columns-2">
-    <div class="ml-2">
+    <div class="ml-2 mt-2">
       <div>
         <%= form_with(model: [ @cart, CartItem.new ], local: true, html: { id: 'add-to-cart-form' }) do |form| %>
           <%= form.hidden_field :part_id, value: @part.id %>
@@ -66,8 +66,13 @@
     <% end %>
   </div>
   <div class="flex justify-end">
-    <%= image_tag("scaffold_img.jpg", alt: "scaffold", size: "120x100") %>
+    <% if @part.image.attached? %>
+  <%= image_tag(@part.image, alt: "Part Image", size: "140x140") %>
+<% else %>
+  <%= image_tag("scaffold_img.jpg", alt: "scaffold", size: "120x100") %>
+<% end %>
   </div> 
+  
 </div>
 
 <% end %>

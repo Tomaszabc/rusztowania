@@ -103,4 +103,5 @@ config.action_mailer.smtp_settings = {
   authentication:       'plain',
   enable_starttls_auto: true 
 }
+config.active_storage.variant_processor = :mini_magick
 end
