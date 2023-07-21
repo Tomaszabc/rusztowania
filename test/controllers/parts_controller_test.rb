@@ -17,7 +17,7 @@ class PartsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create part" do
     assert_difference("Part.count") do
-      post parts_url, params: { part: { category: @part.category, description: @part.description, image: @part.image, multipack: @part.multipack, name: @part.name, system: @part.system, weight: @part.weight } }
+      post parts_url, params: { part: { category: @part.category, description: @part.description, multipack: @part.multipack, name: @part.name, system: @part.system, weight: @part.weight } }
     end
 
     assert_redirected_to part_url(Part.last)
@@ -34,7 +34,7 @@ class PartsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update part" do
-    patch part_url(@part), params: { part: { category: @part.category, description: @part.description, image: @part.image, multipack: @part.multipack, name: @part.name, system: @part.system, weight: @part.weight } }
+    patch part_url(@part), params: { part: { category: @part.category, description: @part.description, multipack: @part.multipack, name: @part.name, system: @part.system, weight: @part.weight } }
     assert_redirected_to part_url(@part)
   end
 

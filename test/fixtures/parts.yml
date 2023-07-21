@@ -7,7 +7,7 @@ one:
   system: MyString
   category: MyString
   multipack: 1
-  image: MyString
+ 
 
 two:
   name: MyString
@@ -16,4 +16,4 @@ two:
   system: MyString
   category: MyString
   multipack: 1
-  image: MyString
+
