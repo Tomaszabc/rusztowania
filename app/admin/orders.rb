@@ -1,5 +1,5 @@
 ActiveAdmin.register Order do
-
+  filter :user
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -16,6 +16,7 @@ ActiveAdmin.register Order do
   # end
   # permit_params :building_site, :delivery_date, :info, :part_number, :part_description, :quantity, :weight
   #
+  
   show do
     attributes_table do
       row :building_site

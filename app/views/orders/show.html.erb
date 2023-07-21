@@ -6,6 +6,7 @@
   <h1>Order Details:</h1>
 <br>
   <div>
+  <p><strong>Scaffolder:</strong> <%= @order.user.email %></p>
     <p><strong>Building Site:</strong> <%= @order.building_site %></p>
     <p><strong>Delivery Date:</strong> <%= @order.delivery_date %></p>
     <p class=""><strong>Additional Info:</strong></p> <%= @order.info %>

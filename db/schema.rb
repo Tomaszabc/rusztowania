@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_18_155655) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_21_110813) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_18_155655) do
     t.decimal "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "part_number"
     t.index ["order_id"], name: "index_order_lists_on_order_id"
     t.index ["part_id"], name: "index_order_lists_on_part_id"
   end
@@ -82,6 +83,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_18_155655) do
     t.decimal "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "parts", force: :cascade do |t|
@@ -118,4 +121,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_18_155655) do
   add_foreign_key "cart_items", "parts"
   add_foreign_key "order_lists", "orders"
   add_foreign_key "order_lists", "parts"
+  add_foreign_key "orders", "users"
 end

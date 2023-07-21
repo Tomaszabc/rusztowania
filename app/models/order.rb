@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   # has_many :order_items
   has_many :order_lists
   has_many :parts, through: :order_lists
-
+  belongs_to :user
   
   validates :building_site, :delivery_date, presence: true
   
