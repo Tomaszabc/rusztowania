@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
           weight: cart_item.part.weight
         )
       end
-      OrderMailer.order_confirmation(@order).deliver_now
+       OrderMailer.order_confirmation(@order).deliver_now
       @cart.destroy
       session[:cart_id] = nil
       redirect_to order_path(@order)
