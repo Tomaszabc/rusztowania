@@ -17,13 +17,14 @@
     <%= form.label :building_site, "Site:" %>
     </div>
     <div class="flex justify-center mb-4">
-    <%= form.collection_select :building_site, Site.all, :name, :name, prompt: true %>    </div>
+    <%= form.collection_select :building_site, Site.all, :name, :name, prompt: true %>   
+     </div>
 
     <div class="flex justify-center">
       <%= form.label :delivery_date, "Delivery date:" %>
     </div>
       <div class="flex justify-center mb-4">
-      <%= form.date_field :delivery_date, start_year: Date.current.year, min: Date.current.to_s %>
+      <%= form.date_field :delivery_date, start_year: Date.current.year, min: Date.current.to_s, placeholder: "Select delivery date"  %>
     </div>
 <% @cart.cart_items.each do |cart_item| %>
     <%= form.fields_for :order_lists, OrderList.new do |order_list_fields| %>
@@ -47,13 +48,19 @@
   <p> <%= product[:description] %></p>
   <p>Quantity: <strong><%= product[:quantity] %></strong></p>
   </div>
+  <div>
   <% end %>
   <p class="text-center m-4">Total Weight: <strong><%= @total_weight %> kg</strong></p>
+<% if @cart.cart_items.any? %>
   <div class="flex justify-center m-6">
-  <button type="submit"  class="inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md">
-  <%= image_tag "cart.png", size: "40x20", alt: "Order" %>
-  <span class="ml-2">ORDER</span>
-  </button>
+    <%= form.submit "ORDER", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md" %>
+  </div>
+<% else %>
+  <div class="flex justify-center m-6">
+    <%= form.submit "ORDER", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md", disabled: true %>
+  </div>
+<% end %>
 </div>
+
 
 <% end %>
