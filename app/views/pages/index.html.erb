@@ -24,11 +24,11 @@
     <%= form.hidden_field :system, value: params[:system] %>
     <%= form.hidden_field :category, value: params[:category] %>
     <%= form.select :description, 
-  [["Select Part", nil]] +
+ 
     @parts.pluck(:description).uniq ,
     { selected: params[:description] },
     { class: "rounded-md border border-black-500 w-52", onchange: 'this.form.submit()',} %>
-    <%# Usuwamy przycisk OK %>
+    
     <% end %>
   <% end %>
 </div>
@@ -36,6 +36,12 @@
 <% if params[:system] && params[:category] && params[:description] %>
 <div class="border-t-2 mb-4  justify-between mt-8">
   <p class="text-center m-2"><%= @part.description %></p>
+  <% if @cart.present? %>
+      <% current_quantity = @cart.cart_items.where(part_id: @part.id).sum(:quantity) %>
+      <% if current_quantity > 0 %>
+        <p class=" ml-2 text-lg text-green-500 text-center ">In Cart: <strong><%= current_quantity %></strong></p>
+      <% end %>
+    <% end %>
     <% if @part.multipack > 1 %>
       <p class=" m-2"><strong>Multipack: <%= @part.multipack%></strong></p>
     <% end %>
@@ -50,21 +56,14 @@
           <%= form.select :quantity, options_for_select((1..100).to_a, current_quantity), class: "m-2 w-20", id: "quantity-field" %>
       </div>
       <div class="mt-1 ml-3"> 
-          <%= button_tag type: 'submit', class: " bg-green-500 hover:bg-green-600 rounded-full p-2 inline-flex items-center" do %>
+          <%= button_tag type: 'submit', class: " bg-green-500 hover:bg-green-600 rounded-full p-2 inline-flex items-center hover:scale-110 transition duration-200" do %>
             <%= image_tag("cart_2.png", alt: "Cart", class: "h-8 w-8") %>
           <% end %>
         <% end %>
     </div>    
       
   </div>
-  <div>
-    <% if @cart.present? %>
-      <% current_quantity = @cart.cart_items.where(part_id: @part.id).sum(:quantity) %>
-      <% if current_quantity > 0 %>
-        <p class=" ml-2 text-lg text-green-500 ">In cart: <strong><%= current_quantity %></strong></p>
-      <% end %>
-    <% end %>
-  </div>
+  
   <div class="flex justify-end">
     <% if @part.image.attached? %>
   <%= image_tag(@part.image, alt: "Part Image", size: "140x140") %>

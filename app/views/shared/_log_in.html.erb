@@ -3,7 +3,7 @@
     <div class="mr-2">
       <p class="">Logged as: <%= current_user.email %></p>
     </div>
-    <div class="mt-4">
+    <div class="mt-4 hover:scale-110 transition duration-200">
       <%= button_to destroy_user_session_path, method: :delete, class: "logout-button" do %>
         <%= image_tag "exit_2.png", alt: "Wyloguj", size: "50x50" %>
         <span>Log Out</span>

@@ -23,7 +23,7 @@
       <%= form.label :delivery_date, "Delivery date:" %>
     </div>
       <div class="flex justify-center mb-4">
-      <%= form.date_field :delivery_date %>
+      <%= form.date_field :delivery_date, start_year: Date.current.year, min: Date.current.to_s %>
     </div>
 <% @cart.cart_items.each do |cart_item| %>
     <%= form.fields_for :order_lists, OrderList.new do |order_list_fields| %>

@@ -17,8 +17,18 @@ Part.create!(name: '104029', description: 'Stalplank UDI 25x50', weight: 5.0, sy
 Part.create!(name: '104028', description: 'Stalplank UDI 25x75', weight: 5.0, system: 'peri', category: 'stalplank', multipack: 1 )
 Part.create!(name: '104027', description: 'Stalplank UDI 25x100', weight: 5.0, system: 'peri', category: 'stalplank', multipack: 1 )
 
+Part.create!(name: 'UL500', description: 'UNDERLAG 0,5 m', weight: 3.00, system: 'peri', category: 'stender', multipack: 1 )
+
+Part.create!(name: '137020', description: 'HORISONTAL FORSTERKT UHV-2 150', weight: 9.41, system: 'peri', category: 'horisontal', multipack: 1 )
+Part.create!(name: '137025', description: 'HORISONTAL FORSTERKT UHV-2 200', weight: 12.70, system: 'peri', category: 'horisontal', multipack: 1 )
+Part.create!(name: '137030', description: 'HORISONTAL FORSTERKT UHV-2 250', weight: 15.20, system: 'peri', category: 'horisontal', multipack: 1 )
+Part.create!(name: '137035', description: 'HORISONTAL FORSTERKT UHV-2 300', weight: 18.50, system: 'peri', category: 'horisontal', multipack: 1 )
+
+
+
 Site.create!(name: 'Oslo')
 Site.create!(name: 'Oslo-centrum')
 Site.create!(name: 'Bergen')
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')

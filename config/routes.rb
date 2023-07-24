@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   resources :cart_items, only: [:create]
   resources :carts do
    resources :cart_items, only: [:create, :update, :destroy]
+    member do
+      delete 'clear_cart'
+    end
   end
   resources :orders, only: [:new, :create, :show]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
