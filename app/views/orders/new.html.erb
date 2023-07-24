@@ -11,8 +11,9 @@
 
 <h1 class="mb-2">New Order</h1>
 <br>
+<%= form_with(model: @order, url: orders_path) do |form| %>
 <div>
-  <%= form_with(model: @order, url: orders_path) do |form| %>
+  
     <div class="flex justify-center">
     <%= form.label :building_site, "Site:" %>
     </div>
@@ -61,6 +62,4 @@
   </div>
 <% end %>
 </div>
-
-
 <% end %>

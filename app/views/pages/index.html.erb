@@ -28,7 +28,7 @@
  [["Select Part", nil]] +
     @parts.pluck(:description).uniq ,
     { selected: params[:description] },
-    { class: "rounded-md border border-black-500 w-52", onchange: 'this.form.submit()',} %>
+    { class: "rounded-md border border-black-500 w-62", onchange: 'this.form.submit()', include_blank: true} %>
     
     <% end %>
   <% end %>

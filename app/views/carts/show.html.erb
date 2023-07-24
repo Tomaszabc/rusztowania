@@ -7,49 +7,49 @@
       back
     </button>
   </div>
- <div class="mb-3  mr-2 mt-2 bg-red-100 hover:scale-110 transition duration-200">
-  <%= button_to clear_cart_cart_path(@cart), method: :delete, data: { confirm: 'Are you sure?' }, class: "inline-flex items-center px-4 py-2 bg-transparent hover:bg-slate-300 text-black text-sm font-medium rounded-md border border-black" do %>
-  <%= image_tag "trash.png", size: "15x15", alt: "Delete", class: "mr-2" %>
-  Clear cart
-<% end %>
+  <div class="mb-3  mr-2 mt-2 bg-red-100 hover:scale-110 transition duration-200">
+      <%= button_to clear_cart_cart_path(@cart), method: :delete, data: { confirm: 'Are you sure?' }, class: "inline-flex items-center px-4 py-2 bg-transparent hover:bg-slate-300 text-black text-sm font-medium rounded-md border border-black" do %>
+        <%= image_tag "trash.png", size: "15x15", alt: "Delete", class: "mr-2" %>
+        Clear cart
+      <% end %>
+  </div>
 </div>
-
-</div>
-
-<h1>Your Order Cart:</h1>
-
-<div class="mt-6">
-<% sorted_cart_items = @cart.cart_items.sort_by { |item| item.part.name } %>
-  <% sorted_cart_items.each do |item| %>
-  <p class="mb-2"><%= item.part.description %></p>
-  <% if item.part.multipack > 1 %>
-    <p class=" m-2"><strong>Multipack: <%= item.part.multipack%></strong></p>
-    <% end %>
-    <div class="border-b-2 mb-4 flex justify-between">
-      <div>
-        <%= form_with(model: item, url: cart_cart_item_path(@cart, item), method: :patch) do |form| %>
-          <%= form.select :quantity, options_for_select((1..100).to_a, selected: item.quantity), class: "m-2 w-20" %>
-          <br>
-          <%= image_submit_tag("edit.png", alt: "Update Quantity", class: "ml-5 mt-2 h-8 w-8 hover:scale-110 transition duration-200  hover:bg-green-200 rounded") %>
-        <% end %>
-      </div>
-      <div>
-        <% if item.part.image.attached? %>
-      <%= image_tag item.part.image, size: "80x80", alt: "img" %>
+  <% if @cart.cart_items.empty? %>
+      <h1>Your Order Cart is Empty</h1>
     <% else %>
-      <%= image_tag "scaffold_img.jpg", size: "80x80", alt: "img" %>
-    <% end %>
-      </div>
-      <div>
-        <%= button_to cart_cart_item_path(@cart, item), method: :delete, data: { confirm: 'Are you sure?' } do %>
-          <%= image_tag "trash.png", size: "30x30", alt: "Delete", class:" mt-3 hover:scale-110 transition duration-200 hover:bg-red-100 rounded" %>
-        <% end %>
-      </div>
-    </div>
+      <h1>Your Order Cart:</h1>
   <% end %>
+<div class="mt-6">
+  <% sorted_cart_items = @cart.cart_items.sort_by { |item| item.part.name } %>
+    <% sorted_cart_items.each do |item| %>
+    <p class="mb-2"><%= item.part.description %></p>
+    <% if item.part.multipack > 1 %>
+      <p class=" m-2"><strong>Multipack: <%= item.part.multipack%></strong></p>
+      <% end %>
+      <div class="border-b-2 mb-4 flex justify-between">
+        <div>
+          <%= form_with(model: item, url: cart_cart_item_path(@cart, item), method: :patch) do |form| %>
+            <%= form.select :quantity, options_for_select((1..100).to_a, selected: item.quantity), class: "m-2 w-20" %>
+            <br>
+            <%= image_submit_tag("edit.png", alt: "Update Quantity", class: "ml-5 mt-2 h-8 w-8 hover:scale-110 transition duration-200  hover:bg-green-200 rounded") %>
+          <% end %>
+        </div>
+        <div>
+          <% if item.part.image.attached? %>
+        <%= image_tag item.part.image, size: "80x80", alt: "img" %>
+      <% else %>
+        <%= image_tag "scaffold_img.jpg", size: "80x80", alt: "img" %>
+      <% end %>
+        </div>
+        <div>
+          <%= button_to cart_cart_item_path(@cart, item), method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <%= image_tag "trash.png", size: "30x30", alt: "Delete", class:" mt-3 hover:scale-110 transition duration-200 hover:bg-red-100 rounded" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
 </div>
-<div>
-</div>
+
   <div class="m-3 flex">
     <%= image_tag "weight.png", size: "40x20", alt:"weight"%>
   <p class="text-center m-2">Total Weight: <%= @total_weight %> kg</p>

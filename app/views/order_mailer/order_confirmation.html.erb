@@ -5,16 +5,14 @@
 <p>Delivery Date: <%= @order.delivery_date %></p>
 <p>Additional info: <%= @order.info %></p>
 
-<p>Order Items:</p>
+<p><strong>Order Items:</strong></p>
 <% total_weight = 0 %>
 <% @order.order_lists.each do |item| %>
   <% total_weight += item.weight * item.quantity %>
-  <p>
-    
-    Quantity: <%= item.quantity %><br>
-    Description: <%= item.description %><br>
-    Weight: <%= item.weight %>
+  <p class="">
+    Quantity: <strong><%= item.quantity %></strong>, 
+     <%= item.description %> 
   </p>
 <% end %>
 
-<p>Total Weight: <%= total_weight %></p>
+<p><strong>Total Weight: <%= total_weight %></strong></p>

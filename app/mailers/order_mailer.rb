@@ -4,8 +4,8 @@ class OrderMailer < ApplicationMailer
  
   def order_confirmation(order)
     @order = order
-     mail(to: 'stillasstillas6@gmail.com', subject: 'Order Confirmation')
-    # mail(to: 'darektech@gmail.com', subject: 'Order Confirmation')
+    #  mail(to: 'stillasstillas6@gmail.com', subject: 'Order Confirmation')
+     mail(to: 'darektech@gmail.com', subject: 'Order Confirmation')
     
   end
 
