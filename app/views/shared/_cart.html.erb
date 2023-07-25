@@ -3,7 +3,7 @@
   
     <div>
     <strong>Items in cart:</strong>
-    <% sorted_cart_items = cart.cart_items.sort_by { |item| item.part.name } %>
+    <% sorted_cart_items = cart.cart_items.sort_by { |item| item.created_at } %>
     <% sorted_cart_items.each do |item| %>
       <p class="flex inline border-b-2"><%= item.part.name %> <%= item.part.description %>--<%= item.quantity %> pcs</p>
       
