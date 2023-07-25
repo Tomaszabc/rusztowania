@@ -43,7 +43,19 @@ Part.create!(name: '131995', description: 'HORISONTAL UH-2 25', weight: 1.40, sy
 Part.create!(name: '133900', description: 'HORISONTAL UH-2 33', weight: 1.59, system: 'peri', category: 'horisontals', multipack: 1 )
 Part.create!(name: '131998', description: 'HORISONTAL UH-2 50', weight: 2.03, system: 'peri', category: 'horisontals', multipack: 1 )
 Part.create!(name: '133903', description: 'HORISONTAL UH-2 67', weight: 2.47, system: 'peri', category: 'horisontals', multipack: 1 )
-
+Part.create!(name: '132213', description: 'HORISONTAL UH-2 75', weight: 2.68, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '137911', description: 'HORISONTAL EVOTOP UH-2 100', weight: 3.75, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '132007', description: 'HORISONTAL UH-2 125', weight: 4.50, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '132010', description: 'HORISONTAL UH-2 150', weight: 4.67, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '132013', description: 'HORISONTAL UH-2 175', weight: 5.33, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '132016', description: 'HORISONTAL UH-2 200', weight: 5.99, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '132025', description: 'HORISONTAL UH-2 250', weight: 7.31, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '132022', description: 'HORISONTAL UH-2 300', weight: 8.64, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '137020', description: 'HORISONTAL FORSTERKT UHV-2 150', weight: 9.41, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '137025', description: 'HORISONTAL FORSTERKT UHV-2 200', weight: 12.70, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '137030', description: 'HORISONTAL FORSTERKT UHV-2 250', weight: 15.20, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '137035', description: 'HORISONTAL FORSTERKT UHV-2 300', weight: 18.50, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '131368', description: 'MULTIDRAGER ELM', weight: 26.40, system: 'peri', category: 'horisontals', multipack: 1 )
 
 
 Site.create!(name: 'Oslo')

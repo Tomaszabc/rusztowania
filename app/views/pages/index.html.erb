@@ -18,21 +18,20 @@
   <% end %>
 </div>
 
-<div class=" mb-3 ">
-  <% if params[:category]%>
-  <p class="text-center">select part:</p>
+<div class="mb-3">
+  <% if params[:category] %>
+    <p class="text-center">select part:</p>
     <%= form_with(url: pages_index_path, method: :get, html: { id: 'description-form' }) do |form| %>
-    <%= form.hidden_field :system, value: params[:system] %>
-    <%= form.hidden_field :category, value: params[:category] %>
-    <%= form.select :description, 
- [["Select Part", nil]] +
-    @parts.pluck(:description).uniq ,
-    { selected: params[:description] },
-    { class: "rounded-md border border-black-500 w-62", onchange: 'this.form.submit()', include_blank: true} %>
-    
+      <%= form.hidden_field :system, value: params[:system] %>
+      <%= form.hidden_field :category, value: params[:category] %>
+      <%= form.select :description, 
+        [["Select Part", nil]] + @parts.pluck(:description).uniq,
+        { selected: params[:description] },
+        { class: "rounded-md border border-black-500 w-62", onchange: 'this.form.submit()'} %>
     <% end %>
   <% end %>
 </div>
+
 
 <% if params[:system] && params[:category] && params[:description] %>
 <div class="border-t-2 mb-4  justify-between mt-8">
