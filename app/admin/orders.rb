@@ -1,5 +1,5 @@
 ActiveAdmin.register Order do
-  filter :user_id_eq, label: 'User ID'
+ 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #

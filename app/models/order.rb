@@ -13,7 +13,7 @@ class Order < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["order_lists", "parts", "users"]
+    ["order_lists", "parts"]
   end
 
   def delivery_date_cannot_be_in_the_past

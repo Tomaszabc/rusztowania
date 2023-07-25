@@ -2,6 +2,7 @@
   <div class="flex justify-end container w-80">
     <div class="mr-2">
       <p class="">Logged as: <%= current_user.email %></p>
+      <p class="text-center underline"> <%= link_to 'Admin Panel', '/admin', class: 'hover:underline' %> </p>
     </div>
     <div class="mt-4 hover:scale-110 transition duration-200">
       <%= button_to destroy_user_session_path, method: :delete, class: "logout-button" do %>
@@ -11,4 +12,6 @@
     </div>
   </div>
 <% end %>
+
+
 

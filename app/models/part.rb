@@ -9,7 +9,7 @@ class Part < ApplicationRecord
   validates :weight, comparison: { greater_than_or_equal_to: 0 }
   
   def self.ransackable_attributes(auth_object = nil)
-    ["category", "created_at", "description", "id", "multipack", "name", "system", "updated_at", "weight"]
+    ["category", "created_at", "description", "id", "multipack", "name", "system", "updated_at", "weight", "image_attachment_id"]
   end
 
   def self.ransackable_associations(auth_object = nil)
