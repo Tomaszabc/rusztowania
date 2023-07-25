@@ -31,7 +31,7 @@
 </div>
 
 <% if @part %>
-  <div class="border-t-2 mb-4 justify-between mt-8">
+  <div class="border-t-2 mb-4 justify-between mt-2">
     <p class="text-center m-2"><%= @part.description %></p>
     <% if @cart.present? %>
       <% current_quantity = @cart.cart_items.where(part_id: @part.id).sum(:quantity) %>

@@ -17,9 +17,9 @@ Part.create!(name: '130180', description: 'DIAGONAL EASY EBF 250/200', weight: 6
 Part.create!(name: '130189', description: 'DIAGONAL EASY EBF 300/200', weight: 7.46, system: 'peri', category: 'diagonals', multipack: 1 )
 
 
-Part.create!(name: '130450', description: 'STÅLPLANK EDS 33X 67', weight: 5.42, system: 'peri', category: 'planks', multipack: 1 )
-Part.create!(name: '130448', description: 'STÅLPLANK EDS 33X100', weight: 7.36, system: 'peri', category: 'planks', multipack: 1 )
-Part.create!(name: '130445', description: 'STÅLPLANK EDS 33X150', weight: 10.30, system: 'peri', category: 'planks', multipack: 1 )
+Part.create!(name: '130450', description: 'STÅLPLANK EDS 33X67', weight: 5.42, system: 'peri', category: 'planks', multipack: 48 )
+Part.create!(name: '130448', description: 'STÅLPLANK EDS 33X100', weight: 7.36, system: 'peri', category: 'planks', multipack: 48 )
+Part.create!(name: '130445', description: 'STÅLPLANK EDS 33X150', weight: 10.30, system: 'peri', category: 'planks', multipack: 48 )
 
 Part.create!(name: 'UL500', description: 'UNDERLAG 0,5 m', weight: 3.00, system: 'peri', category: 'stenders', multipack: 1 )
 Part.create!(name: '100411', description: 'BUNNSKRUE UJB 38-50/30', weight: 3.39, system: 'peri', category: 'stenders', multipack: 1 )
