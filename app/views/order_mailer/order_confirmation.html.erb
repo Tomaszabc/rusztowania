@@ -1,18 +1,64 @@
-<p>New order</p>
-<p>Order details:</p>
-<p><strong>Scaffolder:</strong> <%= @order.user.email %></p>
-<p>Building Site: <%= @order.building_site %></p>
-<p>Delivery Date: <%= @order.delivery_date %></p>
-<p>Additional info: <%= @order.info %></p>
+<html>
+  <head>
+    <style>
+      /* Dodaj style do tabeli */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
 
-<p><strong>Order Items:</strong></p>
-<% total_weight = 0 %>
-<% @order.order_lists.each do |item| %>
-  <% total_weight += item.weight * item.quantity %>
-  <p class="">
-    Quantity: <strong><%= item.quantity %></strong>, 
-     <%= item.description %> 
-  </p>
-<% end %>
+      th, td {
+        border: 2px solid black;
+        padding: 8px;
+        text-align: left;
+      }
 
-<p><strong>Total Weight: <%= total_weight %> kg</strong></p>
+      th {
+        background-color: #f2f2f2;
+      }
+
+      /* Dodaj inne style według potrzeb */
+    </style>
+  </head>
+  <body>
+    <p>New order</p>
+    <p>Order details:</p>
+    <p><strong>Scaffolder:</strong> <%= @order.user.email %></p>
+    <p>Building Site: <%= @order.building_site %></p>
+    <p>Delivery Date: <%= @order.delivery_date %></p>
+    <p>Additional info: <%= @order.info %></p>
+
+    <p><strong>Order Items:</strong></p>
+
+
+
+    <table class=" table-auto border-2">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Art. number</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Comb. weight</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.order_lists.each_with_index do |order_list, index| %>
+        <tr class="mb-4">
+          <td><%= index + 1 %></td>
+          <td><%= order_list.part.name %></td>
+          <td><%= order_list.part.description %></td>
+          <td><strong><%= order_list.quantity %></strong></td>
+          <td><%= order_list.part.weight * order_list.quantity %> kg</td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+
+
+
+
+    <p><strong>Total Weight: <%= total_weight(@order.order_lists) %> kg</strong></p>
+  </body>
+</html>
