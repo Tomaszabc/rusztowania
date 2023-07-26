@@ -1,65 +1,65 @@
-<div class="container">
-  <div class="mb-3  ml-2 mt-2 text-left">
-    <button class="inline-flex items-center px-4 py-2 bg-transparent hover:bg-slate-300 text-black text-sm font-medium rounded-md border border-black" onclick="history.back()">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-      </svg>
-      back
-    </button>
-  </div>
-</div>
 
-<h1 class="mb-2">New Order</h1>
-<br>
 <%= form_with(model: @order, url: orders_path) do |form| %>
-<div>
-  
+  <% if @order.errors.any? %>
+    <div class="alert alert-danger">
+        <ul>
+        <% @order.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+        </ul>
+    </div>
+<% end %>
+  <div>
     <div class="flex justify-center">
-    <%= form.label :building_site, "Site:" %>
+      <%= form.label :building_site, "Site:" %>
     </div>
     <div class="flex justify-center mb-4">
-    <%= form.collection_select :building_site, Site.all, :name, :name, prompt: true %>   
-     </div>
+      <%= form.collection_select :building_site, Site.all, :name, :name, prompt: true %>   
+    </div>
 
     <div class="flex justify-center">
       <%= form.label :delivery_date, "Delivery date:" %>
     </div>
-      <div class="flex justify-center mb-4">
+    <div class="flex justify-center mb-4">
       <%= form.date_field :delivery_date, start_year: Date.current.year, min: Date.current.to_s, placeholder: "Select delivery date"  %>
     </div>
-<% @cart.cart_items.each do |cart_item| %>
-    <%= form.fields_for :order_lists, OrderList.new do |order_list_fields| %>
-      <%= order_list_fields.hidden_field :part_id, value: cart_item.part_id %>
-      <%= order_list_fields.hidden_field :quantity, value: cart_item.quantity %>
-      <%= order_list_fields.hidden_field :description, value: cart_item.part.description %>
+
+    <% @cart.cart_items.each do |cart_item| %>
+      <%= form.fields_for :order_lists, OrderList.new do |order_list_fields| %>
+        <%= order_list_fields.hidden_field :part_id, value: cart_item.part_id %>
+        <%= order_list_fields.hidden_field :quantity, value: cart_item.quantity %>
+        <%= order_list_fields.hidden_field :description, value: cart_item.part.description %>
+      <% end %>
     <% end %>
-  <% end %>
+
     <div class="flex justify-center">
       <%= form.label :info, "Additional info:" %>
-      </div>
-      <div class="flex justify-center">
+    </div>
+    <div class="flex justify-center">
       <%= form.text_area :info %>
     </div>
-</div>
+  </div>
+
   <!-- Dane produktów z koszyka -->
-<p class="ml-2 mt-7 text-lg">Parts in cart:</p>
-<% @products.each do |product| %>
-<div>
-  <div class="m-2 ml-4 border-b-2">
-  <p> <%= product[:description] %></p>
-  <p>Quantity: <strong><%= product[:quantity] %></strong></p>
+  <p class="ml-2 mt-7 text-lg">Parts in cart:</p>
+  <% @products.each do |product| %>
+    <div>
+      <div class="m-2 ml-4 border-b-2">
+        <p> <%= product[:description] %></p>
+        <p>Quantity: <strong><%= product[:quantity] %></strong></p>
+      </div>
+    <% end %>
+
+    <p class="text-center m-4">Total Weight: <strong><%= @total_weight %> kg</strong></p>
+
+    <% if @cart.cart_items.any? %>
+      <div class="flex justify-center m-6">
+        <%= form.submit "ORDER", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md" %>
+      </div>
+    <% else %>
+      <div class="flex justify-center m-6">
+        <%= form.submit "ORDER", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md", disabled: true %>
+      </div>
+    <% end %>
   </div>
-  <div>
-  <% end %>
-  <p class="text-center m-4">Total Weight: <strong><%= @total_weight %> kg</strong></p>
-<% if @cart.cart_items.any? %>
-  <div class="flex justify-center m-6">
-    <%= form.submit "ORDER", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md" %>
-  </div>
-<% else %>
-  <div class="flex justify-center m-6">
-    <%= form.submit "ORDER", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md", disabled: true %>
-  </div>
-<% end %>
-</div>
 <% end %>

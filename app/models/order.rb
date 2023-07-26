@@ -1,11 +1,12 @@
 class Order < ApplicationRecord
-  # Asocjacje
-  # has_many :order_items
+  
+  
   has_many :order_lists
   has_many :parts, through: :order_lists
   belongs_to :user
   
-  validates :building_site, :delivery_date, presence: true
+  validates :building_site, presence: true
+  validates :delivery_date, presence: true
   validate :delivery_date_cannot_be_in_the_past
 
   def self.ransackable_attributes(auth_object = nil)

@@ -16,7 +16,9 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.user = current_user
     @cart = current_cart
-  
+    @products = @cart.cart_items.map { |item| { name: item.part.name, description: item.part.description, weight: item.part.weight, quantity: item.quantity } }
+    @total_weight = calculate_total_weight
+
     if @order.save
       
       @cart.cart_items.each do |cart_item|
@@ -43,7 +45,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:building_site, :delivery_date, :info, :quantity, :name, :description, :weight, :user_id_eq, :user_id)
+    params.require(:order).permit(:building_site, :delivery_date, :info, :quantity, :name, :description, :weight, :user_id_eq, :user_id, order_lists_attributes: [:part_id, :quantity, :description])
   end
 
   def calculate_total_weight
