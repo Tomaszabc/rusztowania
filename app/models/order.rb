@@ -23,4 +23,7 @@ class Order < ApplicationRecord
     end
   end
   
+  def total_weight
+    order_lists.sum { |list| list.quantity * list.part.weight }
+  end
 end

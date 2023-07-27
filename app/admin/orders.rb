@@ -16,7 +16,24 @@ ActiveAdmin.register Order do
   # end
   # permit_params :building_site, :delivery_date, :info, :part_number, :part_description, :quantity, :weight
   #
+  index do
+    selectable_column
+    id_column
+    column :building_site
+    column :delivery_date
+    column :total_weight
+    
+    
+    
+    
+
+    column :created_at
   
+    column :user
+    actions
+  end
+
+
   show do
     attributes_table do
       row :building_site

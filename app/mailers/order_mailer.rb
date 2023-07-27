@@ -6,7 +6,7 @@ class OrderMailer < ApplicationMailer
     @order = order
     
   #  mail(to: 'stillasstillas6@gmail.com', subject: 'Order Confirmation')
-   mail(to: 'darektech@gmail.com', subject: 'Order Confirmation')
+    mail(to: 'darektech@gmail.com', subject: 'Order Confirmation')
     
   end
 
