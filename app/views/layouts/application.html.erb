@@ -9,17 +9,17 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
   <body>
-  <nav class="flex justify-center mb-2">
-  <%= render 'shared/navbar'%>
-
-  </nav>
-  <div class=" flex justify-center">
-    <%= render 'shared/cart', cart: @cart %>
-  </div>
-  <% flash.each do |key, value| %>
+    <nav class="flex justify-center mb-2">
+      <%= render 'shared/navbar'%>
+    </nav>
+    <div class=" flex justify-center">
+      <%= render 'shared/cart', cart: @cart %>
+    </div>
+    <% flash.each do |key, value| %>
       <div class="flash text-center text-lime-700 <%= key %>">
         <%= value %>
       </div>
@@ -27,15 +27,13 @@
     <main class="flex justify-center mt-4 px-5 ">
       <div class="border-2 rounded-lg w-96 shadow-xl">
         <div class="flex flex-col items-center justify-center">
-        
           <%= yield %>
         </div>
       </div>  
     </main>
     <div class="flex justify-center mt-2 text-sm mb-15">
-  <%= render 'shared/log_in'%>
-  </div>
-    
+      <%= render 'shared/log_in'%>
+    </div> 
   </body>
 </html>
  

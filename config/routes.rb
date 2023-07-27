@@ -16,4 +16,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
    root "pages#welcome"
+
+   get "/get_full_address", to: "orders#get_full_address"
 end

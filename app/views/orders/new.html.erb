@@ -10,12 +10,14 @@
     </div>
 <% end %>
   <div>
-    <div class="flex justify-center">
+    <div class="flex justify-center mt-2">
       <%= form.label :building_site, "Site:" %>
     </div>
-    <div class="flex justify-center mb-4">
-      <%= form.collection_select :building_site, Site.all, :name, :name, prompt: true %>   
+    <div class="flex justify-center mb-1">
+      <%= form.collection_select :building_site, Site.all, :name, :name, { prompt: true }, { id: "site-select" } %> 
     </div>
+
+    <div class="text-center mb-4" id="full-address"></div>
 
     <div class="flex justify-center">
       <%= form.label :delivery_date, "Delivery date:" %>
@@ -72,3 +74,28 @@
     <% end %>
   </div>
 <% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const siteSelect = document.getElementById("site-select");
+    const fullAddressElement = document.getElementById("full-address");
+
+    siteSelect.addEventListener("change", (event) => {
+      const selectedSite = event.target.value;
+
+      // Wykonaj zapytanie AJAX do serwera, aby pobrać pełny adres na podstawie wybranego "selectedSite".
+      $.ajax({
+        url: "/get_full_address",
+        method: "GET",
+        data: { site: selectedSite },
+        success: function (response) {
+          const fullAddress = "Address: " + response.full_address;
+          fullAddressElement.innerText = fullAddress;
+        },
+        error: function () {
+          console.error("Address not found");
+        },
+      });
+    });
+  });
+</script>

@@ -46,6 +46,18 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
+  def get_full_address
+    # Pobierz pełny adres na podstawie przekazanego "site" z parametrów zapytania.
+    # Załóżmy, że masz model Site i atrybut "address" przechowujący pełny adres.
+    site = Site.find_by(name: params[:site])
+
+    if site
+      render json: { full_address: site.address }
+    else
+      render json: { full_address: "address not found" }, status: :not_found
+    end
+  end
+
   private
   def order_params
     params.require(:order).permit(:building_site, :delivery_date, :info, :quantity, :name, :description, :weight, :user_id_eq, :car_number, :user_id, order_lists_attributes: [:part_id, :quantity, :description])
