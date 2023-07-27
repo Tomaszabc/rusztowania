@@ -10,7 +10,7 @@ class Order < ApplicationRecord
   validate :delivery_date_cannot_be_in_the_past
 
   def self.ransackable_attributes(auth_object = nil)
-    ["building_site", "created_at", "delivery_date", "id", "info", "part_description", "part_number", "quantity", "updated_at", "weight", "user_id"]
+    ["car_number", "building_site", "created_at", "delivery_date", "id", "info", "part_description", "part_number", "quantity", "updated_at", "weight", "user_id"]
   end
 
   def self.ransackable_associations(auth_object = nil)

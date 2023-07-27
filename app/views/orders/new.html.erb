@@ -32,6 +32,13 @@
       <% end %>
     <% end %>
 
+<div class="flex justify-center">
+  <%= form.label :car_number, "Car number:" %>
+</div>
+<div class="flex justify-center mb-2">
+  <%= form.text_field :car_number %>
+</div>
+
     <div class="flex justify-center">
       <%= form.label :info, "Additional info:" %>
     </div>
@@ -39,6 +46,8 @@
       <%= form.text_area :info %>
     </div>
   </div>
+
+
 
   <!-- Dane produktów z koszyka -->
   <p class="ml-2 mt-7 text-lg">Parts in cart:</p>

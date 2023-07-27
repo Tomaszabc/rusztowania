@@ -48,7 +48,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:building_site, :delivery_date, :info, :quantity, :name, :description, :weight, :user_id_eq, :user_id, order_lists_attributes: [:part_id, :quantity, :description])
+    params.require(:order).permit(:building_site, :delivery_date, :info, :quantity, :name, :description, :weight, :user_id_eq, :car_number, :user_id, order_lists_attributes: [:part_id, :quantity, :description])
   end
 
   def calculate_total_weight

@@ -3,6 +3,6 @@ class OrderList < ApplicationRecord
   belongs_to :part
 
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "description", "id", "order_id", "part_id", "quantity", "updated_at", "weight"]
+    ["car_number", "created_at", "description", "id", "order_id", "part_id", "quantity", "updated_at", "weight"]
   end
 end
