@@ -1,3 +1,26 @@
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const siteSelect = document.getElementById("site-select");
+    const fullAddressElement = document.getElementById("full-address");
+
+    siteSelect.addEventListener("change", (event) => {
+      const selectedSite = event.target.value;
+
+      // Wykonaj zapytanie AJAX za pomocą API Fetch, aby pobrać pełny adres na podstawie wybranego "selectedSite".
+      fetch(`/get_full_address?site=${selectedSite}`)
+        .then((response) => response.json())
+        .then((data) => {
+          const fullAddress = "Address: " + data.full_address;
+          fullAddressElement.innerText = fullAddress;
+        })
+        .catch((error) => {
+          console.error("Address not found");
+        });
+    });
+  });
+</script>
+
+
 
 <%= form_with(model: @order, url: orders_path) do |form| %>
   <% if @order.errors.any? %>
@@ -17,7 +40,7 @@
       <%= form.collection_select :building_site, Site.all, :name, :name, { prompt: true }, { id: "site-select" } %> 
     </div>
 
-    <div class="text-center mb-4" id="full-address"></div>
+    <div class="text-center mb-4" id="full-address">Full address</div>
 
     <div class="flex justify-center">
       <%= form.label :delivery_date, "Delivery date:" %>
@@ -75,27 +98,3 @@
   </div>
 <% end %>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const siteSelect = document.getElementById("site-select");
-    const fullAddressElement = document.getElementById("full-address");
-
-    siteSelect.addEventListener("change", (event) => {
-      const selectedSite = event.target.value;
-
-      // Wykonaj zapytanie AJAX do serwera, aby pobrać pełny adres na podstawie wybranego "selectedSite".
-      $.ajax({
-        url: "/get_full_address",
-        method: "GET",
-        data: { site: selectedSite },
-        success: function (response) {
-          const fullAddress = "Address: " + response.full_address;
-          fullAddressElement.innerText = fullAddress;
-        },
-        error: function () {
-          console.error("Address not found");
-        },
-      });
-    });
-  });
-</script>
