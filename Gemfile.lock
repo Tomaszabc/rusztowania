@@ -308,6 +308,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  jquery-rails
   mail
   pg (~> 1.1)
   pry

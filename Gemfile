@@ -81,3 +81,4 @@ gem 'sass-rails'
 gem 'mail'
 
 gem 'pry'
+gem 'jquery-rails'

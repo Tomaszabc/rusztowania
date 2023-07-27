@@ -1,24 +1,4 @@
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const siteSelect = document.getElementById("site-select");
-    const fullAddressElement = document.getElementById("full-address");
 
-    siteSelect.addEventListener("change", (event) => {
-      const selectedSite = event.target.value;
-
-      // Wykonaj zapytanie AJAX za pomocą API Fetch, aby pobrać pełny adres na podstawie wybranego "selectedSite".
-      fetch(`/get_full_address?site=${selectedSite}`)
-        .then((response) => response.json())
-        .then((data) => {
-          const fullAddress = "Address: " + data.full_address;
-          fullAddressElement.innerText = fullAddress;
-        })
-        .catch((error) => {
-          console.error("Address not found");
-        });
-    });
-  });
-</script>
 
 
 
@@ -98,3 +78,25 @@
   </div>
 <% end %>
 
+  <script>
+      // Wrap the script in a self-invoking function
+      (function() {
+        const siteSelect = document.getElementById("site-select");
+        const fullAddressElement = document.getElementById("full-address");
+
+        siteSelect.addEventListener("change", (event) => {
+          const selectedSite = event.target.value;
+
+          // Wykonaj zapytanie AJAX za pomocą API Fetch, aby pobrać pełny adres na podstawie wybranego "selectedSite".
+          fetch(`/get_full_address?site=${selectedSite}`)
+            .then((response) => response.json())
+            .then((data) => {
+              const fullAddress =  data.full_address;
+              fullAddressElement.innerText = fullAddress;
+            })
+            .catch((error) => {
+              console.error("Address not found");
+            });
+        });
+      })();
+    </script>
