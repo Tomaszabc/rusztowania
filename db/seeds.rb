@@ -130,7 +130,19 @@ Site.create!(name: 'Oslo-centrum')
 Site.create!(name: 'Bergen')
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+AdminUser.create!(email: 'ardo@cstillas.no', password: 'Ardo#1234', password_confirmation: 'Ardo#1234')
+AdminUser.create!(email: 'dariusz.borowiec@cstillas.no', password: 'Darek#1234', password_confirmation: 'Darek#1234')
+AdminUser.create!(email: 'darius@cstillas.no', password: 'Darius#1234', password_confirmation: 'Darius#1234')
+AdminUser.create!(email: 'rune.larsen@cstillas.no', password: 'Rune#1234', password_confirmation: 'Rune#1234')
+AdminUser.create!(email: 'geir.gule@cstillas.no', password: 'Geir#1234', password_confirmation: 'Geir#1234')
+
 User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+User.create!(email: 'ardo@cstillas.no', password: 'Ardo#1234', password_confirmation: 'Ardo#1234')
+User.create!(email: 'dariusz.borowiec@cstillas.no', password: 'Darek#1234', password_confirmation: 'Darek#1234')
+User.create!(email: 'darius@cstillas.no', password: 'Darius#1234', password_confirmation: 'Darius#1234')
+User.create!(email: 'rune.larsen@cstillas.no', password: 'Rune#1234', password_confirmation: 'Rune#1234')
+User.create!(email: 'geir.gule@cstillas.no', password: 'Geir#1234', password_confirmation: 'Geir#1234')
+
 
 end
 rescue ActiveRecord::RecordInvalid => e
