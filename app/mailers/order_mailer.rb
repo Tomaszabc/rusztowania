@@ -4,10 +4,8 @@ class OrderMailer < ApplicationMailer
  
   def order_confirmation(order)
     @order = order
-    
-   mail(to: 'stillasstillas6@gmail.com', subject: 'Order Confirmation')
-  #  mail(to: 'darektech@gmail.com', subject: 'Order Confirmation')
-    
+    mailer_emails = DeliveryEmail.pluck(:recipient_email)  # get all emails from the database
+    mail(to: mailer_emails, subject: 'Order Confirmation')
   end
 
 end

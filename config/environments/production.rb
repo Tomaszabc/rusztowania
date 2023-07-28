@@ -104,4 +104,6 @@ config.action_mailer.smtp_settings = {
   enable_starttls_auto: true 
 }
 config.active_storage.variant_processor = :mini_magick
+
+config.action_mailer.default_url_options = { host: 'scaffoldlistv3.fly.dev' }
 end
