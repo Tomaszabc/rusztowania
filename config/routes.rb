@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  devise_for :users
+  devise_for :users, skip: :registrations
    get '/pages/index', to: 'pages#index'
   resources :parts
   resources :cart_items, only: [:create]

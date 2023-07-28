@@ -141,6 +141,7 @@ Part.create!(name: 'RØR 0.4m', description: 'RØR 0.4m', weight: 0.4 * 3.6, sys
 Part.create!(name: 'RØR 0.5m', description: 'RØR 0.5m', weight: 0.5 * 3.6, system: 'peri', category: 'RØR', multipack: 1)
 Part.create!(name: 'RØR 0.6m', description: 'RØR 0.6m', weight: 0.6 * 3.6, system: 'peri', category: 'RØR', multipack: 1)
 Part.create!(name: 'RØR 0.8m', description: 'RØR 0.8m', weight: 0.8 * 3.6, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 1m', description: 'RØR 1m', weight: 1 * 3.6, system: 'peri', category: 'RØR', multipack: 1)
 Part.create!(name: 'RØR 1.2m', description: 'RØR 1.2m', weight: 1.2 * 3.6, system: 'peri', category: 'RØR', multipack: 1)
 Part.create!(name: 'RØR 1.5m', description: 'RØR 1.5m', weight: 1.5 * 3.6, system: 'peri', category: 'RØR', multipack: 1)
 Part.create!(name: 'RØR 2m', description: 'RØR 2m', weight: 2.0 * 3.6, system: 'peri', category: 'RØR', multipack: 1)

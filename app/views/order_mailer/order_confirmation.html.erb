@@ -16,20 +16,23 @@
       th {
         background-color: #f2f2f2;
       }
+      .big-text {
+  font-size: 18px; /* Zmień na rozmiar, który chcesz */
+}
 
       /* Dodaj inne style według potrzeb */
     </style>
   </head>
   <body>
-    <p>New order</p>
-    <p>Order details:</p>
+ 
     <p><strong>Scaffolder:</strong> <%= @order.user.email %></p>
     <p>Building Site: <%= @order.building_site %></p>
+    <p>Site info: <%= @order.building_site_info %></p>
     <p>Delivery Date: <%= @order.delivery_date %></p>
-    <p>Car number: <%= @order.car_number %></p>
-    <p>Additional info: <%= @order.info %></p>
+    
+  <p class="big-text"><strong>Additional Info: <%= @order.info %> </strong></p>
 
-    <p><strong>Order Items:</strong></p>
+    <p>Order Items:</p>
 
 
 
