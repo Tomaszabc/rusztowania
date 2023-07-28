@@ -22,13 +22,7 @@ ActiveAdmin.register Order do
     column :building_site
     column :delivery_date
     column :total_weight
-    
-    
-    
-    
-
     column :created_at
-  
     column :user
     actions
   end
@@ -38,7 +32,7 @@ ActiveAdmin.register Order do
     attributes_table do
       row :building_site
       row :delivery_date
-      row :user_id
+      row :user
       # ... tu wypisz atrybuty Ordera
     end
 
