@@ -10,7 +10,7 @@
   <%= form_with(url: pages_index_path, method: :get, html: { id: 'category-form' }) do |form| %>
     <%= form.hidden_field :system, value: params[:system] %>
     <%= form.select :category, 
-      [["Select category", nil]] + Part.pluck(:category).uniq.map { |category| [category.capitalize, category] }.sort_by { |category| sorted_categories.index(category[1]) }, 
+      [["Select category", nil]] + Part.pluck(:category).uniq.map { |category| [category.capitalize, category] }.sort_by { |category| sorted_categories.index(category[1]) || 9999 }, 
       { selected: params[:category] },
       { class: "rounded-md border-2", onchange: 'this.form.submit()' } %>
   <% end %>

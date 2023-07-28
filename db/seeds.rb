@@ -5,8 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-begin
-  ActiveRecord::Base.transaction do
+
 
 Part.create!(name: '100057', description: 'DIAGONAL EASY UBL 150/200', weight: 6.38, system: 'peri', category: 'diagonals', multipack: 1 )
 Part.create!(name: '100061', description: 'DIAGONAL EASY UBL 200/200', weight: 7.15, system: 'peri', category: 'diagonals', multipack: 1 )
@@ -136,20 +135,20 @@ Part.create!(name: '065015', description: 'Europall', weight: 20.00, system: 'pe
 Part.create!(name: 'CS-001', description: 'Palekarme', weight: 5.00, system: 'peri', category: 'barelle', multipack: 1)
 
 
-Part.create!(name: '', description: 'RØR 0.2m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 0.3m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 0.4m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 0.5m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 0.6m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 0.8m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 1.2m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 1.5m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 2m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 2.5m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 3m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 4m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 5m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
-Part.create!(name: '', description: 'RØR 6m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 0.2m', description: 'RØR 0.2m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 0.3m', description: 'RØR 0.3m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 0.4m', description: 'RØR 0.4m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 0.5m', description: 'RØR 0.5m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 0.6m', description: 'RØR 0.6m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 0.8m', description: 'RØR 0.8m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 1.2m', description: 'RØR 1.2m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 1.5m', description: 'RØR 1.5m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 2m', description: 'RØR 2m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 2.5m', description: 'RØR 2.5m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 3m', description: 'RØR 3m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 4m', description: 'RØR 4m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 5m', description: 'RØR 5m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: 'RØR 6m', description: 'RØR 6m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
 
 
 Site.create!(name: 'AGV 1 (Arnljot Gellines vei 1)', address: 'Arnljot Gellines vei 1')
@@ -189,7 +188,4 @@ User.create!(email: 'rune.larsen@cstillas.no', password: 'Rune#1234', password_c
 User.create!(email: 'geir.gule@cstillas.no', password: 'Geir#1234', password_confirmation: 'Geir#1234')
 
 
-end
-rescue ActiveRecord::RecordInvalid => e
-  puts "Error occurred during database seeding: #{e.message}"
-end
+
