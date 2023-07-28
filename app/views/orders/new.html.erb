@@ -20,7 +20,10 @@
       <%= form.collection_select :building_site, Site.all, :name, :name, { prompt: true }, { id: "site-select" } %> 
     </div>
 
+
     <div class="text-center mb-4" id="full-address">Full address</div>
+
+
 
     <div class="flex justify-center">
       <%= form.label :delivery_date, "Delivery date:" %>

@@ -75,6 +75,8 @@ Part.create!(name: '137025', description: 'HORISONTAL FORSTERKT UHV-2 200', weig
 Part.create!(name: '137030', description: 'HORISONTAL FORSTERKT UHV-2 250', weight: 15.20, system: 'peri', category: 'horisontals', multipack: 1 )
 Part.create!(name: '137035', description: 'HORISONTAL FORSTERKT UHV-2 300', weight: 18.50, system: 'peri', category: 'horisontals', multipack: 1 )
 Part.create!(name: '131368', description: 'MULTIDRAGER ELM', weight: 26.40, system: 'peri', category: 'horisontals', multipack: 1 )
+Part.create!(name: '127537', description: 'FLYTBAR HORISONTAL UHC 100', weight: 5.31, system: 'peri', category: 'horisontals', multipack: 1 )
+
 
 Part.create!(name: '130191', description: 'REKKVERK EASY EPG 67', weight: 1.15, system: 'peri', category: 'rekkverks', multipack: 1 )
 Part.create!(name: '130193', description: 'REKKVERK EASY EPG 100', weight: 1.68, system: 'peri', category: 'rekkverks', multipack: 1 )
@@ -118,11 +120,36 @@ Part.create!(name: '116306', description: 'LØS KLEMMROSETTE UEV180', weight: 1.
 Part.create!(name: '17020', description: 'NORMALKOBLING NK 48/48', weight: 1.12, system: 'peri', category: 'akcesoria', multipack: 1)
 Part.create!(name: '17010', description: 'VRIDBAR KOBLING DK 48/48, VERZ', weight: 1.40, system: 'peri', category: 'akcesoria', multipack: 1)
 
+Part.create!(name: 'CS-617', description: 'TELESKOPVEGGFEST', weight: 1.10, system: 'peri', category: 'VEGGFESTER', multipack: 1)
+Part.create!(name: '017020', description: 'NORMALKOBLING NK 48/48', weight: 1.12, system: 'peri', category: 'VEGGFESTER', multipack: 1)
+Part.create!(name: 'CS-002', description: 'ØYEBOLTE ….. cm', weight: 0.10, system: 'peri', category: 'VEGGFESTER', multipack: 1)
+Part.create!(name: 'CS-003', description: 'PLASTIK DUBEL', weight: 0.01, system: 'peri', category: 'VEGGFESTER', multipack: 1)
+
+
+
+
 Part.create!(name: '103434', description: 'STØTTEBARELLE RP 80X120', weight: 38.50, system: 'peri', category: 'barelle', multipack: 1)
 Part.create!(name: '103429', description: 'STØTTEBARELLE RP 80X150', weight: 45.30, system: 'peri', category: 'barelle', multipack: 1)
 Part.create!(name: '065016', description: 'Gitterboks STOR', weight: 88.00, system: 'peri', category: 'barelle', multipack: 1)
 Part.create!(name: '025670', description: 'Gitterboks SMÅ', weight: 67.00, system: 'peri', category: 'barelle', multipack: 1)
-Part.create!(name: '103434?', description: 'Europall', weight: 20.00, system: 'peri', category: 'barelle', multipack: 1)
+Part.create!(name: '065015', description: 'Europall', weight: 20.00, system: 'peri', category: 'barelle', multipack: 1)
+Part.create!(name: 'CS-001', description: 'Palekarme', weight: 5.00, system: 'peri', category: 'barelle', multipack: 1)
+
+
+Part.create!(name: '', description: 'RØR 0.2m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 0.3m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 0.4m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 0.5m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 0.6m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 0.8m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 1.2m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 1.5m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 2m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 2.5m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 3m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 4m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 5m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
+Part.create!(name: '', description: 'RØR 6m', weight: 20.00, system: 'peri', category: 'RØR', multipack: 1)
 
 
 Site.create!(name: 'AGV 1 (Arnljot Gellines vei 1)', address: 'Arnljot Gellines vei 1')
@@ -144,6 +171,8 @@ Site.create!(name: 'Tribunen', address: 'Ryggeveien 33, 1523 Moss')
 Site.create!(name: 'Tøyenbadet', address: 'Helgesens gate 90, 0563 Oslo')
 Site.create!(name: 'Vikingstidsmuseet', address: 'Huk Aveny 35, 0287 Oslo')
 Site.create!(name: 'Udefinert', address: 'Write address in info')
+
+
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 AdminUser.create!(email: 'ardo@cstillas.no', password: 'Ardo#1234', password_confirmation: 'Ardo#1234')
