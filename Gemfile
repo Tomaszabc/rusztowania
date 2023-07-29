@@ -82,3 +82,4 @@ gem 'mail'
 
 gem 'pry'
 gem 'jquery-rails'
+gem 'dotenv-rails', groups: [:development, :test]

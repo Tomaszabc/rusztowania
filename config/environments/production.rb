@@ -98,12 +98,12 @@ config.action_mailer.smtp_settings = {
   address:              'smtp.gmail.com',
   port:                 587,
   domain:               'scaffoldlistv3.fly.dev',
-  user_name:            'stillasstillas6@gmail.com',
-  password:             'pksvxtdolbgpmixq',
+  user_name:            ENV['SMTP_USER_NAME'],
+  password:             ENV['SMTP_PASSWORD'],
   authentication:       'plain',
   enable_starttls_auto: true 
 }
 config.active_storage.variant_processor = :mini_magick
 
-config.action_mailer.default_url_options = { host: 'cstillas.fly.dev' }
+config.action_mailer.default_url_options = { host: 'scaffoldlistv3.fly.dev' }
 end
