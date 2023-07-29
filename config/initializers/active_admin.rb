@@ -350,7 +350,8 @@ ActiveAdmin.setup do |config|
   #
   # config.use_webpacker = true
 
-
+  config.default_namespace = :admin
+  config.root_to = 'orders#index'
 
   
 end
