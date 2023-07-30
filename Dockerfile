@@ -24,7 +24,8 @@ FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential libpq-dev
+    apt-get install --no-install-recommends -y build-essential libpq-dev imagemagick && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install application gems
 COPY --link Gemfile Gemfile.lock ./
@@ -47,8 +48,9 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl postgresql-client && \
+    apt-get install --no-install-recommends -y curl postgresql-client imagemagick && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle

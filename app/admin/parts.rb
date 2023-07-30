@@ -37,7 +37,7 @@ ActiveAdmin.register Part do
     column :updated_at
     column :image do |part|
       if part.image.attached?
-        image_tag(part.image, height:'100x100')
+        image_tag(part.image.variant( resize_to_limit: [150, 150] ))
       else
         "No image"
       end
@@ -52,7 +52,7 @@ ActiveAdmin.register Part do
       row :description
       row :image do |part|
         if part.image.attached?
-          image_tag(part.image, height: '100')
+          image_tag(part.image.variant( resize_to_limit: [400, 400] ))
         else
           content_tag(:span, 'No image attached')
         end

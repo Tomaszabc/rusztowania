@@ -61,9 +61,10 @@
       </div>
       <div class="flex justify-end">
         <% if @part.image.attached? %>
-          <%= image_tag(@part.image, alt: "Part Image", size: "140x140") %>
+          <%= image_tag(@part.image.variant(resize_to_limit:[140, nil]), alt: "Part Image") %>
+ 
         <% else %>
-          <%= image_tag("scaffold_img.jpg", alt: "scaffold", size: "120x100") %>
+          <%= image_tag("scaffold_img.png", alt: "scaffold", size: "120x100") %>
         <% end %>
       </div> 
     </div>
