@@ -2,7 +2,7 @@ ActiveAdmin.register DeliveryEmail do
   # Pozwala na wyświetlenie pól w tabeli widoku indeksu
   index do
     selectable_column
-    id_column
+    
     column :recipient_email
 
     # Dodaj inne pola, które chcesz wyświetlić w widoku indeksu
