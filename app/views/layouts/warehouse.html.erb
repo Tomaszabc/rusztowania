@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ScaffoldData</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js", "data-turbolinks-track": "reload" %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css", "data-turbolinks-track": "reload" %>
+  <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+   
+  </head>
+
+  <body>
+
+    <% flash.each do |key, value| %>
+      <div class="flash text-center text-lime-700 <%= key %>">
+        <%= value %>
+      </div>
+    <% end %>
+    <main class="flex justify-center mt-4 px-5 ">
+      <div class="border-2 rounded-lg w-96 shadow-xl">
+        <div class="flex flex-col items-center justify-center">
+          <%= yield %>
+        </div>
+      </div>  
+    </main>
+    <div class="flex justify-center mt-2 text-sm mb-15">
+      <%= render 'shared/log_in'%>
+    </div> 
+
+
+
+  </body>
+</html>
