@@ -353,5 +353,12 @@ ActiveAdmin.setup do |config|
   config.default_namespace = :admin
   config.root_to = 'orders#index'
 
+  config.namespace :admin do |admin|
+    admin.build_menu :utility_navigation do |menu|
+      menu.add label: '<<GO BACK TO ORDER SITE>>', url: -> { root_path }, html_options: { target: :blank, class: 'bold text-lg' }
+      menu.add label: 'My profile', url: -> { admin_admin_user_path current_active_admin_user  }, html_options: { target: :blank }
+      admin.add_logout_button_to_menu menu
+    end
+  end
   
 end
