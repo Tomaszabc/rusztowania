@@ -61,8 +61,11 @@
       </div>
       <div class="flex justify-end">
         <% if @part.image.attached? %>
-          <%= image_tag(@part.image.variant(resize_to_limit:[140, nil]), alt: "Part Image") %>
- 
+          <div data-controller="lightbox">
+            <%= link_to url_for(@part.image), data: { lightbox: 'part-image', title: 'Part Image' } do %>
+              <%= image_tag(@part.image.variant(resize_to_limit: [140, 140]), alt: 'Part Image') %>
+            <% end %>
+          </div>
         <% else %>
           <%= image_tag("scaffold_img.png", alt: "scaffold", size: "120x100") %>
         <% end %>
