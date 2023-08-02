@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_02_122040) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_02_171514) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,12 +74,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_122040) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "custom_part"
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
     t.index ["part_id"], name: "index_cart_items_on_part_id"
   end
 
   create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -121,12 +126,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_122040) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "part_categories", force: :cascade do |t|
+    t.bigint "part_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_part_categories_on_category_id"
+    t.index ["part_id"], name: "index_part_categories_on_part_id"
+  end
+
+  create_table "part_systems", force: :cascade do |t|
+    t.bigint "part_id"
+    t.bigint "system_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["part_id"], name: "index_part_systems_on_part_id"
+    t.index ["system_id"], name: "index_part_systems_on_system_id"
+  end
+
   create_table "parts", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.decimal "weight"
-    t.string "system"
-    t.string "category"
     t.integer "multipack"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -137,6 +158,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_122040) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "address"
+  end
+
+  create_table "systems", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -158,4 +185,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_122040) do
   add_foreign_key "order_lists", "orders"
   add_foreign_key "order_lists", "parts"
   add_foreign_key "orders", "users"
+  add_foreign_key "part_categories", "categories"
+  add_foreign_key "part_categories", "parts"
+  add_foreign_key "part_systems", "parts"
+  add_foreign_key "part_systems", "systems"
 end

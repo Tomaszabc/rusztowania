@@ -2,10 +2,20 @@ class PagesController < ApplicationController
   before_action :set_cart
 
   def index
-    @parts = Part.all
-    @parts = @parts.where(system: params[:system]) if params[:system]
-    @parts = @parts.where(category: params[:category]).order(created_at: :asc) if params[:category]
-    @part = Part.find_by(description: params[:description], category: params[:category], system: params[:system]) if params[:description]
+   if params[:system].present?
+    system = System.find_by(name: params[:system])
+    @parts = system ? system.parts : Part.none
+   end
+
+   if params[:category].present?
+    category = Category.find_by(name: params[:category])
+    @parts = category ? category.parts : Part.none
+   end
+
+   if params[:description].present?
+    @part = Part.find_by(description: params[:description])
+   end
+   
   end
 
   private

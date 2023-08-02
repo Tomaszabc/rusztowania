@@ -1,16 +1,26 @@
-<div class="text-center">
-  <% if params[:system] %>
+<% if params[:system] %>
+  <div class="text-center">
     <h2>Current System: <%= params[:system].upcase %></h2>
     <p class="m-1 flex justify-center"><%= image_tag("#{params[:system]}.jpg", alt: "System", size: "30x30") %></p>
-  <% end %>
-  Select scaffold elements:
-</div>
+  </div>
+<% end %>
 
 <div class="mt-3 mb-3 flex">
   <%= form_with(url: pages_index_path, method: :get, html: { id: 'category-form' }) do |form| %>
-    <%= form.hidden_field :system, value: params[:system] %>
+    <%= form.hidden_field :system, value: params[:system] %>,
+    <% categories_options = [] %>
+    <% if params[:system] %>
+      <% system = System.find_by(name: params[:system]) %>
+      <% if system %>
+        <% categories_options = Category.joins(:part_categories).where('part_categories.part_id IN (?)', Part.joins(:part_systems).where('part_systems.system_id = ?', system.id).ids).uniq.map { |category| [category.name.capitalize, category.name] }.sort_by { |category| sorted_categories.index(category[1]) || 9999 } %>
+      <% else %>
+       
+      <% end %>
+    <% else %>
+      
+    <% end %>
     <%= form.select :category, 
-      [["Select category", nil]] + Part.pluck(:category).uniq.map { |category| [category.capitalize, category] }.sort_by { |category| sorted_categories.index(category[1]) || 9999 }, 
+      [["Select category", nil]] + categories_options,
       { selected: params[:category] },
       { class: "rounded-md border-2", onchange: 'this.form.submit()' } %>
   <% end %>

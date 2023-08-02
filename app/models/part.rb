@@ -3,9 +3,14 @@ class Part < ApplicationRecord
   has_many :orders, through: :order_lists
   has_one_attached :image
 
-  validates :name, :description, :category, :multipack, :system, :weight, presence: true
+  has_many :part_systems
+  has_many :systems, through: :part_systems
+
+  has_many :part_categories
+  has_many :categories, through: :part_categories
+
+  validates :name, :description, :multipack, :weight, presence: true
   validates :name, uniqueness: true
-  validates :system, inclusion: { in: ["peri", "haki", "rullestias", "combisafe", "alfix", "other"] }
   validates :weight, comparison: { greater_than_or_equal_to: 0.0 }
   
   def self.ransackable_attributes(auth_object = nil)
