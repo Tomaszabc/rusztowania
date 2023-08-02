@@ -18,9 +18,10 @@ Rails.application.routes.draw do
    root "pages#welcome"
 
    get "/get_full_address", to: "orders#get_full_address"
-
+  
    namespace :warehouse do
-    resources :storages
+    resources :storages, only: [:index, :show]
     # inne ścieżki
   end
+  
 end

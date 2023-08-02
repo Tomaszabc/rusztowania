@@ -16,7 +16,13 @@
   </head>
 
   <body>
-<p class="text-lg text-center">STORAGE PANEL</p>
+   <%= link_to warehouse_storages_path do %>
+    <div class="flex flex-col items-center hover:scale-110 transition duration-200 mt-2">
+      <span class="text-lg text-center">STORAGE PANEL</span>
+      <span class="text-sm text-center">go to storage index</span>
+    </div>
+  <% end %>
+
     <% flash.each do |key, value| %>
       <div class="flash text-center text-lime-700 <%= key %>">
         <%= value %>
@@ -24,7 +30,7 @@
     <% end %>
     <main class="flex justify-center mt-4 px-5 ">
       <div class="border-2 rounded-lg w-96 shadow-xl">
-        <div class="flex flex-col items-center justify-center">
+        <div class="m-2">
           <%= yield %>
         </div>
       </div>  
