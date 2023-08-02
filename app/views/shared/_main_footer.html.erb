@@ -1,0 +1,15 @@
+
+<div class="flex justify-center mt-5 text-center  ">
+  <%= link_to warehouse_storages_path do %>
+    <div class="flex flex-col items-center mr-6 hover:scale-110 transition duration-200">
+      <%= image_tag("storage.png", alt: "Warehouse storage", width: 30, height: 30) %>
+      <span>Storage</span>
+    </div>
+  <% end %>
+  <%= link_to root_path do %>
+    <div class="flex flex-col items-center ml-6 hover:scale-110 transition duration-200">
+      <%= image_tag("cart_black.png", alt: "Your orders", width: 55, height: 55) %>
+      <span>Your Orders</span>
+    </div>
+  <% end %> 
+</div>

@@ -16,7 +16,7 @@
   </head>
 
   <body>
-
+<p class="text-lg text-center">STORAGE PANEL</p>
     <% flash.each do |key, value| %>
       <div class="flash text-center text-lime-700 <%= key %>">
         <%= value %>
@@ -29,9 +29,9 @@
         </div>
       </div>  
     </main>
-    <div class="flex justify-center mt-2 text-sm mb-15">
+    
       <%= render 'shared/log_in'%>
-    </div> 
+    <%= render 'shared/storage_footer'%>
 
 
 
