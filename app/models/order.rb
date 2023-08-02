@@ -9,8 +9,18 @@ class Order < ApplicationRecord
   validates :delivery_date, presence: true
   validate :delivery_date_cannot_be_in_the_past
 
+  enum status: { pending: 0, in_progress: 1, completed: 2 }
+
+  after_initialize :set_default_status, if: :new_record?
+
+  accepts_nested_attributes_for :order_lists
+
+  def set_default_status
+    self.status ||= :pending
+  end
+
   def self.ransackable_attributes(auth_object = nil)
-    ["car_number", "building_site", "created_at", "delivery_date", "id", "info", "part_description", "part_number", "quantity", "updated_at", "weight", "user_id", "building_site_info"]
+    ["car_number", "building_site", "created_at", "delivery_date", "id", "info", "part_description", "part_number", "quantity", "updated_at", "weight", "user_id", "building_site_info", "status"]
   end
 
   def self.ransackable_associations(auth_object = nil)

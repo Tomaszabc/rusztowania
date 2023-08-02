@@ -1,20 +1,49 @@
+<% if @order.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+    <ul>
+    <% @order.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <h1>Order Details</h1>
 <div>
   <p><strong>Scaffolder:</strong> <%= @order.user.email %></p>
   <p><strong>Building Site:</strong> <%= @order.building_site %></p>
   <p><strong>Site info:</strong> <%= @order.building_site_info %></p>
-  <p><strong>Delivery Date:</strong> <%= @order.delivery_date %></p>
+  <p><strong>Delivery Date:</strong> <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
   <p><strong>Additional Info:</strong> <%= @order.info %></p>
 </div>
 
-<h2>Ordered Parts:</h2>
+<h2 class="mt-10">Ordered Parts:</h2>
 
 <% total_weight = 0 %>
-<% @order.order_lists.each do |order_list| %>
-  <div class="m-2 ml-1 border-b-2">
-    <p><strong><%= order_list.description %></strong></p>
-    <p> Weight: <%= order_list.weight %>kg Quantity: <strong><%= order_list.quantity %></strong></p>
-    <% total_weight += order_list.quantity * order_list.weight %>
+<%= form_with(model: @order, url: warehouse_storage_path(@order), method: :patch) do |form| %>
+  <%= form.fields_for :order_lists do |order_list_form| %>
+    <% @order.order_lists.each do |order_list| %>
+      <div class="m-2 ml-1 border-b-2">
+        <p><strong><%= order_list.description %></strong></p>
+        <p>Cat. number: <strong><%= order_list.part.name if order_list.part %></strong></p>
+        <p> Weight: <%= order_list.weight %>kg Quantity: <strong><%= order_list.quantity %></strong></p>
+        Quantity accepted for delivery:<%= order_list_form.number_field :delivery_quantity, value: order_list.quantity, min: 0, class: 'w-20' %>
+        <% total_weight += order_list.quantity * order_list.weight %>
+      </div>
+    <% end %>
+  <% end %>
+  <p class="text-center mt-4"><strong>Delivery Date wanted:</strong> <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
+  <div class="mt-4 justify-center text-center">
+    <%= form.label :new_delivery_date, "Change Delivery Date?" %>
+    <%= form.date_field :new_delivery_date, min: Date.today, value: @order.new_delivery_date %>
+  </div>
+  <div class="flex justify-center mt-4">
+    <%= form.label :car_number, "Delivery Car Number:", class: "mr-2 mt-2" %>
+    <%= form.text_field :car_number, class: "w-32" %>
+  </div>
+  <div class="flex justify-center m-6">
+    <%= form.submit "Save as In Progress", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md"%>
   </div>
 <% end %>
 <p class="text-center m-4"><strong>Total Weight:</strong> <%= total_weight %>kg</p>

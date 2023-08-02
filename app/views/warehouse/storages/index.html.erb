@@ -4,5 +4,6 @@
   <div>
     <h2> <%= link_to "Order #{order.id}", warehouse_storage_path(order) %></h2>
     <p>Building Site: <%= order.building_site %></p>
+    <p>Status: <%= order.status %></p>
   </div>
 <% end %>

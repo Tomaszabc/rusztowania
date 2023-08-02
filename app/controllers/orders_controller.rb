@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
+    @order = Order.new(order_params.except(:order_lists_attributes)) #nie chcemy uwzględniać order_lists bo przychodzą bez weight co rodzi problemy
     @order.user = current_user
     @cart = current_cart
     @products = @cart.cart_items.map { |item| { name: item.part.name, description: item.part.description, weight: item.part.weight, quantity: item.quantity } }
@@ -29,7 +29,6 @@ class OrdersController < ApplicationController
         )
       end
      
-
       @order = Order.includes(:order_lists, :parts).find(@order.id)
 
        OrderMailer.order_confirmation(@order).deliver_now
@@ -60,7 +59,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:building_site, :delivery_date, :info, :building_site_info, order_lists_attributes: [:part_id, :quantity, :description])  end
+    params.require(:order).permit(:building_site, :delivery_date, :info, :building_site_info, :new_delivery_date, :car_number, :status, order_lists_attributes: [:part_id, :quantity, :description, :delivery_quantity])  end
 
   def calculate_total_weight
     @cart.cart_items.sum { |item| item.part.weight * item.quantity }

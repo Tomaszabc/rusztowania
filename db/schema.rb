@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_28_112626) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_02_122040) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -98,6 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_28_112626) do
     t.decimal "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "delivery_quantity"
     t.index ["order_id"], name: "index_order_lists_on_order_id"
     t.index ["part_id"], name: "index_order_lists_on_part_id"
   end
@@ -115,6 +116,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_28_112626) do
     t.bigint "user_id"
     t.string "car_number"
     t.text "building_site_info"
+    t.date "new_delivery_date"
+    t.string "status"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 

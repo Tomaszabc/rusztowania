@@ -28,7 +28,7 @@
     <p><strong>Scaffolder:</strong> <%= @order.user.email %></p>
     <p>Building Site: <%= @order.building_site %></p>
     <p>Site info: <%= @order.building_site_info %></p>
-    <p>Delivery Date: <%= @order.delivery_date %></p>
+    <p>Delivery Date: <%= @order.delivery_date.strftime("%d-%m-%Y")  %></p>
     
   <p class="big-text"><strong>Additional Info: <%= @order.info %> </strong></p>
 
@@ -58,7 +58,6 @@
         <% end %>
       </tbody>
     </table>
-
 
 
 
