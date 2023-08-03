@@ -15,4 +15,6 @@
  *= stub "active_admin"
  */
  
-
+ .min-h-470 {
+  min-height: 470px;
+}
