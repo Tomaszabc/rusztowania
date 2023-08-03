@@ -7,6 +7,29 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
+System.create(name: 'peri')
+System.create(name: 'alfix')
+System.create(name: 'combisafe')
+System.create(name: 'haki')
+System.create(name: 'rullestias')
+System.create(name: 'other')
+
+Category.create(name: 'stenders')
+Category.create(name: 'horisontals')
+Category.create(name: 'planks')
+Category.create(name: 'diagonals')
+Category.create(name: 'rekkverks')
+Category.create(name: 'fotlists')
+Category.create(name: 'consolers')
+Category.create(name: 'utv trapp')
+Category.create(name: 'akcesoria')
+Category.create(name: 'barelle')
+Category.create(name: 'veggfester')
+Category.create(name: 'RØR')
+
+
+
+
 Part.create!(name: '100057', description: 'DIAGONAL EASY UBL 150/200', weight: 6.38, multipack: 200 )
 Part.create!(name: '100061', description: 'DIAGONAL EASY UBL 200/200', weight: 7.15, multipack: 200 )
 # Part.create!(name: '100065', description: 'DIAGONAL EASY UBL 250/200', weight: 8.05, system: 'peri', category: 'diagonals', multipack: 200 )
@@ -187,6 +210,9 @@ User.create!(email: 'dariusz.borowiec@cstillas.no', password: 'Darek#1234', pass
 User.create!(email: 'darius@cstillas.no', password: 'Darius#1234', password_confirmation: 'Darius#1234')
 User.create!(email: 'rune.larsen@cstillas.no', password: 'Rune#1234', password_confirmation: 'Rune#1234')
 User.create!(email: 'geir.gule@cstillas.no', password: 'Geir#1234', password_confirmation: 'Geir#1234')
+
+
+
 
 
 

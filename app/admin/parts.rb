@@ -7,6 +7,48 @@ ActiveAdmin.register Part do
   filter :created_at
   filter :updated_at
 
+  controller do
+    def index
+      # Zapamiętaj parametry sortowania, jeżeli są obecne
+      if params[:order].present?
+        session[:parts_order] = params[:order]
+      end
+
+      # Przywróć parametry sortowania, jeżeli są zapamiętane
+      if session[:parts_order].present?
+        params[:order] = session[:parts_order]
+      end
+
+      super
+    end
+
+    def edit
+      # Zapamiętaj bieżące parametry sortowania przed edycją
+      if params[:order].present?
+        session[:parts_order] = params[:order]
+      end
+
+      super
+    end
+
+    def update
+      # Przywróć zapamiętane parametry sortowania po edycji
+      if session[:parts_order].present?
+        params[:order] = session[:parts_order]
+      end
+
+      super do |success, failure|
+        success.html { redirect_to admin_parts_path(order: params[:order]) }
+      end
+    end
+  end
+
+
+
+
+
+
+
 
   permit_params :name, :description, :weight, :category, :multipack, :image, system_ids: [], category_ids: []
   # See permitted parameters documentation:
@@ -81,6 +123,11 @@ ActiveAdmin.register Part do
       f.input :system_ids, as: :check_boxes, collection: System.all.map { |system| [system.name, system.id] }
     f.input :category_ids, as: :check_boxes, collection: Category.all.map { |category| [category.name, category.id] }
       f.input :multipack
+      if f.object.image.attached?
+        div do
+          image_tag url_for(f.object.image.variant( resize_to_limit: [400, 400]))
+        end
+      end
       f.file_field :image
     end
     f.actions
