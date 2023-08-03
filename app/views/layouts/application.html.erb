@@ -9,20 +9,22 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js", "data-turbolinks-track": "reload" %>
   <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css", "data-turbolinks-track": "reload" %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
    <%= javascript_include_tag 'application' %>
   </head>
 
-  <body>
+  <body class="bg-no-repeat bg-cover bg-center" style="background-image: url(<%= asset_path 'bg-lines.png' %>); background-attachment: fixed;">
+  <div style="position: relative;">
   <% unless current_page?(new_user_session_path) %>
     <nav class="flex justify-center mb-2">
       <%= render 'shared/navbar'%>
     </nav>
   <% end %>
-    <div class=" flex justify-center">
-      <%= render 'shared/cart', cart: @cart %>
+    <div class="flex justify-center ">
+      <div class="bg-white/[.6] rounded">
+        <%= render 'shared/cart', cart: @cart %>
+      </div>
     </div>
     <% flash.each do |key, value| %>
       <div class="flash text-center text-lime-700 <%= key %>">
@@ -30,7 +32,7 @@
       </div>
     <% end %>
     <main class="flex justify-center mt-4 px-5 ">
-      <div class="border-2 rounded-lg w-96 shadow-xl">
+      <div class="border-2 rounded-lg w-96 shadow-xl bg-white">
         <div class="flex flex-col items-center justify-center">
           <%= yield %>
         </div>
@@ -41,6 +43,6 @@
     
   <%= render 'shared/main_footer'%>
 
-
+</div>
   </body>
 </html>

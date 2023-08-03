@@ -5,7 +5,7 @@ class CartItemsController < ApplicationController
     @existing_cart_item = @cart.cart_items.find_by(part_id: params[:cart_item][:part_id])
 
     if @existing_cart_item
-        @existing_cart_item.quantity = params[:cart_item][:quantity].to_i
+        @existing_cart_item.quantity += params[:cart_item][:quantity].to_i
         if @existing_cart_item.save
           redirect_to request.referrer || root_path
         else
