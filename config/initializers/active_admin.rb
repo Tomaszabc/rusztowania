@@ -352,6 +352,7 @@ ActiveAdmin.setup do |config|
 
   config.default_namespace = :admin
   config.root_to = 'orders#index'
+  config.footer = "CStillas Site Manager"
 
   config.namespace :admin do |admin|
     admin.build_menu :utility_navigation do |menu|
@@ -361,4 +362,5 @@ ActiveAdmin.setup do |config|
     end
   end
   
+
 end

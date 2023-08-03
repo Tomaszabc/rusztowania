@@ -10,7 +10,31 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
   end
- 
+  columns do
+    column do
+      panel "User Statistics" do
+        ul do
+          li "Total Users: #{User.count}"
+        end
+      end
+    end
+
+    column do
+      panel "Order Statistics" do
+        ul do
+          li "Total Orders: #{Order.count}"
+        end
+      end
+    end
+
+    column do
+      panel "Part Statistics" do
+        ul do
+          li "Total Parts: #{Part.count}"
+        end
+      end
+    end
+  end # end of columns
       
 
     # Here is an example of a simple dashboard with columns and panels.
@@ -32,5 +56,7 @@ ActiveAdmin.register_page "Dashboard" do
     #     end
     #   end
     # end
+
+    
   end # content
 end
