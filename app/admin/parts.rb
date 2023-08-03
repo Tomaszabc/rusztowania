@@ -95,6 +95,7 @@ ActiveAdmin.register Part do
       row :id
       row :name
       row :description
+      row :weight
       row :systems do |part|
         part.systems.map(&:name).join(', ')
       end
