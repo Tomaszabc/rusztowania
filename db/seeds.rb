@@ -28,10 +28,46 @@ Category.create(name: 'veggfester')
 Category.create(name: 'RØR')
 
 
+# Systems
+peri = System.find_or_create_by(name: 'peri')
+
+# Categories
+diagonals = Category.find_or_create_by(name: 'diagonals')
+stenders = Category.find_or_create_by(name: 'stenders')
 
 
-Part.create!(name: '100057', description: 'DIAGONAL EASY UBL 150/200', weight: 6.38, multipack: 200 )
-Part.create!(name: '100061', description: 'DIAGONAL EASY UBL 200/200', weight: 7.15, multipack: 200 )
+# Parts - Diagonals 
+Part.find_or_create_by(name: '100057', description: 'DIAGONAL EASY UBL 150/200', weight: 6.38, systems: [peri], categories: [diagonals], multipack: 200)
+Part.find_or_create_by(name: '100061', description: 'DIAGONAL EASY UBL 200/200', weight: 7.15, systems: [peri], categories: [diagonals], multipack: 200)
+Part.find_or_create_by(name: '100065', description: 'DIAGONAL EASY UBL 250/200', weight: 8.05, systems: [peri], categories: [diagonals], multipack: 200)
+Part.find_or_create_by(name: '100069', description: 'DIAGONAL EASY UBL 300/200', weight: 9.04, systems: [peri], categories: [diagonals], multipack: 200)
+Part.find_or_create_by(name: '100572', description: 'DIAG. F/STENDER UBK-2 150/200', weight: 7.59, systems: [peri], categories: [diagonals], multipack: 105)
+Part.find_or_create_by(name: '133445', description: 'DIAG. F/STENDER UBK-2 200/200', weight: 6.10, systems: [peri], categories: [diagonals], multipack: 105)
+Part.find_or_create_by(name: '133454', description: 'DIAG. F/STENDER UBK-2 250/200', weight: 6.76, systems: [peri], categories: [diagonals], multipack: 105)
+Part.find_or_create_by(name: '133463', description: 'DIAG. F/STENDER UBK-2 300/200', weight: 7.44, systems: [peri], categories: [diagonals], multipack: 105)
+Part.find_or_create_by(name: '130180', description: 'DIAGONAL EASY EBF 250/200', weight: 6.57, systems: [peri], categories: [diagonals], multipack: 135)
+Part.find_or_create_by(name: '130189', description: 'DIAGONAL EASY EBF 300/200', weight: 7.46, systems: [peri], categories: [diagonals], multipack: 135)
+
+# Parts - Stenders
+Part.find_or_create_by(name: 'UL500', description: 'UNDERLAG 0,5 m', weight: 3.00, systems: [peri], categories: [stenders], multipack: 1)
+Part.find_or_create_by(name: '100411', description: 'BUNNSKRUE UJB 38-50/30', weight: 3.39, systems: [peri], categories: [stenders], multipack: 1)
+Part.find_or_create_by(name: '100183', description: 'LØFTESIKRING UJS', weight: 0.1, systems: [peri], categories: [stenders], multipack: 1)
+Part.find_or_create_by(name: '133499', description: 'BASISSTENDER UVB 25', weight: 2.26, systems: [peri], categories: [stenders], multipack: 192)
+Part.find_or_create_by(name: '135187', description: 'BASISSTENDER UVB 50', weight: 3.58, systems: [peri], categories: [stenders], multipack: 1)
+Part.find_or_create_by(name: '132219', description: 'STENDER UVR-2 50', weight: 2.49, systems: [peri], categories: [stenders], multipack: 162)
+Part.find_or_create_by(name: '132224', description: 'STENDER UVR-2 100', weight: 4.34, systems: [peri], categories: [stenders], multipack: 1)
+Part.find_or_create_by(name: '132229', description: 'STENDER UVR-2 150', weight: 6.19, systems: [peri], categories: [stenders], multipack: 56)
+Part.find_or_create_by(name: '132234', description: 'STENDER UVR-2 200', weight: 8.03, systems: [peri], categories: [stenders], multipack: 56)
+Part.find_or_create_by(name: '132239', description: 'STENDER UVR-2 300', weight: 11.70, systems: [peri], categories: [stenders], multipack: 56)
+Part.find_or_create_by(name: '137514', description: 'BASE STANDARS EVOTOP EVS 124', weight: 6.50, systems: [peri], categories: [stenders], multipack: 56)
+Part.find_or_create_by(name: '137509', description: 'STANDARD EVOTOP EVM 200', weight: 8.50, systems: [peri], categories: [stenders], multipack: 56)
+Part.find_or_create_by(name: '137517', description: 'TOP STANDARD EVOTOP EVT 96', weight: 3.73, systems: [peri], categories: [stenders], multipack: 130)
+Part.find_or_create_by(name: '130512', description: 'REKKVERKSTOLPE EVP', weight: 3.88, systems: [peri], categories: [stenders], multipack: 1)
+
+
+
+# Part.create!(name: '100057', description: 'DIAGONAL EASY UBL 150/200', weight: 6.38, multipack: 200 )
+# Part.create!(name: '100061', description: 'DIAGONAL EASY UBL 200/200', weight: 7.15, multipack: 200 )
 # Part.create!(name: '100065', description: 'DIAGONAL EASY UBL 250/200', weight: 8.05, system: 'peri', category: 'diagonals', multipack: 200 )
 # Part.create!(name: '100069', description: 'DIAGONAL EASY UBL 300/200', weight: 9.04, system: 'peri', category: 'diagonals', multipack: 200 )
 # Part.create!(name: '100572', description: 'DIAG. F/STENDER UBK-2 150/200', weight: 7.59, system: 'peri', category: 'diagonals', multipack: 105 )
