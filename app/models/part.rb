@@ -9,6 +9,8 @@ class Part < ApplicationRecord
   has_many :part_categories
   has_many :categories, through: :part_categories
 
+
+
   validates :name, :description, :multipack, :weight, presence: true
   validates :name, uniqueness: true
   validates :weight, comparison: { greater_than_or_equal_to: 0.0 }

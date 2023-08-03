@@ -3,13 +3,12 @@ ActiveAdmin.register Part do
   filter :name
   filter :description
   filter :weight
-  filter :system
-  filter :category
   filter :multipack
   filter :created_at
   filter :updated_at
 
-  permit_params :name, :description, :weight, :system, :category, :multipack, :image
+
+  permit_params :name, :description, :weight, :category, :multipack, :image, system_ids: [], category_ids: []
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -30,8 +29,12 @@ ActiveAdmin.register Part do
     column :name
     column :description
     column :weight
-    column :system
-    column :category
+    column :systems do |part|
+      part.systems.map(&:name).join(', ')
+    end
+    column :categories do |part|
+      part.categories.map(&:name).join(', ')
+    end
     column :multipack
     column :created_at
     column :updated_at
@@ -50,6 +53,12 @@ ActiveAdmin.register Part do
       row :id
       row :name
       row :description
+      row :systems do |part|
+        part.systems.map(&:name).join(', ')
+      end
+      row :categories do |part|
+        part.categories.map(&:name).join(', ')
+      end
       row :image do |part|
         if part.image.attached?
           image_tag(part.image.variant( resize_to_limit: [400, 400] ))
@@ -69,8 +78,8 @@ ActiveAdmin.register Part do
       f.input :name
       f.input :description
       f.input :weight
-      f.input :system
-      f.input :category
+      f.input :system_ids, as: :check_boxes, collection: System.all.map { |system| [system.name, system.id] }
+    f.input :category_ids, as: :check_boxes, collection: Category.all.map { |category| [category.name, category.id] }
       f.input :multipack
       f.file_field :image
     end

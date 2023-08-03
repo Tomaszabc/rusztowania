@@ -4,8 +4,7 @@ class CreateParts < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :description
       t.decimal :weight
-      t.string :system
-      t.string :category
+
       t.integer :multipack
       t.string :image
 
