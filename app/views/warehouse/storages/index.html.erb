@@ -1,9 +1,48 @@
-<h1>Orders</h1>
-
+<h1 class="text-center mb-4">Orders</h1>
 <% @orders.each do |order| %>
-  <div>
-    <h2> <%= link_to "Order #{order.id}", warehouse_storage_path(order) %></h2>
-    <p>Building Site: <%= order.building_site %></p>
-    <p>Status: <%= order.status %></p>
-  </div>
+<div class="border-b-2 mb-4">
+
+  <%= link_to warehouse_storage_path(order) do %>
+    <div class=" transform transition duration-300 ease-in-out hover:scale-105">
+      <h2 class="text-center"> Order number: <%= order.id %>
+        <% if order.status == "completed" %>
+          <p class="text-green-400"> Status:   <%= order.status %> </p>
+        <% elsif order.status == "pending" %>
+          <p class="text-red-400"> Status:  <%= order.status %> </p>
+        <% else %>
+          <p class="text-blue-400"> Status:  <%= order.status %> </p>
+        <% end %>
+      </h2>
+      <p class="text-center text-sm">Site: <%= order.building_site %> </p>
+      <p class="text-center text-sm">Created at: <%= order.created_at.strftime("%Y-%m-%d %H:%M")  %></p>
+    </div>
+  <% end %>
+  <%= button_to 'Complete Order', complete_order_path(order), method: :get, data: { confirm: 'Are you sure you want to complete this order?' } %>
+</div>
 <% end %>
+<table class="table-fixed">
+  <thead>
+    <tr>
+      <th>Song</th>
+      <th>Artist</th>
+      <th>Year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+      <td>Malcolm Lockyer</td>
+      <td>1961</td>
+    </tr>
+    <tr>
+      <td>Witchy Woman</td>
+      <td>The Eagles</td>
+      <td>1972</td>
+    </tr>
+    <tr>
+      <td>Shining Star</td>
+      <td>Earth, Wind, and Fire</td>
+      <td>1975</td>
+    </tr>
+  </tbody>
+</table>

@@ -9,14 +9,16 @@ class Order < ApplicationRecord
   validates :delivery_date, presence: true
   validate :delivery_date_cannot_be_in_the_past
 
-  enum status: { pending: 0, in_progress: 1, completed: 2 }
+  
 
   after_initialize :set_default_status, if: :new_record?
 
   accepts_nested_attributes_for :order_lists
 
+  enum status: { pending: 'Pending', in_progress: 'In Progress', completed: 'Completed' }
+
   def set_default_status
-    self.status ||= :pending
+    self.status ||= "pending"
   end
 
   def self.ransackable_attributes(auth_object = nil)

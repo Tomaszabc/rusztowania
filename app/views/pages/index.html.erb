@@ -37,7 +37,7 @@
       <%= form.hidden_field :system, value: params[:system] %>
       <%= form.hidden_field :category, value: params[:category] %>
       <%= form.select :description, 
-        [["Select Part", nil]] + @parts.pluck(:description).uniq,
+        [["Select Part", nil]] + @parts.pluck(:description).uniq.sort,
         { selected: params[:description] },
         { class: "rounded-md border border-black-500 w-62", onchange: 'this.form.submit()', include_blank: true } %>
     <% end %>

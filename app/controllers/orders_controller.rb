@@ -57,6 +57,14 @@ class OrdersController < ApplicationController
     end
   end
 
+  def complete
+    @order = Order.find(params[:id])
+    @order.completed!
+    redirect_to warehouse_storages_path, notice: "Order set to Completed"
+
+  end
+
+
   private
   def order_params
     params.require(:order).permit(:building_site, :delivery_date, :info, :building_site_info, :new_delivery_date, :car_number, :status, order_lists_attributes: [:part_id, :quantity, :description, :delivery_quantity])  end

@@ -14,10 +14,13 @@ Rails.application.routes.draw do
       delete 'clear_cart'
     end
   end
-  resources :orders, only: [:new, :create, :show]
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
+  
+  resources :orders, only: [:new, :create, :show] do
+    member do
+      get :complete
+    end
+  end
+ 
    root "pages#welcome"
 
    get "/get_full_address", to: "orders#get_full_address"
