@@ -105,5 +105,5 @@ config.action_mailer.smtp_settings = {
 }
 config.active_storage.variant_processor = :mini_magick
 
-config.action_mailer.default_url_options = { host: 'scaffoldlistv3.fly.dev' }
+config.action_mailer.default_url_options = { host: 'cstillas.fly.dev' }
 end
