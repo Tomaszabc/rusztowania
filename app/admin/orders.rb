@@ -20,10 +20,12 @@ ActiveAdmin.register Order do
     selectable_column
     id_column
     column :building_site
+    column :building_site_info
     column :delivery_date
     column :total_weight
     column :created_at
     column :user
+    column :info
     actions
   end
 
@@ -31,8 +33,10 @@ ActiveAdmin.register Order do
   show do
     attributes_table do
       row :building_site
+      row :building_site_info
       row :delivery_date
       row :user
+      row :info
       # ... tu wypisz atrybuty Ordera
     end
 

@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :admin_users, ActiveAdmin::Devise.config
+  # devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :admin_users, ActiveAdmin::Devise.config.merge({class_name: 'AdminUser', controllers: {sessions: 'custom_active_admin_sessions'}})
+
+
   ActiveAdmin.routes(self)
   devise_for :users, skip: :registrations
    get '/pages/index', to: 'pages#index'
