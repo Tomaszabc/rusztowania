@@ -1,48 +1,49 @@
 <h1 class="text-center mb-4">Orders</h1>
-<% @orders.each do |order| %>
-<div class="border-b-2 mb-4">
 
-  <%= link_to warehouse_storage_path(order) do %>
-    <div class=" transform transition duration-300 ease-in-out hover:scale-105">
-      <h2 class="text-center"> Order number: <%= order.id %>
-        <% if order.status == "completed" %>
-          <p class="text-green-400"> Status:   <%= order.status %> </p>
-        <% elsif order.status == "pending" %>
-          <p class="text-red-400"> Status:  <%= order.status %> </p>
-        <% else %>
-          <p class="text-blue-400"> Status:  <%= order.status %> </p>
-        <% end %>
-      </h2>
-      <p class="text-center text-sm">Site: <%= order.building_site %> </p>
-      <p class="text-center text-sm">Created at: <%= order.created_at.strftime("%Y-%m-%d %H:%M")  %></p>
-    </div>
-  <% end %>
-  <%= button_to 'Complete Order', complete_order_path(order), method: :get, data: { confirm: 'Are you sure you want to complete this order?' } %>
-</div>
-<% end %>
+<div class="flex justify-center items-center ">
+
 <table class="table-fixed">
   <thead>
     <tr>
-      <th>Song</th>
-      <th>Artist</th>
-      <th>Year</th>
+      <th>Order no:</th>
+      <th>Site</th>
+      <th>Created</th>
+      <th>Status</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-      <td>Malcolm Lockyer</td>
-      <td>1961</td>
-    </tr>
-    <tr>
-      <td>Witchy Woman</td>
-      <td>The Eagles</td>
-      <td>1972</td>
-    </tr>
-    <tr>
-      <td>Shining Star</td>
-      <td>Earth, Wind, and Fire</td>
-      <td>1975</td>
-    </tr>
+    <% @orders.each do |order| %>
+      <tr class="transition duration-300 hover:bg-slate-300 border ">
+        <td class="m-2"> <%= link_to warehouse_storage_path(order), class: "ml-2" do %>
+          <%= image_tag('go_to.png', size: '30x30', class: 'inline') %>
+          <%= order.id %>
+        <% end %></td>
+        <td class="m-2 text-sm"><%= truncate(order.building_site, length: 16) %></td>
+        <td class="m-2 text-sm"> <%= order.created_at.strftime("%Y-%m-%d") %>
+  <br/>
+  <%= order.created_at.strftime("%H:%M")  %></td>
+        <td class="m-2">
+          <% if order.status == "completed" %>
+            <p class="text-green-400"><%= image_tag('ok.png', size: '40x40', alt: "Completed") %></p>
+          <% elsif order.status == "pending" %>
+            <p class="text-red-400"><%= image_tag('pending_big.png', size: '40x40', alt: "Pending") %></p>
+          <% else %>
+            <p class="text-blue-400"><%= image_tag('in_progress.png', size: '40x40', alt: "In Progress") %></p>
+          <% end %>
+        </td>
+        <td class="m-2"><td class="p-2"><%= button_to complete_order_path(order), method: :get, data: { confirm: 'Are you sure you want to complete this order?' } do %>
+          <%= image_tag('complete.png', size: '30x30', class: "mr-2") %>
+        <% end %>
+        <%= button_to set_to_pending_order_path(order), method: :get, data: { confirm: 'Are you sure you want to set this order to pending?' } do %>
+  <%= image_tag('pending.png', size: '20x20', class: "") %>
+<% end %>
+        </td></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
+
+
+
+</div>

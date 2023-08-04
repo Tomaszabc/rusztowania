@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params.except(:order_lists_attributes)) #nie chcemy uwzględniać order_lists bo przychodzą bez weight co rodzi problemy
     @order.user = current_user
+    @order.status = "pending"
     @cart = current_cart
     @products = @cart.cart_items.map { |item| { name: item.part.name, description: item.part.description, weight: item.part.weight, quantity: item.quantity } }
     @total_weight = calculate_total_weight
@@ -61,9 +62,13 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.completed!
     redirect_to warehouse_storages_path, notice: "Order set to Completed"
-
   end
 
+  def set_to_pending
+    @order = Order.find(params[:id])
+    @order.pending!
+    redirect_to warehouse_storages_path, notice: "Order set to Pending"
+  end
 
   private
   def order_params

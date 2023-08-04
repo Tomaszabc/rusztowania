@@ -13,8 +13,8 @@ module Warehouse
     def update
       @order = Order.find(params[:id])
       if @order.update(order_params)
-       
-        redirect_to warehouse_storages_path, notice: "Order completed"
+       @order.in_progress!
+        redirect_to warehouse_storages_path, notice: "Accept order as Completed"
 
       else
         render :show, alert: "Something goes wrong"
