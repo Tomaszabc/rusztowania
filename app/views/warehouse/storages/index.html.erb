@@ -1,5 +1,15 @@
-<h1 class="text-center mb-4">Orders</h1>
 
+<div class= "flex inline">
+<div data-controller="lightbox">
+  <%= link_to asset_path('instruction.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
+    <div class= "flex inline">
+    <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
+    <%= button_to " Instruction", class: "your-button-classes ml-2" %>
+    </div>
+  <% end %>
+</div>
+</div>
+<h1 class="text-center mb-4">Orders</h1>
 <div class="flex justify-center items-center ">
 
 <table class="table-fixed">
@@ -20,23 +30,23 @@
           <%= order.id %>
         <% end %></td>
         <td class="m-2 text-sm"><%= truncate(order.building_site, length: 16) %></td>
-        <td class="m-2 text-sm"> <%= order.created_at.strftime("%Y-%m-%d") %>
+        <td class="m-2 text-sm text-center"> <%= order.created_at.strftime("%Y-%m-%d") %>
   <br/>
   <%= order.created_at.strftime("%H:%M")  %></td>
-        <td class="m-2">
+        <td class="m-2 border-r-2">
           <% if order.status == "completed" %>
             <p class="text-green-400"><%= image_tag('ok.png', size: '40x40', alt: "Completed") %></p>
           <% elsif order.status == "pending" %>
-            <p class="text-red-400"><%= image_tag('pending_big.png', size: '40x40', alt: "Pending") %></p>
+            <p class="text-red-400"><%= image_tag('hourglass.png', size: '40x40', alt: "Pending") %></p>
           <% else %>
-            <p class="text-blue-400"><%= image_tag('in_progress.png', size: '40x40', alt: "In Progress") %></p>
+            <p class="text-blue-400"><%= image_tag('list.png', size: '40x40', alt: "In Progress") %></p>
           <% end %>
         </td>
-        <td class="m-2"><td class="p-2"><%= button_to complete_order_path(order), method: :get, data: { confirm: 'Are you sure you want to complete this order?' } do %>
-          <%= image_tag('complete.png', size: '30x30', class: "mr-2") %>
+        <td class="m-2"><td class="p-1"><%= button_to complete_order_path(order), method: :get do %>
+          <%= image_tag('complete.png', class: "w-8 h-8 min-w-[15px] min-h-[15px] mr-1") %>
         <% end %>
-        <%= button_to set_to_pending_order_path(order), method: :get, data: { confirm: 'Are you sure you want to set this order to pending?' } do %>
-  <%= image_tag('pending.png', size: '20x20', class: "") %>
+        <%= button_to set_to_pending_order_path(order), method: :get do %>
+  <%= image_tag('hourglass.png', class: "w-6 h-6 min-w-[10px] min-h-[10px]") %>
 <% end %>
         </td></td>
       </tr>
