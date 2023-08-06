@@ -47,8 +47,7 @@ class OrdersController < ApplicationController
   end
 
   def get_full_address
-    # Pobierz pełny adres na podstawie przekazanego "site" z parametrów zapytania.
-    # Załóżmy, że masz model Site i atrybut "address" przechowujący pełny adres.
+   
     site = Site.find_by(name: params[:site])
 
     if site
@@ -61,13 +60,13 @@ class OrdersController < ApplicationController
   def complete
     @order = Order.find(params[:id])
     @order.completed!
-    redirect_to warehouse_storages_path, notice: "Order set to Completed"
+    redirect_to request.referer || warehouse_storages_path, notice: "Order set to Pending"
   end
 
   def set_to_pending
     @order = Order.find(params[:id])
     @order.pending!
-    redirect_to warehouse_storages_path, notice: "Order set to Pending"
+    redirect_to request.referer || warehouse_storages_path, notice: "Order set to Pending"
   end
 
   private

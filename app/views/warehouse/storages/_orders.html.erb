@@ -1,0 +1,59 @@
+
+
+  <% if @start_date && @end_date %>
+    <p class="flex justify-center text-slate-400 mt-2">Orders from <%= @start_date %> to <%= @end_date %></p>
+  <% end %>
+
+    <% if @orders.present?  %>
+  <% if @all_orders_view == true %>
+    <h1 class="text-center m-4">All orders</h1>
+  <% else %>
+    <h1 class="text-center m-4">Last 30 orders:</h1>
+  <% end %>
+  <div class="flex justify-center items-center ">
+
+  <table class="table-fixed">
+    <thead>
+      <tr>
+        <th>Order no:</th>
+        <th>Site</th>
+        <th>Created</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr class="transition duration-300 hover:bg-slate-300 border ">
+          <td class="m-2"> <%= link_to warehouse_storage_path(order), class: "ml-2" do %>
+            <%= image_tag('go_to.png', size: '30x30', class: 'inline') %>
+            <%= order.id %>
+          <% end %></td>
+          <td class="m-2 text-sm"><%= truncate(order.building_site, length: 16) %></td>
+          <td class="m-2 text-sm text-center"> <%= order.created_at.strftime("%Y-%m-%d") %>
+    <br/>
+    <%= order.created_at.strftime("%H:%M")  %></td>
+          <td class="m-2 border-r-2">
+            <% if order.status == "completed" %>
+              <p class="text-green-400"><%= image_tag('ok.png', size: '40x40', alt: "Completed") %></p>
+            <% elsif order.status == "pending" %>
+              <p class="text-red-400"><%= image_tag('hourglass.png', size: '40x40', alt: "Pending") %></p>
+            <% else %>
+              <p class="text-blue-400"><%= image_tag('list.png', size: '40x40', alt: "In Progress") %></p>
+            <% end %>
+          </td>
+          <td class="m-2"><td class="p-1"><%= button_to complete_order_path(order), method: :get do %>
+            <%= image_tag('complete.png', class: "w-8 h-8 min-w-[15px] min-h-[15px] mr-1") %>
+          <% end %>
+          <%= button_to set_to_pending_order_path(order), method: :get do %>
+    <%= image_tag('hourglass.png', class: "w-6 h-6 min-w-[10px] min-h-[10px]") %>
+  <% end %>
+          </td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+  <p class="flex justify-center item-center mt-10" >No orders <%= @status %></p>
+  <%end%>
+  </div>
