@@ -27,8 +27,12 @@ Rails.application.routes.draw do
    get "/get_full_address", to: "orders#get_full_address"
   
    namespace :warehouse do
-    resources :storages, only: [:index, :show, :update]
-    # inne ścieżki
+    resources :storages, only: [:index, :show, :update] do
+      collection do
+        get :completed_orders
+        get :pending_orders
+        get :in_progress_orders
+      end
+    end
   end
-  
 end

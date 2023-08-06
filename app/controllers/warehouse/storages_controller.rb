@@ -21,6 +21,26 @@ module Warehouse
       end
     end
 
+    def completed_orders
+      @orders = Order.where(status: 'completed').order(created_at: :desc)
+      @status = 'completed'
+      render :index
+    end
+
+    def pending_orders
+      @orders = Order.where(status: 'pending').order(created_at: :desc)
+      @status = 'pending'
+      render :index
+    end
+
+    def in_progress_orders
+      @orders = Order.where(status: 'in_progress').order(created_at: :desc)
+      @status = 'in progress'
+      render :index
+    end
+    
+
+
     private
 
     def order_params

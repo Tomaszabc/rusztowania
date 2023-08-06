@@ -1,14 +1,30 @@
+<div class="flex justify-between">
+  <div class="flex inline ">
+    Select only:
+      <%= button_to pending_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
+      <%= image_tag('hourglass.png', size: '20x20', alt: 'Show Completed Orders') %>
+    <% end %>
+      <%= button_to in_progress_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
+      <%= image_tag('list.png', size: '20x20', alt: 'Show Completed Orders') %>
+    <% end %>
+    <%= button_to completed_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
+      <%= image_tag('ok.png', size: '20x20', alt: 'Show Completed Orders') %>
+    <% end %>
+  </div>
 
-<div class= "flex inline">
-<div data-controller="lightbox">
-  <%= link_to asset_path('instruction.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
-    <div class= "flex inline">
-    <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
-    <%= button_to " Instruction", class: "your-button-classes ml-2" %>
+  <div class= "flex inline justify-end">
+    <div data-controller="lightbox">
+      <%= link_to asset_path('instruction.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
+        <div class= "flex inline">
+        <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
+        <%= button_to " Instruction", class: "your-button-classes ml-2" %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
-</div>
+
+<% if @orders.present? %>
 <h1 class="text-center mb-4">Orders</h1>
 <div class="flex justify-center items-center ">
 
@@ -53,6 +69,10 @@
     <% end %>
   </tbody>
 </table>
+<% else %>
+
+<p class="flex justify-center item-center mt-10" >No orders <%= @status %></p>
+<%end%>
 
 
 
