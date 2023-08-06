@@ -1,31 +1,56 @@
-<div class="flex justify-between">
-  <div class="flex inline ">
-    Select only:
-      <%= button_to pending_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
-      <%= image_tag('hourglass.png', size: '20x20', alt: 'Show Completed Orders') %>
-    <% end %>
-      <%= button_to in_progress_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
-      <%= image_tag('list.png', size: '20x20', alt: 'Show Completed Orders') %>
-    <% end %>
-    <%= button_to completed_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
-      <%= image_tag('ok.png', size: '20x20', alt: 'Show Completed Orders') %>
-    <% end %>
+<button id="toggle-storage-menu" class="btn btn-primary  rounded-lg p-1 flex inline bg-neutral-200 hover:bg-neutral-300" onclick="toggleMenu()"><%= image_tag "menu.png", class: "w-6 h-6 flex inline mr-1 " %>  Storage Menu</button>
+<div id="storage-menu" class="transition-all duration-500 max-h-0 overflow-hidden">
+    <div class="mb-2">
+    <%= form_with url: warehouse_storages_path, method: :get, local: true do |form| %>
+      <%= form.label :start_date, "From:" %>
+      <%= form.date_field :start_date, class: "w-20" %>
+      <%= form.label :end_date, "To:" %>
+      <%= form.date_field :end_date, class: "w-20" %>
+      <%= image_submit_tag 'search.png', class: 'w-8 h-8', alt: 'Search' %>
+      <% end %>
   </div>
 
-  <div class= "flex inline justify-end">
-    <div data-controller="lightbox">
-      <%= link_to asset_path('instruction.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
-        <div class= "flex inline">
-        <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
-        <%= button_to " Instruction", class: "your-button-classes ml-2" %>
-        </div>
+  <div class="flex justify-between ">
+    <div class="flex inline ">
+      Select only:
+        <%= button_to pending_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
+        <%= image_tag('hourglass.png', size: '20x20', alt: 'Show Completed Orders') %>
+      <% end %>
+        <%= button_to in_progress_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
+        <%= image_tag('list.png', size: '20x20', alt: 'Show Completed Orders') %>
+      <% end %>
+      <%= button_to completed_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
+        <%= image_tag('ok.png', size: '20x20', alt: 'Show Completed Orders') %>
       <% end %>
     </div>
-  </div>
-</div>
 
-<% if @orders.present? %>
-<h1 class="text-center mb-4">Orders</h1>
+    <div class= "flex inline justify-end">
+      <div data-controller="lightbox">
+        <%= link_to asset_path('instruction.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
+          <div class= "flex inline">
+          <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
+          <%= button_to " Instruction", class: "your-button-classes ml-2" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <p class="border-b-2"><%= button_to 'Show All Orders', all_orders_warehouse_storages_path, method: :get, class: 'your-button-classes' %></p>
+
+</div>
+  
+
+
+<% if @start_date && @end_date %>
+  <p class="flex justify-center text-slate-400 mt-2">Orders from <%= @start_date %> to <%= @end_date %></p>
+<% end %>
+
+  <% if @orders.present?  %>
+ <% if @all_orders_view == true %>
+  <h1 class="text-center m-4">All orders</h1>
+<% else %>
+  <h1 class="text-center m-4">Last 30 orders:</h1>
+<% end %>
 <div class="flex justify-center items-center ">
 
 <table class="table-fixed">
@@ -77,3 +102,15 @@
 
 
 </div>
+
+
+<script>
+function toggleMenu() {
+  var menu = document.getElementById('storage-menu');
+  if (menu.style.maxHeight === "" || menu.style.maxHeight === "0px") {
+    menu.style.maxHeight = menu.scrollHeight + "px"; // Ustaw maksymalną wysokość na rzeczywistą wysokość elementu
+  } else {
+    menu.style.maxHeight = "0px"; // Zresetuj maksymalną wysokość, aby zwinąć menu
+  }
+}
+</script>

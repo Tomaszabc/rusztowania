@@ -32,6 +32,7 @@ Rails.application.routes.draw do
         get :completed_orders
         get :pending_orders
         get :in_progress_orders
+        get :all_orders
       end
     end
   end
