@@ -47,7 +47,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @order.order_lists.each_with_index do |order_list, index| %>
+        <% @order.order_lists.sort_by { |order_list| order_list.part.description }.each_with_index do |order_list, index| %>
         <tr class="mb-4">
           <td><%= index + 1 %></td>
           <td><%= order_list.part.name %></td>

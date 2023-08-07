@@ -19,7 +19,7 @@
  <h2>Ordered Parts:</h2>
 
  <% total_weight = 0 %>
-<% @order.order_lists.each do |order_list| %>
+<% @order.order_lists.sort_by { |order_list| order_list.description }.each do |order_list| %>
   <div class="m-2 ml-1 border-b-2">
     <p><strong> <%= order_list.description %></strong></p>
     <p>Quantity:<strong> <%= order_list.quantity %></strong> Weight <%= order_list.weight %>kg</p>
