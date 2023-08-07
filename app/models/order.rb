@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   
   
-  has_many :order_lists
+  has_many :order_lists, dependent: :destroy
   has_many :parts, through: :order_lists
   belongs_to :user
   

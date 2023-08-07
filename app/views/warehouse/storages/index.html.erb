@@ -1,4 +1,7 @@
-<button id="toggle-storage-menu" class="btn btn-primary  rounded-lg p-1 flex inline bg-neutral-200 hover:bg-neutral-300" onclick="toggleMenu()"><%= image_tag "menu.png", class: "w-6 h-6 flex inline mr-1 " %>  Storage Menu</button>
+
+
+
+<button id="toggle-storage-menu" class="ml-4 btn btn-primary  rounded-lg p-1 flex inline bg-neutral-200 hover:bg-neutral-300" onclick="toggleMenu()"><%= image_tag "menu.png", class: "w-6 h-6 flex inline mr-1 " %>  Storage Menu</button>
 <div id="storage-menu" class="transition-all duration-500 max-h-0 overflow-hidden">
     <div class="mb-2">
     <%= form_with url: warehouse_storages_path, method: :get, local: true do |form| %>
@@ -53,7 +56,7 @@
 <% end %>
 <div class="flex justify-center items-center ">
 
-<table class="table-fixed ">
+<table class="table-fixed min-w-[600px]">
   <thead>
     <tr>
       <th>Order no:</th>
@@ -70,7 +73,7 @@
           <%= image_tag('go_to.png', size: '30x30', class: 'inline') %>
           <%= order.id %>
         <% end %></td>
-        <td class="m-2 text-sm "><%= truncate(order.building_site, length: 16) %></td>
+        <td class="m-2 text-sm "><%= order.building_site %></td>
         <td class="m-2 text-sm text-center"> <%= order.created_at.strftime("%Y-%m-%d") %>
   <br/>
   <%= order.created_at.strftime("%H:%M")  %></td>
@@ -85,7 +88,7 @@
         </td>
         <td class="m-2"><td class="p-1"><div class="relative" data-te-dropdown-position="dropstart">
   <button
-    class="flex items-center whitespace-nowrap rounded bg-slate-400 pb-1 pl-1  pt-1 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] motion-reduce:transition-none dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+    class=" flex items-center whitespace-nowrap rounded bg-slate-400 pb-1 pl-1  pt-1 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] motion-reduce:transition-none dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
     type="button"
     id="dropdownMenuButton1s"
     data-te-dropdown-toggle-ref
@@ -137,7 +140,7 @@
 
 
 </div>
-
+ <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
 
 <script>
 // Funkcja przełączająca menu
