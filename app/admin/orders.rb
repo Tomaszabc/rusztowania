@@ -54,7 +54,7 @@ ActiveAdmin.register Order do
   form do |f|
     f.inputs "Order Details" do
       f.input :user, as: :select, collection: User.all
-      f.input :building_site
+      f.input :building_site, as: :select, collection: Site.all.map { |site| [site.name, site.name] }
       f.input :building_site_info
       f.input :delivery_date
       f.input :new_delivery_date
