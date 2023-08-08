@@ -50,4 +50,21 @@ ActiveAdmin.register Order do
     end
   end  
   
+
+  form do |f|
+    f.inputs "Order Details" do
+      f.input :user, as: :select, collection: User.all
+      f.input :building_site
+      f.input :building_site_info
+      f.input :delivery_date
+      f.input :new_delivery_date
+      f.input :info
+      f.input :car_number
+      f.input :status
+      # Dodaj tutaj inne pola, które chcesz wyświetlić
+    end
+
+    f.actions # Dodaje standardowe przyciski akcji, takie jak "Save"
+  end
+
 end

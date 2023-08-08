@@ -14,4 +14,9 @@ class User < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     ["orders"]
   end
+
+  def display_name
+    self.email # lub inny atrybut, który chcesz wyświetlić
+  end
+  
 end
