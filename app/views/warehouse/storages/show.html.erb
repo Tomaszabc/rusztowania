@@ -9,27 +9,34 @@
   </div>
 <% end %>
 
-<h1>Order Details</h1>
+<h1 class="text-lg text-center">Order Details</h1>
 <div>
   <p>Scaffolder: <%= @order.user.email %></p>
-  <p>Building Site: <%= @order.building_site %></p>
-  <p>Site info:<%= @order.building_site_info %></p>
-  <p>Delivery Date:<%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
-  <p><strong>Additional Info:</strong> <%= @order.info %></p>
+  <p class="text-lg">Building Site: <%= @order.building_site %></p>
+  <p>Site info: <%= @order.building_site_info %></p>
+  <p class="text-lg">Delivery Date: <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
+  <p><strong>Additional Info: </strong> <%= @order.info %></p>
 </div>
 
 <h2 class="mt-10">Ordered Parts:</h2>
-
 <% total_weight = 0 %>
 <%= form_with(model: @order, url: warehouse_storage_path(@order), method: :patch) do |form| %>
-  <%= form.fields_for :order_lists, @order.order_lists.includes(:part).sort_by { |ol| ol.part ? ol.part.name : '' } do |order_list_form| %>
-    <% order_list = order_list_form.object %>
+  <% @order.order_lists.includes(:part).sort_by { |ol| ol.part ? ol.part.name : '' }.each_with_index do |order_list, index| %>
+    <%= form.fields_for :order_lists, order_list do |order_list_form| %>
       <div class="m-2 ml-1 border-b-2 flex inline">
-        <p class="text-lg"><strong><%= order_list.part.name if order_list.part %></strong>/<%= order_list.description %>/ <strong><%= order_list.quantity %></strong> stk/</p><p class="text-sm"><%= order_list_form.number_field :delivery_quantity, value: (order_list.delivery_quantity || order_list.quantity), min: 0, class: 'w-20' %> stk for delivery</p>
+        <p class="text-lg pt-2 mb-6"><strong><%= index + 1 %>. <%= order_list.part.name if order_list.part %></strong>/<%= order_list.description %>-- </p><p class="text-lg text-indigo-800 pt-2"><strong><%= order_list.quantity %></strong> stk/</p><p class="text-sm"><%= order_list_form.number_field :delivery_quantity, value: (order_list.delivery_quantity || order_list.quantity), min: 0, class: 'w-20' %> stk for delivery</p>
         <% total_weight += order_list.quantity * order_list.weight %>
       </div>
+    <% end %>
   
-  <% end %>
+<% end %>
+
+<p><strong>Additional Info:</strong> <%= @order.info %></p>
+    <div>
+      <p><%= form.label :delivery_info, "Delivery Info:", class: "mr-2 mt-2" %></p>
+      <p><%= form.text_area :delivery_info %></p>
+    </div>
+
   <p class="text-center mt-4"><strong>Delivery Date wanted:</strong> <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
   <div class="mt-4 justify-center text-center">
     <%= form.label :new_delivery_date, "Change Delivery Date?" %>

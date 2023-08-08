@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  
+  attribute :storage_info, :text
   
   has_many :order_lists, dependent: :destroy
   has_many :parts, through: :order_lists
