@@ -78,7 +78,7 @@ module Warehouse
     end
 
     def order_params
-      params.require(:order).permit(:new_delivery_date, :car_number, order_lists_attributes: [:id, :delivery_quantity])
+      params.require(:order).permit(:new_delivery_date, :car_number, :storage_info, order_lists_attributes: [:id, :delivery_quantity])
     end
   end
 end

@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   attribute :storage_info, :text
+  attribute :name, :string
   
   has_many :order_lists, dependent: :destroy
   has_many :parts, through: :order_lists
@@ -22,7 +23,7 @@ class Order < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["car_number", "building_site", "created_at", "delivery_date", "id", "info", "part_description", "part_number", "quantity", "updated_at", "weight", "user_id", "building_site_info", "status"]
+    ["car_number", "building_site", "created_at", "delivery_date", "id", "info", "part_description", "part_number", "quantity", "updated_at", "weight", "user_id", "building_site_info", "status", "storage_info"]
   end
 
   def self.ransackable_associations(auth_object = nil)

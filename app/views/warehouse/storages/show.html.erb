@@ -11,11 +11,11 @@
 
 <h1 class="text-lg text-center">Order Details</h1>
 <div>
-  <p>Scaffolder: <%= @order.user.email %></p>
+  <p>Scaffolder: <%= @order.user.name %> <%= @order.user.email %></p>
   <p class="text-lg">Building Site: <%= @order.building_site %></p>
   <p>Site info: <%= @order.building_site_info %></p>
   <p class="text-lg">Delivery Date: <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
-  <p><strong>Additional Info: </strong> <%= @order.info %></p>
+  <p><strong>Additional Info: </strong> <%= simple_format(@order.info) %></p>
 </div>
 
 <h2 class="mt-10">Ordered Parts:</h2>
@@ -31,10 +31,10 @@
   
 <% end %>
 
-<p><strong>Additional Info:</strong> <%= @order.info %></p>
-    <div>
-      <p><%= form.label :delivery_info, "Delivery Info:", class: "mr-2 mt-2" %></p>
-      <p><%= form.text_area :delivery_info %></p>
+<p><strong>Additional Info:</strong> <%= simple_format(@order.info) %></p>
+    <div class="mt-4">
+      <p><%= form.label :storage_info, "Delivery Info:", class: "mr-2 mt-2" %></p>
+      <p><%= form.text_area :storage_info, value: (@order.storage_info || @order.info ), rows: 6, cols: 40 %></p>
     </div>
 
   <p class="text-center mt-4"><strong>Delivery Date wanted:</strong> <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
@@ -51,3 +51,6 @@
   </div>
 <% end %>
 <p class="text-center m-4"><strong>Total Weight:</strong> <%= total_weight %>kg</p>
+
+
+
