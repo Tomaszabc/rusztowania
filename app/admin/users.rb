@@ -1,11 +1,12 @@
 ActiveAdmin.register User do
-  permit_params :email, :password, :password_confirmation, :name
+  permit_params :email, :password, :password_confirmation, :name, :status
   
   index do
     selectable_column
     id_column
     column :email
     column :name
+    column :status
     column :created_at
     column :updated_at
     actions
@@ -17,6 +18,7 @@ ActiveAdmin.register User do
     f.inputs do
       f.input :email
       f.input :name
+      f.input :status, as: :select, collection: %w[scaffolder admin lagermann], include_blank: false
       if f.object.new_record?
         f.input :password
         f.input :password_confirmation

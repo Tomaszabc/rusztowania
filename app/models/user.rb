@@ -7,9 +7,10 @@ class User < ApplicationRecord
   has_many :orders
   validates :email, presence: true
   validates :password, presence: true, confirmation: true, on: :create
-  
+  validates :status, inclusion: { in: %w[scaffolder admin lagermann] }
+
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "email", "encrypted_password", "id", "remember_created_at", "reset_password_sent_at", "reset_password_token", "updated_at", "username", "name"]
+    ["created_at", "email", "encrypted_password", "id", "remember_created_at", "reset_password_sent_at", "reset_password_token", "updated_at", "username", "name", "status"]
   end
   
   def self.ransackable_associations(auth_object = nil)

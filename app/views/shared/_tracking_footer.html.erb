@@ -1,15 +1,19 @@
 
 <div class="flex justify-center mt-5 text-center  mb-4">
+  
   <%= link_to root_path do %>
     <div class="flex flex-col items-center mr-6 hover:scale-110 transition duration-200">
       <%= image_tag("peri.jpg", alt: "Warehouse storage", width: 30, height: 30) %>
       <span>Order Site</span>
     </div>
-  <% end %>
+    <% end %>
+  
+  <% if current_user.status == "lagermann" %>
   <%= link_to warehouse_storages_path do %>
     <div class="flex flex-col items-center ml-6 hover:scale-110 transition duration-200">
       <%= image_tag("storage.png", alt: "Storage", width: 30, height: 30) %>
       <span>Storage</span>
     </div>
   <% end %> 
+  <% end %>
 </div>
