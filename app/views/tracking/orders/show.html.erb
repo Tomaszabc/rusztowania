@@ -8,7 +8,14 @@
     </ul>
   </div>
 <% end %>
-
+<div class="mb-1  ml-2 mt-2 text-left">
+    <button class="inline-flex items-center  px-1 py-1  bg-transparent hover:bg-slate-300 text-black text-sm font-medium rounded-md border border-black hover:scale-110 transition duration-200" onclick="history.back()">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+      </svg>
+      back
+    </button>
+  </div>
 
 <p class="text-lg text-center ">Order status: <%= @order.status.capitalize %>
 <p class="flex justify-center mb-4">
@@ -34,8 +41,8 @@
   <% @order.order_lists.includes(:part).sort_by { |ol| ol.part ? ol.part.name : '' }.each_with_index do |order_list, index| %>
     <%= form.fields_for :order_lists, order_list do |order_list_form| %>
       <div class="m-1  border-b-2 flex inline">
-        <p class="text-sm mb-2 "><%= index + 1 %>. <%= order_list.description %> -- </p>
-<p class="text-sm text-indigo-800 "><strong><%= order_list.quantity %></strong>/</p>
+        <p class="text-sm mb-2 "><%= index + 1 %>. <%= order_list.description %></p>
+<p class="text-sm text-indigo-800 ">-<strong><%= order_list.quantity %></strong>/</p>
 <p class=" text-green-800 w-20 text-sm pt-1">
 <% if order_list.delivery_quantity.present? %>
 <%= order_list.delivery_quantity %>
