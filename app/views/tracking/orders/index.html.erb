@@ -26,7 +26,7 @@
 
     <div class= "flex inline justify-end">
       <div data-controller="lightbox">
-        <%= link_to asset_path('instruction.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
+        <%= link_to asset_path('instruction_tracking.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
           <div class= "flex inline">
           <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
           <%= button_to " Instruction", class: "your-button-classes ml-2" %>
@@ -60,7 +60,7 @@
       <th>Site</th>
       <th>Created</th>
       <th>Status</th>
-      <th></th>
+      
     </tr>
   </thead>
   <tbody>
@@ -83,8 +83,7 @@
             <p class="text-blue-400"><%= image_tag('list.png', size: '40x40', alt: "In Progress") %></p>
           <% end %>
         </td>
-        <td class="m-2"><td class="p-1">
-        </td></td>
+        </td>
       </tr>
     <% end %>
   </tbody>
