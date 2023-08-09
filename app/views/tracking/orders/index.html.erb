@@ -1,10 +1,7 @@
-
-
-
-<button id="toggle-storage-menu" class="ml-4 btn btn-primary  rounded-lg p-1 flex inline bg-neutral-200 hover:bg-neutral-300" onclick="toggleMenu()"><%= image_tag "menu.png", class: "w-6 h-6 flex inline mr-1 " %>  Storage Menu</button>
+<button id="toggle-storage-menu" class="ml-4 btn btn-primary  rounded-lg p-1 flex inline bg-neutral-200 hover:bg-neutral-300" onclick="toggleMenu()"><%= image_tag "menu.png", class: "w-6 h-6 flex inline mr-1 " %>  Tracking Menu</button>
 <div id="storage-menu" class="transition-all duration-500 max-h-0 overflow-hidden">
     <div class="mb-2">
-    <%= form_with url: warehouse_storages_path, method: :get, local: true do |form| %>
+    <%= form_with url: tracking_orders_path, method: :get, local: true do |form| %>
       <%= form.label :start_date, "From:" %>
       <%= form.date_field :start_date, class: "w-20" %>
       <%= form.label :end_date, "To:" %>
@@ -16,13 +13,13 @@
   <div class="flex justify-between ">
     <div class="flex inline ">
       Select only:
-        <%= button_to pending_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
+        <%= button_to pending_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
         <%= image_tag('hourglass.png', size: '20x20', alt: 'Show Completed Orders') %>
       <% end %>
-        <%= button_to in_progress_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
+        <%= button_to in_progress_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
         <%= image_tag('list.png', size: '20x20', alt: 'Show Completed Orders') %>
       <% end %>
-      <%= button_to completed_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
+      <%= button_to completed_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
         <%= image_tag('ok.png', size: '20x20', alt: 'Show Completed Orders') %>
       <% end %>
     </div>
@@ -38,7 +35,7 @@
       </div>
     </div>
   </div>
-  <p class="border-b-2"><%= button_to 'Show All Orders', all_orders_warehouse_storages_path, method: :get, class: 'your-button-classes' %></p>
+  <p class="border-b-2"><%= button_to 'Show All Orders', all_orders_tracking_orders_path, method: :get, class: 'your-button-classes' %></p>
 
 </div>
   
@@ -56,7 +53,7 @@
 <% end %>
 <div class="flex justify-center items-center ">
 
-<table class="table-fixed min-w-[600px]">
+<table class="table-fixed ">
   <thead>
     <tr>
       <th>Order no:</th>
@@ -69,7 +66,7 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr class="transition duration-300 hover:bg-slate-300 border ">
-        <td class="m-2"> <%= link_to warehouse_storage_path(order), class: "ml-2" do %>
+        <td class="m-2"> <%= link_to tracking_order_path(order), class: "ml-2" do %>
           <%= image_tag('go_to.png', size: '30x30', class: 'inline') %>
           <%= order.id %>
         <% end %></td>
@@ -86,47 +83,7 @@
             <p class="text-blue-400"><%= image_tag('list.png', size: '40x40', alt: "In Progress") %></p>
           <% end %>
         </td>
-        <td class="m-2"><td class="p-1"><div class="relative" data-te-dropdown-position="dropstart">
-  <button
-    class=" flex items-center whitespace-nowrap rounded bg-slate-400 pb-1 pl-1  pt-1 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] motion-reduce:transition-none dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-    type="button"
-    id="dropdownMenuButton1s"
-    data-te-dropdown-toggle-ref
-    aria-expanded="false"
-    data-te-ripple-init
-    data-te-ripple-color="light">
-    <span class="mr-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        class="h-5 w-5">
-        <path
-          fill-rule="evenodd"
-          d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-          clip-rule="evenodd" />
-      </svg>
-    </span>
-    
-  </button>
-  <ul
-    class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
-    aria-labelledby="dropdownMenuButton1s"
-    data-te-dropdown-menu-ref>
-    <li>
-      <%= link_to complete_order_path(order), method: :get, class: "block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600" do %>
-    <%= image_tag('complete.png', class: "w-8 h-8 min-w-[15px] min-h-[15px] mr-1") %>
-  <% end %>
-      
-    </li>
-    <li>
-    <%= link_to set_to_pending_order_path(order), method: :get, class: "block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600" do %>
-    <%= image_tag('hourglass.png', class: "w-8 h-8 min-w-[15px] min-h-[15px] mr-1") %>
-  <% end %>
-    </li>
-
-  </ul>
-</div>
+        <td class="m-2"><td class="p-1">
         </td></td>
       </tr>
     <% end %>
@@ -164,5 +121,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
   }
 });
 </script>
-
-

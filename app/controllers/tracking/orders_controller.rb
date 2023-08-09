@@ -1,8 +1,6 @@
-module Warehouse
-  class StoragesController < ApplicationController
-    
-    layout 'warehouse'
-   
+module Tracking
+  class OrdersController < ApplicationController
+    layout "tracking"
 
     def index
       @all_orders_view = false
@@ -24,22 +22,11 @@ module Warehouse
       end
     end
 
+    
     def show 
       @order = Order.find(params[:id])
     end
-    
-    def update
-      @order = Order.find(params[:id])
-      if @order.update(order_params)
-       @order.in_progress!
-        redirect_to warehouse_storages_path, notice: "Remember to accept order as completed"
 
-      else
-        render :show, alert: "Something goes wrong"
-      end
-    end
-
-    
     
     def all_orders
       @orders = Order.order(created_at: :desc)
@@ -80,5 +67,7 @@ module Warehouse
     def order_params
       params.require(:order).permit(:new_delivery_date, :car_number, :storage_info, order_lists_attributes: [:id, :delivery_quantity, :checkbox])
     end
+
+
   end
 end

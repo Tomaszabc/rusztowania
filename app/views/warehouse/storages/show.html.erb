@@ -42,7 +42,7 @@
 
 <p><strong>Additional Info:</strong> <%= simple_format(@order.info) %></p>
     <div class="mt-4">
-      <p><%= form.label :storage_info, "Delivery Info:", class: "mr-2 mt-2" %></p>
+      <p><%= form.label :storage_info, "Storage Parts/Delivery Info:", class: "mr-2 mt-2" %></p>
       <p><%= form.text_area :storage_info, value: (@order.storage_info || @order.info ), rows: 6, cols: 40 %></p>
     </div>
 
