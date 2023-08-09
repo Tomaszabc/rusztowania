@@ -38,7 +38,7 @@
 <h2 class="mt-10 ml-1 mr-1">Ordered Parts:</h2>
 <% total_weight = 0 %>
 <%= form_with(model: @order, url: warehouse_storage_path(@order), method: :patch) do |form| %>
-  <% @order.order_lists.includes(:part).sort_by { |ol| ol.part ? ol.part.name : '' }.each_with_index do |order_list, index| %>
+  <% @order.order_lists.includes(:part).sort_by { |ol| ol.description.downcase }.each_with_index do |order_list, index| %>
     <%= form.fields_for :order_lists, order_list do |order_list_form| %>
       <div class="m-1  border-b-2 flex inline">
         <p class="text-sm mb-2 "><%= index + 1 %>. <%= order_list.description %></p>
@@ -90,3 +90,4 @@
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
