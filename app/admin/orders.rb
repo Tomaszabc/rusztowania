@@ -1,5 +1,5 @@
 ActiveAdmin.register Order do
- 
+  permit_params :user_id, :building_site, :building_site_info, :delivery_date, :new_delivery_date, :info, :car_number, :status, :checkbox, :storage_info, order_lists_attributes: [:part_id, :quantity, :description, :delivery_quantity, :checkbox]
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -20,12 +20,13 @@ ActiveAdmin.register Order do
     selectable_column
     id_column
     column :building_site
-    column :building_site_info
+    
     column :delivery_date
     column :total_weight
     column :created_at
     column :user
-    column :info
+    column :car_number
+    column :status
     actions
   end
 
@@ -35,8 +36,12 @@ ActiveAdmin.register Order do
       row :building_site
       row :building_site_info
       row :delivery_date
+      row :new_delivery_datedelivery_date
       row :user
       row :info
+      row :storage_info
+      row :car_number
+      row :status
       # ... tu wypisz atrybuty Ordera
     end
 
@@ -60,7 +65,7 @@ ActiveAdmin.register Order do
       f.input :new_delivery_date
       f.input :info
       f.input :car_number
-      f.input :status
+      f.input :status, as: :select, collection: %w[pending in_progress completed], include_blank: false
       # Dodaj tutaj inne pola, które chcesz wyświetlić
     end
 

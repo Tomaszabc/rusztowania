@@ -65,7 +65,7 @@ module Tracking
     end
 
     def order_params
-      params.require(:order).permit(:new_delivery_date, :car_number, :storage_info, order_lists_attributes: [:id, :delivery_quantity, :checkbox])
+      params.require(:order).permit(:delivery_date, :new_delivery_date, :car_number, :storage_info, order_lists_attributes: [:id, :delivery_quantity, :checkbox])
     end
 
 

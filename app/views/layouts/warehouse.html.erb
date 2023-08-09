@@ -5,44 +5,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
   <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js", "data-turbolinks-track": "reload" %>
   <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css", "data-turbolinks-track": "reload" %>
-  <%= javascript_include_tag 'application' %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-
-    <!-- Roboto font -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap"
-      rel="stylesheet" />
-
-    <!-- Tailwind Elements styles -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
-
-    <!-- Tailwind CSS config -->
-    <script src="https://cdn.tailwindcss.com/3.3.0"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          fontFamily: {
-            sans: ["Roboto", "sans-serif"],
-            body: ["Roboto", "sans-serif"],
-            mono: ["ui-monospace", "monospace"],
-          },
-        },
-        corePlugins: {
-          preflight: false,
-        },
-      };
-    </script>
-   
+   <%= javascript_include_tag 'application' %>
   </head>
 <%# <nav class="fixed sticky top-0 w-full z-50"> %>
 <nav>
@@ -74,6 +43,5 @@
 </div>
 
 
-   <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
   </body>
 </html>

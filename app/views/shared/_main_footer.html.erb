@@ -1,6 +1,6 @@
 
 <div class="flex justify-center mt-5 text-center  ">
-  <% if current_user.status == "lagermann" %>
+  <% if current_user && current_user.status.in?(["lagermann", "admin"]) %>
   <%= link_to warehouse_storages_path do %>
     <div class="flex flex-col items-center mr-6 hover:scale-110 transition duration-200">
       <%= image_tag("storage.png", alt: "Warehouse storage", width: 30, height: 30) %>

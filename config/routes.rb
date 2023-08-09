@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :orders, only: [:new, :create, :show] do
+  resources :orders, only: [:new, :create, :show, :update, :edit] do
     member do
       get :complete
       get :set_to_pending
