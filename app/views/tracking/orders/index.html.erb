@@ -14,7 +14,7 @@
     <div class="flex justify-between mb-2 mt-2">
       <div class="flex inline ">
         <%= form.label :site, "Select Site:", class: "mr-1" %> 
-        <%= form.collection_select :site, Site.all, :id, :name, { prompt: "Choose a site" }, { class: "w-44" } %>
+        <%= form.collection_select :site, Site.order(:name), :id, :name, { prompt: "Choose a site" }, { class: "w-44" } %>
         <%= image_submit_tag 'search.png', class: 'w-8 h-8', alt: 'Search' %>
       </div>
     </div>
