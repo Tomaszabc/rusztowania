@@ -17,7 +17,7 @@
     </button>
   </div>
 
-<p class="text-lg text-center ">Order status: <%= @order.status.capitalize %>
+<p class="text-lg text-center ">Order status: <%= @order.status.gsub('_', ' ').titleize %>
 <p class="flex justify-center mb-4">
 <% if @order.pending? %>
 <%= image_tag('hourglass.png', size: '40x40', alt: "Pending") %>
@@ -34,8 +34,18 @@
   <p class="text-sm">Site info: <%= @order.building_site_info %></p>
   <% end %>
 </div>
+<div class= "flex inline justify-end mr-2">
+      <div data-controller="lightbox">
+        <%= link_to asset_path('instruction_parts.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
+          <div class= "flex inline">
+          <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
+          <%= button_to " Instruction", class: "your-button-classes ml-2" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
 
-<h2 class="mt-10 ml-1 mr-1">Ordered Parts:</h2>
+<h2 class="mt-4 ml-1 mr-1">Ordered Parts:</h2>
 <% total_weight = 0 %>
 <%= form_with(model: @order, url: warehouse_storage_path(@order), method: :patch) do |form| %>
   <% @order.order_lists.includes(:part).sort_by { |ol| ol.description.downcase }.each_with_index do |order_list, index| %>
