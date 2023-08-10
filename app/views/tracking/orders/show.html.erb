@@ -51,22 +51,26 @@
 <%= form_with(model: @order, url: warehouse_storage_path(@order), method: :patch) do |form| %>
 <% @order.order_lists.includes(:part).sort_by { |ol| ol.description.downcase }.each_with_index do |order_list, index| %>
 <%= form.fields_for :order_lists, order_list do |order_list_form| %>
-<div class="m-1  border-b-2 flex inline">
-<p class="text-sm mb-2 "><%= index + 1 %>. <%= order_list.description %></p>
-<p class="text-sm text-indigo-800 ">-<strong><%= order_list.quantity %></strong>/</p>
-<p class=" text-green-800 w-20 text-sm pt-1">
-<% if order_list.delivery_quantity.present? %>
-<%= order_list.delivery_quantity %>
-<% else %>
-???
-<% end %>
-stk</p>
-
-<% total_weight += order_list.quantity * order_list.weight %>
+<div class="m-1 border-b-2 flex">
+  <div class="flex-grow">
+    <% highlight_class = order_list.delivery_quantity.present? && order_list.quantity != order_list.delivery_quantity ? 'text-red-800' : 'text-green-800' %>
+    <p class="text-sm mb-2 <%= highlight_class %>"><%= index + 1 %>. <%= order_list.description %></p>
+  </div>
+  <div class="flex flex-grow justify-end">
+    <p class=" text-indigo-800"><strong><%= order_list.quantity %></strong>/</p>
+    <p class="<%= highlight_class %>   pt-1">
+    <% if order_list.delivery_quantity.present? %>
+      <%= order_list.delivery_quantity %>
+    <% else %>
+      ???
+    <% end %>
+    stk</p>
+  </div>
+  <% total_weight += order_list.quantity * order_list.weight %>
 </div>
 <% end %>
-
 <% end %>
+
 <% if @order.info.present? %>
 <p class="mt-10 m-1 text-sm"><strong>Additional Info/Parts:</strong> <%= simple_format(@order.info,  class: "text-sm m-1" )%></p>
 <% end %>
