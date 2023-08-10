@@ -33,17 +33,20 @@ Rails.application.routes.draw do
         get :pending_orders
         get :in_progress_orders
         get :all_orders
+        get :search_orders
       end
     end
   end
 
   namespace :tracking do
-    resources :orders, only: [:index, :show] do
+    resources :orders do
     collection do
       get :completed_orders
       get :pending_orders
       get :in_progress_orders
       get :all_orders
+      get :search_orders
+      get :your_orders
     end
   end
 end

@@ -9,6 +9,16 @@
       <%= image_submit_tag 'search.png', class: 'w-8 h-8', alt: 'Search' %>
       <% end %>
   </div>
+  </div>
+    <%= form_with url: search_orders_tracking_orders_path, method: :get, local: true do |form| %>
+    <div class="flex justify-between mb-2 mt-2">
+      <div class="flex inline ">
+        <%= form.label :site, "Select Site:", class: "mr-1" %> 
+        <%= form.collection_select :site, Site.all, :id, :name, { prompt: "Choose a site" }, { class: "w-44" } %>
+        <%= image_submit_tag 'search.png', class: 'w-8 h-8', alt: 'Search' %>
+      </div>
+    </div>
+  <% end %>
 
   <div class="flex justify-between ">
     <div class="flex inline ">
@@ -35,14 +45,19 @@
       </div>
     </div>
   </div>
-  <p class="border-b-2"><%= button_to 'Show All Orders', all_orders_tracking_orders_path, method: :get, class: 'your-button-classes' %></p>
-
+  <div class="border-b-2">
+    <p class=""><%= button_to 'Show All Orders', all_orders_tracking_orders_path, method: :get, class: 'your-button-classes' %></p>
+    <p class=""><%= button_to 'Show Your Orders', your_orders_tracking_orders_path, method: :get, class: 'your-button-classes' %></p>
+  </div>
 </div>
   
 
 
 <% if @start_date && @end_date %>
   <p class="flex justify-center text-slate-400 mt-2">Orders from <%= @start_date %> to <%= @end_date %></p>
+<% end %>
+<% if @site_name %>
+  <p class="flex justify-center text-slate-400 mt-2">Orders for site: <%= @site_name %></p>
 <% end %>
 
   <% if @orders.present?  %>

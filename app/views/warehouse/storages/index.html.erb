@@ -12,6 +12,16 @@
       <%= image_submit_tag 'search.png', class: 'w-8 h-8', alt: 'Search' %>
       <% end %>
   </div>
+    <%= form_with url: search_orders_warehouse_storages_path, method: :get, local: true do |form| %>
+    <div class="flex justify-between mb-2 mt-2">
+      <div class="flex inline ">
+        <%= form.label :site, "Select Site:", class: "mr-1" %> 
+        <%= form.collection_select :site, Site.all, :id, :name, prompt: "Choose a site" %>
+        <%= image_submit_tag 'search.png', class: 'w-8 h-8', alt: 'Search' %>
+      </div>
+    </div>
+  <% end %>
+
 
   <div class="flex justify-between ">
     <div class="flex inline ">
@@ -46,6 +56,9 @@
 
 <% if @start_date && @end_date %>
   <p class="flex justify-center text-slate-400 mt-2">Orders from <%= @start_date %> to <%= @end_date %></p>
+<% end %>
+<% if @site_name %>
+  <p class="flex justify-center text-slate-400 mt-2">Orders for site: <%= @site_name %></p>
 <% end %>
 
   <% if @orders.present?  %>

@@ -3,6 +3,7 @@
   <% if @start_date && @end_date %>
     <p class="flex justify-center text-slate-400 mt-2">Orders from <%= @start_date %> to <%= @end_date %></p>
   <% end %>
+  
 
     <% if @orders.present?  %>
   <% if @all_orders_view == true %>
