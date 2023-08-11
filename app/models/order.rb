@@ -16,7 +16,7 @@ class Order < ApplicationRecord
 
   accepts_nested_attributes_for :order_lists
 
-  enum status: { pending: 'Pending', in_progress: 'In Progress', completed: 'Completed' }
+  enum status: { pending: 'Pending', in_progress: 'In Progress', completed: 'Completed', missing_parts: "Missing Parts" }
 
   def set_default_status
     self.status ||= "pending"

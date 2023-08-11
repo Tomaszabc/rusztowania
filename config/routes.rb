@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     member do
       get :complete
       get :set_to_pending
+      get :set_to_missing_parts
     end
   end
  
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
         get :in_progress_orders
         get :all_orders
         get :search_orders
+        get :missing_parts_orders
       end
     end
   end
@@ -46,6 +48,7 @@ Rails.application.routes.draw do
       get :in_progress_orders
       get :all_orders
       get :search_orders
+      get :missing_parts_orders
       get :your_orders
     end
   end

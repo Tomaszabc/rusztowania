@@ -84,7 +84,11 @@ module Warehouse
       render :index
     end
     
- 
+    def missing_parts_orders
+      @orders = Order.where(status: 'missing_parts').order(created_at: :desc).limit(100)
+      @status = 'missing parts'
+      render :index
+    end
   
 
     private

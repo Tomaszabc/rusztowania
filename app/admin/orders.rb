@@ -65,7 +65,7 @@ ActiveAdmin.register Order do
       f.input :new_delivery_date
       f.input :info
       f.input :car_number
-      f.input :status, as: :select, collection: %w[pending in_progress completed], include_blank: false
+      f.input :status, as: :select, collection: %w[pending in_progress completed missing_parts], include_blank: false
       # Dodaj tutaj inne pola, które chcesz wyświetlić
     end
 

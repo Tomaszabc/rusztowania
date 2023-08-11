@@ -63,6 +63,12 @@ class OrdersController < ApplicationController
     redirect_to request.referer || warehouse_storages_path, notice: "Order set to Pending"
   end
 
+  def set_to_missing_parts
+    @order = Order.find(params[:id])
+    @order.missing_parts!
+    redirect_to request.referer || warehouse_storages_path, notice: "Order set to Missing Parts"
+  end
+
   def set_to_pending
     @order = Order.find(params[:id])
     @order.pending!

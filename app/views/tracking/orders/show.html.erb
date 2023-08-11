@@ -24,6 +24,8 @@
     <%= image_tag('hourglass.png', size: '40x40', alt: "Pending") %>
     <% elsif @order.in_progress? %>
     <%= image_tag('list.png', size: '40x40', alt: "In Progress") %>
+    <% elsif @order.missing_parts? %>
+    <%= image_tag('missing_parts.png', size: '40x40', alt: "Missing parts") %>
     <% else %>
     <%= image_tag('ok.png', size: '40x40', alt: "Completed") %>
     <% end %>
@@ -53,12 +55,22 @@
 <%= form.fields_for :order_lists, order_list do |order_list_form| %>
 <div class="m-1 border-b-2 flex">
   <div class="flex-grow">
-    <% highlight_class = order_list.delivery_quantity.present? && order_list.quantity != order_list.delivery_quantity ? 'text-red-800' : 'text-green-800' %>
+<% if order_list.delivery_quantity.present? %>
+  <% if order_list.delivery_quantity > order_list.quantity %>
+    <% highlight_class = 'text-amber-500' %>
+  <% elsif order_list.delivery_quantity < order_list.quantity %>
+    <% highlight_class = 'text-red-800' %>
+  <% else %>
+    <% highlight_class = 'text-green-800' %>
+  <% end %>
+  <% else %>
+  <% highlight_class = 'text-black' %>
+<% end %>
     <p class="text-sm mb-2 <%= highlight_class %>"><%= index + 1 %>. <%= order_list.description %></p>
   </div>
   <div class="flex flex-grow justify-end">
     <p class=" text-indigo-800"><strong><%= order_list.quantity %></strong>/</p>
-    <p class="<%= highlight_class %>   pt-1">
+    <p class="<%= highlight_class %>   ">
     <% if order_list.delivery_quantity.present? %>
       <%= order_list.delivery_quantity %>
     <% else %>

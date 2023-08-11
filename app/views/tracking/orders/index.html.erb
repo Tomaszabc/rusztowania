@@ -29,9 +29,13 @@
         <%= button_to in_progress_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
         <%= image_tag('list.png', size: '20x20', alt: 'Show Completed Orders') %>
       <% end %>
+       <%= button_to missing_parts_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
+        <%= image_tag('missing_parts.png', size: '20x20', alt: 'Show Missing Orders') %>
+      <% end %>
       <%= button_to completed_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
         <%= image_tag('ok.png', size: '20x20', alt: 'Show Completed Orders') %>
       <% end %>
+     
     </div>
 
     <div class= "flex inline justify-end">
@@ -94,6 +98,8 @@
             <p class="text-green-400"><%= image_tag('ok.png', size: '40x40', alt: "Completed") %></p>
           <% elsif order.status == "pending" %>
             <p class="text-red-400"><%= image_tag('hourglass.png', size: '40x40', alt: "Pending") %></p>
+          <% elsif order.status == "missing_parts" %>
+            <p class="text-text-amber-600"><%= image_tag('missing_parts.png', size: '40x40', alt: "Missing parts") %></p>
           <% else %>
             <p class="text-blue-400"><%= image_tag('list.png', size: '40x40', alt: "In Progress") %></p>
           <% end %>
