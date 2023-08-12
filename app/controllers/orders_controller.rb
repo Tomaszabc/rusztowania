@@ -59,21 +59,40 @@ class OrdersController < ApplicationController
 
   def complete
     @order = Order.find(params[:id])
-    @order.completed!
-    redirect_to request.referer || warehouse_storages_path, notice: "Order set to Pending"
+    if @order.in_progress? && delivery_quantities_present?
+      @order.completed!
+      redirect_to request.referer || warehouse_storages_path, notice: "Order set to Completed"
+    else
+      redirect_to request.referer || warehouse_storages_path, alert: "Check order(quantity) and save it first"
+    end
   end
 
   def set_to_missing_parts
-    @order = Order.find(params[:id])
-    @order.missing_parts!
-    redirect_to request.referer || warehouse_storages_path, notice: "Order set to Missing Parts"
+    if @order.in_progress? && delivery_quantities_present?
+      @order = Order.find(params[:id])
+      @order.missing_parts!
+      redirect_to request.referer || warehouse_storages_path, notice: "Order set to Missing Parts"
+    else
+      redirect_to request.referer || warehouse_storages_path, alert: "Check order(quantity) and save it first"
+    end
   end
+
+  def delivery_quantities_present?
+    @order.order_lists.all? { |order_list| order_list.delivery_quantity.present? }  
+  end
+
+  def in_progress?
+    status == 'in_progress'
+  end
+  
 
   def set_to_pending
     @order = Order.find(params[:id])
     @order.pending!
     redirect_to request.referer || warehouse_storages_path, notice: "Order set to Pending"
   end
+
+
 
   private
   def order_params

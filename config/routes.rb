@@ -36,6 +36,7 @@ Rails.application.routes.draw do
         get :all_orders
         get :search_orders
         get :missing_parts_orders
+        get 'parts_on_site'
       end
     end
   end

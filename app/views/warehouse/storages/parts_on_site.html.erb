@@ -1,0 +1,28 @@
+<%= form_with url: parts_on_site_warehouse_storages_path, method: :get do |f| %>
+  <%= f.label :site_id, 'Wybierz budowę:' %>
+  <%= f.collection_select :site_id, Site.all, :id, :name, include_blank: 'Wybierz budowę' %>
+  <%= f.submit 'Wybierz' %>
+<% end %>
+
+<% if @site %>
+  <h2>Parts on site <%= @site.name %></h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Description</th>
+        <th>Ordered/Delivered</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @parts.each do |part, quantities| %>
+        <tr>
+          <td><%= part.name %></td>
+          <td><%= part.description %></td>
+          <td><%= quantities[:ordered] %>/<%= quantities[:delivered] %> stk</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

@@ -47,6 +47,26 @@ module Warehouse
       end
     end
 
+    def parts_on_site
+      if params[:site_id]
+        @site = Site.find(params[:site_id])
+        @parts = {}
+  
+        orders = Order.where(building_site: @site.name).where(status: ['completed', 'missing_parts'])
+        orders.each do |order|
+          order.order_lists.each do |order_list|
+            part = order_list.part
+            ordered_quantity = order_list.quantity
+            delivered_quantity = order_list.delivery_quantity || 0
+            @parts[part] ||= { ordered: 0, delivered: 0 }
+            @parts[part][:ordered] += ordered_quantity
+            @parts[part][:delivered] += delivered_quantity
+          end
+        end
+      end
+    end
+
+
     def search_orders
       site_id = params[:site].presence
       if site_id
