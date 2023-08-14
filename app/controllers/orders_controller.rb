@@ -92,7 +92,24 @@ class OrdersController < ApplicationController
     redirect_to request.referer || warehouse_storages_path, notice: "Order set to Pending"
   end
 
-
+  def add_part
+    @order = Order.find(params[:id])
+    @part = Part.find(params[:part_id])
+    order_list = OrderList.find_or_initialize_by(order: @order, part: @part)
+  
+    # Jeśli istnieje, aktualizuj ilość; jeśli nie, ustaw nową ilość i inne atrybuty
+    if order_list.persisted?
+      order_list.quantity += params[:quantity].to_i
+    else
+      order_list.quantity = params[:quantity]
+      order_list.description = @part.description
+      order_list.weight = @part.weight
+    end
+  
+    order_list.save
+    redirect_to warehouse_storage_path(@order)
+  end
+  
 
   private
   def order_params

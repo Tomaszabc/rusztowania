@@ -18,6 +18,19 @@
     </button>
   </div>
 
+
+
+<%= form_with(url: add_part_order_path(@order), method: "post", local: true) do |f| %>
+  <%= f.label :part_id, "Select a part:" %>
+  <%= f.collection_select :part_id, Part.all, :id, :name %> <!-- Zakładając, że w tabeli Parts masz kolumnę name -->
+
+  <%= f.label :quantity, "Enter the quantity:" %>
+  <%= f.number_field :quantity %>
+
+  <%= f.submit "Add to order" %>
+<% end %>
+
+
 <h1 class="text-lg text-center">Order Details</h1>
 <div> <div class= "flex inline justify-end">
       <div data-controller="lightbox">

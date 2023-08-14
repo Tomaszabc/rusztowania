@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get :complete
       get :set_to_pending
       get :set_to_missing_parts
+      post :add_part
     end
   end
  
@@ -29,6 +30,7 @@ Rails.application.routes.draw do
   
    namespace :warehouse do
     resources :storages, only: [:index, :show, :update] do
+      
       collection do
         get :completed_orders
         get :pending_orders
@@ -37,6 +39,7 @@ Rails.application.routes.draw do
         get :search_orders
         get :missing_parts_orders
         get 'parts_on_site'
+       
       end
     end
   end
@@ -55,4 +58,6 @@ Rails.application.routes.draw do
   end
 end
   
+
+
 end

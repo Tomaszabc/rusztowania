@@ -98,7 +98,7 @@
 
 <div class="mt-4 justify-center text-center">
 <p class="text-sm mt-4 m-1">Delivery Date wanted: <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
-<p class="text-lg"> <strong> New delivery date: <%= @order.new_delivery_date %> </strong></p>
+<p class="text-lg"> <strong> New delivery date: <%= @order.new_delivery_date.strftime("%d-%m-%Y") %> </strong></p>
 </div>
 <% else %>
 <div class="mt-4 justify-center text-center">
