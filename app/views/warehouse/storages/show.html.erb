@@ -19,16 +19,17 @@
   </div>
 
 
+<%= form_with(url: warehouse_storage_path(@order), method: "get", local: true) do |f| %>
+  <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: 'Wybierz kategorię'}, {id: 'category_select', onchange: 'this.form.submit()'} %>
+<% end %>
 
 <%= form_with(url: add_part_order_path(@order), method: "post", local: true) do |f| %>
-  <%= f.label :part_id, "Select a part:" %>
-  <%= f.collection_select :part_id, Part.all, :id, :name %> <!-- Zakładając, że w tabeli Parts masz kolumnę name -->
-
+  <%= f.collection_select :part_id, @parts, :id, :name, prompt: 'Wybierz część' %>
   <%= f.label :quantity, "Enter the quantity:" %>
   <%= f.number_field :quantity %>
-
   <%= f.submit "Add to order" %>
 <% end %>
+
 
 
 <h1 class="text-lg text-center">Order Details</h1>

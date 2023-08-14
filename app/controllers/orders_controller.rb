@@ -94,6 +94,14 @@ class OrdersController < ApplicationController
 
   def add_part
     @order = Order.find(params[:id])
+    
+
+  if params[:part_id].blank?
+    redirect_to warehouse_storage_path(@order), alert: "Please select a part."
+    return
+  end
+
+  
     @part = Part.find(params[:part_id])
     order_list = OrderList.find_or_initialize_by(order: @order, part: @part)
   

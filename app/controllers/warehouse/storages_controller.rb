@@ -34,6 +34,18 @@ module Warehouse
 
     def show 
       @order = Order.find(params[:id])
+
+      if params[:category_id]
+        session[:selected_category_id] = params[:category_id]
+      end
+    
+      @selected_category = Category.find_by(id: session[:selected_category_id])
+    
+      if @selected_category
+        @parts = @selected_category.parts
+      else
+        @parts = Part.all
+      end
     end
     
     def update
