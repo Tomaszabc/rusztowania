@@ -18,16 +18,20 @@
     </button>
   </div>
 
-
 <%= form_with(url: warehouse_storage_path(@order), method: "get", local: true) do |f| %>
-  <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: 'Wybierz kategorię'}, {id: 'category_select', onchange: 'this.form.submit()'} %>
+  <%= f.collection_select :system_id, System.all, :id, :name, {selected: @selected_system&.id, prompt: 'System'}, {id: 'system_select', onchange: 'this.form.submit()', class: "w-32"} %>
 <% end %>
 
+<%= form_with(url: warehouse_storage_path(@order), method: "get", local: true) do |f| %>
+  <%= f.collection_select :category_id, Category.all, :id, :name, {selected: @selected_category&.id, prompt: 'Category'}, {id: 'category_select', onchange: 'this.form.submit()', class: "w-32"} %>
+<% end %>
+
+
 <%= form_with(url: add_part_order_path(@order), method: "post", local: true) do |f| %>
-  <%= f.collection_select :part_id, @parts, :id, :name, prompt: 'Wybierz część' %>
-  <%= f.label :quantity, "Enter the quantity:" %>
+  <%= f.collection_select :part_id, @parts, :id, :name_with_description, prompt: 'Part' %>
+  <%= f.label :quantity, "Quantity:" %>
   <%= f.number_field :quantity %>
-  <%= f.submit "Add to order" %>
+  <%= f.submit "Add" %>
 <% end %>
 
 

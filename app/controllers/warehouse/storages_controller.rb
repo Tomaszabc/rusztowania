@@ -33,7 +33,16 @@ module Warehouse
     end
 
     def show 
+      @selected_system = System.find_by(id: params[:system_id])
+      @selected_category = Category.find_by(id: params[:category_id])
       @order = Order.find(params[:id])
+      @system = System.find(params[:system_id]) if params[:system_id]
+
+      if @system
+        @categories = Category.joins(parts: :part_systems).where(part_systems: { system_id: @system.id }).distinct
+      else
+        @categories = Category.all
+      end
 
       if params[:category_id]
         session[:selected_category_id] = params[:category_id]

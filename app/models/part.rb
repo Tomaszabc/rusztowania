@@ -15,6 +15,12 @@ class Part < ApplicationRecord
   validates :name, uniqueness: true
   validates :weight, comparison: { greater_than_or_equal_to: 0.0 }
   
+  def name_with_description
+    "#{name}, #{description}"
+  end
+  
+
+
   def self.ransackable_attributes(auth_object = nil)
     ["category", "created_at", "description", "id", "multipack", "name", "system", "updated_at", "weight", "image_attachment_id"]
   end
