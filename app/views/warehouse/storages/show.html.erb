@@ -19,20 +19,26 @@
   </div>
 
 <%= form_with(url: warehouse_storage_path(@order), method: "get", local: true) do |f| %>
-  <%= f.collection_select :system_id, System.all, :id, :name, {selected: @selected_system&.id, prompt: 'System'}, {id: 'system_select', onchange: 'this.form.submit()', class: "w-32"} %>
-<% end %>
+  <div id="system-container">
+    <%= f.collection_select :system_id, System.all, :id, :name, {selected: @selected_system&.id, prompt: 'System'}, {id: 'system_select', onchange: 'showCategories()', class: "w-32"} %>
+  </div>
 
-<%= form_with(url: warehouse_storage_path(@order), method: "get", local: true) do |f| %>
-  <%= f.collection_select :category_id, Category.all, :id, :name, {selected: @selected_category&.id, prompt: 'Category'}, {id: 'category_select', onchange: 'this.form.submit()', class: "w-32"} %>
+  <div id="category-container" style="display:none;">
+    <%= f.collection_select :category_id, Category.all, :id, :name, {selected: @selected_category&.id, prompt: 'Category'}, {id: 'category_select', onchange: 'showParts()', class: "w-32"} %>
+  </div>
 <% end %>
-
 
 <%= form_with(url: add_part_order_path(@order), method: "post", local: true) do |f| %>
-  <%= f.collection_select :part_id, @parts, :id, :name_with_description, prompt: 'Part' %>
-  <%= f.label :quantity, "Quantity:" %>
-  <%= f.number_field :quantity %>
-  <%= f.submit "Add" %>
+  <%= hidden_field_tag :system_id, @selected_system&.id %>
+  <%= hidden_field_tag :category_id, @selected_category&.id %>
+  <div id="part-container" style="display:none;">
+    <%= f.collection_select :part_id, @parts, :id, :name_with_description, prompt: 'Part' %>
+    <%= f.label :quantity, "Quantity:" %>
+    <%= f.number_field :quantity %>
+    <%= f.submit "Add" %>
+  </div>
 <% end %>
+
 
 
 
@@ -90,3 +96,24 @@
 
 
 
+<script>
+function showCategories() {
+  const selectedSystem = document.getElementById('system_select').value;
+  if (selectedSystem) {
+    document.getElementById('category-container').style.display = 'block';
+  } else {
+    document.getElementById('category-container').style.display = 'none';
+    document.getElementById('part-container').style.display = 'none';
+  }
+}
+
+function showParts() {
+  const selectedCategory = document.getElementById('category_select').value;
+  if (selectedCategory) {
+    document.getElementById('part-container').style.display = 'block';
+  } else {
+    document.getElementById('part-container').style.display = 'none';
+  }
+}
+
+</script>

@@ -94,6 +94,9 @@ class OrdersController < ApplicationController
 
   def add_part
     @order = Order.find(params[:id])
+    @selected_system = System.find(params[:system_id]) if params[:system_id]
+    @selected_category = Category.find(params[:category_id]) if params[:category_id]
+
     
 
   if params[:part_id].blank?

@@ -33,8 +33,8 @@ module Warehouse
     end
 
     def show 
-      @selected_system = System.find_by(id: params[:system_id])
-      @selected_category = Category.find_by(id: params[:category_id])
+      @selected_system = System.find(params[:system_id]) if params[:system_id]
+      @selected_category = Category.find(params[:category_id]) if params[:category_id]
       @order = Order.find(params[:id])
       @system = System.find(params[:system_id]) if params[:system_id]
 
