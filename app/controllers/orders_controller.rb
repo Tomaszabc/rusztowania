@@ -68,8 +68,9 @@ class OrdersController < ApplicationController
   end
 
   def set_to_missing_parts
+    @order = Order.find(params[:id])
     if @order.in_progress? && delivery_quantities_present?
-      @order = Order.find(params[:id])
+      
       @order.missing_parts!
       redirect_to request.referer || warehouse_storages_path, notice: "Order set to Missing Parts"
     else
