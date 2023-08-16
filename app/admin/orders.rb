@@ -45,7 +45,7 @@ ActiveAdmin.register Order do
       # ... tu wypisz atrybuty Ordera
     end
 
-    panel 'Order Lists' do
+    panel 'Ordered Parts' do
       table_for order.order_lists do
         column :quantity
         column :description
@@ -53,7 +53,19 @@ ActiveAdmin.register Order do
         # ... tu wypisz atrybuty, które chcesz wyświetlać z OrderList
       end
     end
+
+    panel 'Parts added in Storage(Lagerman parts)' do
+      table_for order.order_storage_lists do
+        column :quantity
+        column :description
+        column :weight
+        # ... tu wypisz atrybuty, które chcesz wyświetlać z OrderList
+      end
+    end
   end  
+
+
+
   
 
   form do |f|
