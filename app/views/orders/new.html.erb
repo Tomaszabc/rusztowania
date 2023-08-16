@@ -7,7 +7,7 @@
     <div class="alert alert-danger">
         <ul>
         <% @order.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+            <li class="text-center text-orange-700"><%= message %></li>
         <% end %>
         </ul>
     </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_16_093803) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_16_121119) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -117,6 +117,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_093803) do
     t.decimal "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "checkbox", default: false
     t.index ["order_id"], name: "index_order_storage_lists_on_order_id"
     t.index ["part_id"], name: "index_order_storage_lists_on_part_id"
   end

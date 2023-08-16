@@ -18,17 +18,17 @@
     </button>
   </div>
 
-<% form_with(url: warehouse_storage_path(@order), method: "get", local: true) do |f| %>
+<%= form_with(url: warehouse_storage_path(@order), method: "get", local: true) do |f| %>
   <div id="system-container">
     <%= f.collection_select :system_id, System.all, :id, :name, {selected: @selected_system&.id, prompt: 'System'}, {id: 'system_select', onchange: 'showCategories()', class: "w-32"} %>
   </div>
 
   <div id="category-container" style="display:none;">
-    <% f.collection_select :category_id, Category.all, :id, :name, {selected: @selected_category&.id, prompt: 'Category'}, {id: 'category_select', onchange: 'showParts()', class: "w-32"} %>
+    <%= f.collection_select :category_id, Category.all, :id, :name, {selected: @selected_category&.id, prompt: 'Category'}, {id: 'category_select', onchange: 'showParts()', class: "w-32"} %>
   </div>
 <% end %>
 
-<% form_with(url: add_part_order_path(@order), method: "post", local: true) do |f| %>
+<%= form_with(url: add_part_order_path(@order), method: "post", local: true) do |f| %>
   <%= hidden_field_tag :system_id, @selected_system&.id %>
   <%= hidden_field_tag :category_id, @selected_category&.id %>
   <div id="part-container" style="display:none;">
@@ -72,6 +72,23 @@
     <% end %>
   
 <% end %>
+
+
+<h2 class="mt-10">Additional parts from Lagermann:</h2>
+<% total_storage_weight = 0 %>
+<%= form_with(model: @order, url: warehouse_storage_path(@order), method: :patch) do |form| %>
+  <% @order.order_storage_lists.includes(:part).sort_by { |osl| osl.description.downcase }.each_with_index do |order_storage_list, index| %>
+    <%= form.fields_for :order_storage_lists, order_storage_list do |order_storage_list_form| %>
+      <div class="m-2 ml-1 border-b-2 flex inline">
+        <p class="text-lg pt-2 mb-6"> <%= order_storage_list_form.check_box :checkbox, class: "w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" %> <strong><%= index + 1 %>. <%= order_storage_list.part.name if order_storage_list.part %></strong>/<%= order_storage_list.description %>-- </p><p class="text-lg text-indigo-800 pt-2"><strong><%= order_storage_list.quantity %></strong> stk</p>
+
+<%= link_to 'Delete', delete_part_order_path(@order, order_storage_list_id: order_storage_list.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-red-600' %>
+        <% total_storage_weight += order_storage_list.quantity * order_storage_list.weight %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
 
 <p><strong>Additional Info:</strong> <%= simple_format(@order.info) %></p>
     <div class="mt-4">

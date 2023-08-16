@@ -95,15 +95,25 @@ class OrdersController < ApplicationController
 
   def add_part
     @order = Order.find(params[:id])
-    @selected_system = System.find(params[:system_id]) if params[:system_id]
-    @selected_category = Category.find(params[:category_id]) if params[:category_id]
-  if params[:part_id].blank?
-    redirect_to warehouse_storage_path(@order), alert: "Please select a part."
-    return
-  end
+    
+    if params[:system_id].present?
+      @selected_system = System.find(params[:system_id])
+    else
+      # Tutaj możesz dodać odpowiednią logikę, jeśli system_id nie jest obecny, np.:
+      # redirect_to some_path, alert: "System ID is required."
+      # return
+    end
+    
+    @selected_category = Category.find(params[:category_id]) if params[:category_id].present?
+  
+    if params[:part_id].blank?
+      redirect_to warehouse_storage_path(@order), alert: "Please select a part."
+      return
+    end
+  
     @part = Part.find(params[:part_id])
     order_storage_list = OrderStorageList.find_or_initialize_by(order: @order, part: @part)
-  
+    
     # Jeśli istnieje, aktualizuj ilość; jeśli nie, ustaw nową ilość i inne atrybuty
     if order_storage_list.persisted?
       order_storage_list.quantity += params[:quantity].to_i
@@ -112,9 +122,21 @@ class OrdersController < ApplicationController
       order_storage_list.description = @part.description
       order_storage_list.weight = @part.weight
     end
-  
+    
     order_storage_list.save
     redirect_to warehouse_storage_path(@order)
+  end
+  
+  def delete_part
+    @order = Order.find(params[:id])
+    order_storage_list = OrderStorageList.find(params[:order_storage_list_id])
+  
+    if order_storage_list.order_id == @order.id
+      order_storage_list.destroy
+      redirect_to warehouse_storage_path(@order), notice: 'Successfully removed.'
+    else
+      redirect_to warehouse_storage_path(@order), alert: 'An error occurred while trying to remove the part.'
+    end
   end
   
 

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get :set_to_pending
       get :set_to_missing_parts
       post :add_part
+      delete :delete_part
     end
   end
  
@@ -29,6 +30,7 @@ Rails.application.routes.draw do
    get "/get_full_address", to: "orders#get_full_address"
   
    namespace :warehouse do
+  
     resources :storages, only: [:index, :show, :update] do
       
       collection do
