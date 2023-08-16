@@ -60,12 +60,13 @@
   <p><strong>Additional Parts/Info: </strong> <%= simple_format(@order.info) %></p>
 </div>
 
+
 <% if @order.order_storage_lists.any? %>
   <h2 class="mt-10 text-purple-900">Additional/more parts from Lagermann:</h2>
   <% total_storage_weight = 0 %>
-  <%= form_with(model: @order, url: warehouse_storage_path(@order), method: :patch) do |form| %>
+  
     <% @order.order_storage_lists.includes(:part).sort_by { |osl| osl.description.downcase }.each_with_index do |order_storage_list, index| %>
-      <%= form.fields_for :order_storage_lists, order_storage_list do |order_storage_list_form| %>
+     
         <div class="m-2 ml-1 border-b-2 flex inline justify-between">
     <div>
       <p class="text-lg pt-2 mb-6 inline"> 
@@ -82,10 +83,11 @@
     <% total_storage_weight += order_storage_list.quantity * order_storage_list.weight %>
   </div>
 
-      <% end %>
-    <% end %>
+      
+    
   <% end %>
 <% end %>
+
 <h2 class="mt-10">Scaffolder Parts:</h2>
 <% total_weight = 0 %>
 <%= form_with(model: @order, url: warehouse_storage_path(@order), method: :patch) do |form| %>
