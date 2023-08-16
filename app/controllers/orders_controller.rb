@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params.except(:order_lists_attributes)) #nie chcemy uwzględniać order_lists bo przychodzą bez weight co rodzi problemy
+    @order = Order.new(order_params.except(:order_lists_attributes)) 
     @order.user = current_user
     @order.status = "pending"
     @cart = current_cart
