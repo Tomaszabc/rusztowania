@@ -19,10 +19,14 @@ ActiveAdmin.register User do
       f.input :email
       f.input :name
       f.input :status, as: :select, collection: %w[scaffolder admin lagermann], include_blank: false
-      if f.object.new_record?
-        f.input :password
-        f.input :password_confirmation
-      end
+      
+    # Dodaj opis
+    f.li do
+      f.label 'Hint:' # Puste etykiety, aby utworzyć odstęp
+      f.div 'Leave password empty if no password change', class: 'instruction-text'
+    end
+      f.input :password
+      f.input :password_confirmation
     end
     f.actions
   end

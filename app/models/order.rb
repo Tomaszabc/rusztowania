@@ -5,6 +5,7 @@ class Order < ApplicationRecord
   has_many :order_lists, dependent: :destroy
   has_many :parts, through: :order_lists
   belongs_to :user
+  has_many :order_storage_lists, dependent: :destroy
   
   validates :building_site, presence: true
   validates :delivery_date, presence: true
@@ -27,7 +28,7 @@ class Order < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["order_lists", "parts"]
+    ["order_lists", "parts", "order_storage_lists"]
   end
 
   def delivery_date_cannot_be_in_the_past

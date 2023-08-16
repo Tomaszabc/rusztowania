@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :orders
   validates :email, presence: true
-  validates :password, presence: true, confirmation: true, on: :create
+  validates :password, presence: true, confirmation: true, if: :password_required?
   validates :status, inclusion: { in: %w[scaffolder admin lagermann] }
 
   def self.ransackable_attributes(auth_object = nil)
@@ -19,6 +19,10 @@ class User < ApplicationRecord
 
   def display_name
     self.email # lub inny atrybut, który chcesz wyświetlić
+  end
+
+  def password_required?
+    new_record? || password.present? || password_confirmation.present?
   end
   
 end

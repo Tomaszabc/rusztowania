@@ -97,28 +97,23 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @selected_system = System.find(params[:system_id]) if params[:system_id]
     @selected_category = Category.find(params[:category_id]) if params[:category_id]
-
-    
-
   if params[:part_id].blank?
     redirect_to warehouse_storage_path(@order), alert: "Please select a part."
     return
   end
-
-  
     @part = Part.find(params[:part_id])
-    order_list = OrderList.find_or_initialize_by(order: @order, part: @part)
+    order_storage_list = OrderStorageList.find_or_initialize_by(order: @order, part: @part)
   
     # Jeśli istnieje, aktualizuj ilość; jeśli nie, ustaw nową ilość i inne atrybuty
-    if order_list.persisted?
-      order_list.quantity += params[:quantity].to_i
+    if order_storage_list.persisted?
+      order_storage_list.quantity += params[:quantity].to_i
     else
-      order_list.quantity = params[:quantity]
-      order_list.description = @part.description
-      order_list.weight = @part.weight
+      order_storage_list.quantity = params[:quantity]
+      order_storage_list.description = @part.description
+      order_storage_list.weight = @part.weight
     end
   
-    order_list.save
+    order_storage_list.save
     redirect_to warehouse_storage_path(@order)
   end
   

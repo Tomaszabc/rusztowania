@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_09_100848) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_16_083108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -109,6 +109,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_09_100848) do
     t.index ["part_id"], name: "index_order_lists_on_part_id"
   end
 
+  create_table "order_storage_lists", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "part_id", null: false
+    t.integer "quantity"
+    t.text "description"
+    t.decimal "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_storage_lists_on_order_id"
+    t.index ["part_id"], name: "index_order_storage_lists_on_part_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.string "building_site"
     t.date "delivery_date"
@@ -188,6 +200,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_09_100848) do
   add_foreign_key "cart_items", "parts"
   add_foreign_key "order_lists", "orders"
   add_foreign_key "order_lists", "parts"
+  add_foreign_key "order_storage_lists", "orders"
+  add_foreign_key "order_storage_lists", "parts"
   add_foreign_key "orders", "users"
   add_foreign_key "part_categories", "categories"
   add_foreign_key "part_categories", "parts"
