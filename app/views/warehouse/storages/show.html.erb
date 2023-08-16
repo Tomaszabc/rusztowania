@@ -91,7 +91,7 @@
   <% @order.order_lists.includes(:part).sort_by { |ol| ol.description.downcase }.each_with_index do |order_list, index| %>
     <%= form.fields_for :order_lists, order_list do |order_list_form| %>
       <div class="m-2 ml-1 border-b-2 flex inline">
-        <p class="text-lg pt-2 mb-6"> <%= order_list_form.check_box :checkbox, class: "w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" %> <strong><%= index + 1 %>. <%= order_list.part.name if order_list.part %></strong>/<%= order_list.description %>-- </p><p class="text-lg text-indigo-800 pt-2"><strong><%= order_list.quantity %></strong> stk/</p><p class="text-sm"><%= order_list_form.number_field :delivery_quantity, value: (order_list.quantity), min: 0, class: ' text-green-800 w-20 text-lg', style: 'border: none;' %> stk for delivery</p>
+        <p class="text-lg pt-2 mb-6"> <%= order_list_form.check_box :checkbox, class: "w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" %> <strong><%= index + 1 %>. <%= order_list.part.name if order_list.part %></strong>/<%= order_list.description %>-- </p><p class="text-lg text-indigo-800 pt-2"><strong><%= order_list.quantity %></strong> stk/</p><p class="text-sm"><%= order_list_form.number_field :delivery_quantity, value: (order_list.delivery_quantity || order_list.quantity), min: 0, class: ' text-green-800 w-20 text-lg', style: 'border: none;' %> stk for delivery</p>
         <% total_weight += order_list.quantity * order_list.weight %>
       </div>
     <% end %>
@@ -121,8 +121,8 @@
     <%= form.submit "Save as In Progress", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md"%>
   </div>
 <% end %>
-<p class="text-center m-4"><strong>Total Weight:</strong> <%= total_weight %>kg</p>
-
+<p class="text-center m-4"><strong>Order Weight:</strong> <%= total_weight %>kg</p>
+<p class="text-center m-4"><strong>Delivery Weight</strong> (Scaffolder+Lagermann): <%= total_delivery_weight(@order.order_lists, @order.order_storage_lists) %>kg</p>
 
 
 <script>
