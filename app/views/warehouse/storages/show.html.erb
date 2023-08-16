@@ -60,31 +60,32 @@
   <p><strong>Additional Parts/Info: </strong> <%= simple_format(@order.info) %></p>
 </div>
 
-<h2 class="mt-10 text-purple-900">Additional/more parts from Lagermann:</h2>
-<% total_storage_weight = 0 %>
-<%= form_with(model: @order, url: warehouse_storage_path(@order), method: :patch) do |form| %>
-  <% @order.order_storage_lists.includes(:part).sort_by { |osl| osl.description.downcase }.each_with_index do |order_storage_list, index| %>
-    <%= form.fields_for :order_storage_lists, order_storage_list do |order_storage_list_form| %>
-      <div class="m-2 ml-1 border-b-2 flex inline justify-between">
-  <div>
-    <p class="text-lg pt-2 mb-6 inline"> 
-      <%= order_storage_list_form.check_box :checkbox, class: "w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" %> 
-      <strong><%= index + 1 %>. <%= order_storage_list.part.name if order_storage_list.part %></strong>/<%= order_storage_list.description %>--
-      <span class="text-lg text-indigo-800 pt-2"><strong><%= order_storage_list.quantity %></strong> stk</span>
-    </p>
+<% if @order.order_storage_lists.any? %>
+  <h2 class="mt-10 text-purple-900">Additional/more parts from Lagermann:</h2>
+  <% total_storage_weight = 0 %>
+  <%= form_with(model: @order, url: warehouse_storage_path(@order), method: :patch) do |form| %>
+    <% @order.order_storage_lists.includes(:part).sort_by { |osl| osl.description.downcase }.each_with_index do |order_storage_list, index| %>
+      <%= form.fields_for :order_storage_lists, order_storage_list do |order_storage_list_form| %>
+        <div class="m-2 ml-1 border-b-2 flex inline justify-between">
+    <div>
+      <p class="text-lg pt-2 mb-6 inline"> 
+        <%= order_storage_list_form.check_box :checkbox, class: "w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" %> 
+        <strong><%= index + 1 %>. <%= order_storage_list.part.name if order_storage_list.part %></strong>/<%= order_storage_list.description %>--
+        <span class="text-lg text-indigo-800 pt-2"><strong><%= order_storage_list.quantity %></strong> stk</span>
+      </p>
+    </div>
+    <div class="mb-3 ml-2 mt-2 hover:scale-110 transition duration-200">
+      <%= link_to delete_part_order_path(@order, order_storage_list_id: order_storage_list.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "inline-flex items-center px-2 py-1 bg-transparent hover:bg-red-100 text-black text-sm font-medium rounded-md border border-black" do %>
+        <%= image_tag "trash.png", size: "20x20", alt: "Delete", class: "" %>
+      <% end %>
+    </div>
+    <% total_storage_weight += order_storage_list.quantity * order_storage_list.weight %>
   </div>
-  <div class="mb-3 ml-2 mt-2 hover:scale-110 transition duration-200">
-    <%= link_to delete_part_order_path(@order, order_storage_list_id: order_storage_list.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "inline-flex items-center px-2 py-1 bg-transparent hover:bg-red-100 text-black text-sm font-medium rounded-md border border-black" do %>
-      <%= image_tag "trash.png", size: "20x20", alt: "Delete", class: "" %>
-    <% end %>
-  </div>
-  <% total_storage_weight += order_storage_list.quantity * order_storage_list.weight %>
-</div>
 
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
-
 <h2 class="mt-10">Scaffolder Parts:</h2>
 <% total_weight = 0 %>
 <%= form_with(model: @order, url: warehouse_storage_path(@order), method: :patch) do |form| %>
