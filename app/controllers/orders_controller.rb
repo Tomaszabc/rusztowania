@@ -107,7 +107,7 @@ class OrdersController < ApplicationController
     @selected_category = Category.find(params[:category_id]) if params[:category_id].present?
   
     if params[:part_id].blank?
-      redirect_to warehouse_storage_path(@order), alert: "Please select a part."
+      redirect_to request.referrer || warehouse_storage_path(@order), alert: "Please select a part."
       return
     end
   
@@ -124,7 +124,7 @@ class OrdersController < ApplicationController
     end
     
     order_storage_list.save
-    redirect_to warehouse_storage_path(@order), notice: "Part added successfully."
+    redirect_to request.referrer || warehouse_storage_path(@order), notice: "Part added successfully."
   end
   
   def delete_part

@@ -42,7 +42,7 @@
         <%= form.select :category,
           [["Select category", nil]] + @categories.pluck(:name).map { |name| name.capitalize }.uniq.sort,
           { selected: params[:category] },
-          { class: "rounded-md border-1 p-1 pr-7", onchange: 'this.form.submit()' } %>
+          { class: "rounded-md border-1 p-1 pr-7 ", onchange: 'this.form.submit()' } %>
       <% end %>
     </div>
   <% end %>
@@ -53,7 +53,7 @@
       <%= form_with(url: add_part_order_path(@order), method: :post, html: { id: 'part-form' }) do |form| %>
         <%= form.hidden_field :system_id, value: @selected_system.id if @selected_system %>
         <%= form.hidden_field :category_id, value: @selected_category.id if @selected_category %>
-        <%= form.collection_select :part_id, @parts, :id, :description, { prompt: 'Select Part' }, { class: 'pr-7 rounded'} %>
+        <%= form.collection_select :part_id, @parts, :id, :description, { prompt: 'Select Part' }, { class: ' p-1 pr-7 rounded bg-slate-100'} %>
         <p>Quantity: <%= form.number_field :quantity, in: 1..9999, step: 1, class: "rounded-md border-1 p-1 w-20", required: true %>
          <%= form.button type: "submit" do %>
           <%= image_tag "add.png", size: "30x30", class: "img-down" %>
