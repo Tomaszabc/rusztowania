@@ -42,7 +42,7 @@ ActiveAdmin.register Order do
       row :storage_info
       row :car_number
       row :status
-      # ... tu wypisz atrybuty Ordera
+      row :total_weight
     end
 
     panel 'Ordered Parts' do
