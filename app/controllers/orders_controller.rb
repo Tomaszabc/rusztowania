@@ -124,7 +124,7 @@ class OrdersController < ApplicationController
     end
     
     order_storage_list.save
-    redirect_to warehouse_storage_path(@order)
+    redirect_to warehouse_storage_path(@order), notice: "Part added successfully."
   end
   
   def delete_part

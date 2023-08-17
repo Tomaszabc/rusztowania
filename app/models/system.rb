@@ -1,7 +1,7 @@
 class System < ApplicationRecord
   has_many :part_systems
   has_many :parts, through: :part_systems
-
+  has_many :categories, through: :parts
 
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "id", "name", "updated_at"]

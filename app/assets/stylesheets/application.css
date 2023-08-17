@@ -18,3 +18,8 @@
  .min-h-470 {
   min-height: 470px;
 }
+
+.img-down {
+  position: relative;
+  top: 8px;
+}

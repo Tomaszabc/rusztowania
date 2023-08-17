@@ -18,26 +18,46 @@
     </button>
   </div>
 
-<%= form_with(url: warehouse_storage_path(@order), method: "get", local: true) do |f| %>
-  <div id="system-container">
-    <%= f.collection_select :system_id, System.all.collect { |s| [s.name.capitalize, s.id]}, :last, :first, {selected: @selected_system&.id, prompt: 'System'}, {id: 'system_select', onchange: 'showCategories()', class: "w-32 rounded p-1"} %>
-  </div>
+<%= image_tag "add_list.png", size: "40x40", id: "show-add-part-button", class: "m-4", style: "cursor: pointer;" %>
 
-  <div id="category-container" style="display:none;">
-    <%= f.collection_select :category_id, Category.all.collect { |s| [s.name.capitalize, s.id ]}, :last, :first,  {selected: @selected_category&.id, prompt: 'Category'}, {id: 'category_select', onchange: 'showParts()', class: "w-32 rounded p-1 "} %>
-  </div>
-<% end %>
 
-<%= form_with(url: add_part_order_path(@order), method: "post", local: true) do |f| %>
-  <%= hidden_field_tag :system_id, @selected_system&.id %>
-  <%= hidden_field_tag :category_id, @selected_category&.id %>
-  <div id="part-container" style="display:none;">
-    <%= f.collection_select :part_id, @parts, :id, :name_with_description, {prompt: 'Part'}, {class: 'rounded p-1' } %>
-    <p class=""><%= f.label :quantity, "Quantity:" %>
-    <%= f.number_field :quantity, class: "w-20 rounded" %>
-    <%= image_submit_tag "add.png", alt: "Add", class:"w-8 h-8", style: "margin-top: 10px;" %>
-  </div>
-<% end %>
+<div id="add-part-form" style="display: none;">
+
+  <%= form_with(url: warehouse_storage_path(@order), method: :get, html: { id: 'system-form' }) do |form| %>
+    <%= form.select :system,
+      [["Select system", nil]] + System.all.pluck(:name).uniq.sort,
+      { selected: params[:system] },
+      { class: "rounded-md border-1 p-1 pr-7", onchange: 'this.form.submit()' } %>
+  <% end %>
+
+  <% if params[:system] %>
+    <div class="mt-1 flex ">
+      <%= form_with(url: warehouse_storage_path(@order), method: :get, html: { id: 'category-form' }) do |form| %>
+        <%= form.hidden_field :system, value: params[:system] %>
+        <%= form.select :category,
+          [["Select category", nil]] + @categories.pluck(:name).uniq.sort,
+          { selected: params[:category] },
+          { class: "rounded-md border-1 p-1 pr-7", onchange: 'this.form.submit()' } %>
+      <% end %>
+    </div>
+  <% end %>
+
+ <% if params[:category] %>
+    <div class="mt-1 mb-8">
+    
+      <%= form_with(url: add_part_order_path(@order), method: :post, html: { id: 'part-form' }) do |form| %>
+        <%= form.hidden_field :system_id, value: @selected_system.id if @selected_system %>
+        <%= form.hidden_field :category_id, value: @selected_category.id if @selected_category %>
+        <%= form.collection_select :part_id, @parts, :id, :description, { prompt: 'Select Part' }, { class: 'pr-7 rounded'} %>
+        <p>Quantity: <%= form.number_field :quantity, in: 1..9999, step: 1, class: "rounded-md border-1 p-1 w-20", required: true %>
+         <%= form.button type: "submit" do %>
+          <%= image_tag "add.png", size: "30x30", class: "img-down" %>
+          <% end %></p>
+      <% end %>
+    </div>
+  <% end %> 
+</div>
+
 
 
 
@@ -133,24 +153,22 @@
 <p class="text-center text-sm">(Save to refresh delivery weight)</p>
 
 <script>
-function showCategories() {
-  const selectedSystem = document.getElementById('system_select').value;
-  if (selectedSystem) {
-    document.getElementById('category-container').style.display = 'block';
+document.getElementById("show-add-part-button").addEventListener("click", function() {
+  var form = document.getElementById("add-part-form");
+  if (form.style.display === "none" || form.style.display === "") {
+    form.style.display = "block";
   } else {
-    document.getElementById('category-container').style.display = 'none';
-    document.getElementById('part-container').style.display = 'none';
+    form.style.display = "none";
   }
-}
+});
 
-function showParts() {
-  const selectedCategory = document.getElementById('category_select').value;
-  if (selectedCategory) {
-    document.getElementById('part-container').style.display = 'block';
-  } else {
-    document.getElementById('part-container').style.display = 'none';
+window.onload = function() {
+  // Sprawdź, czy w URL są określone parametry 'system' i/lub 'category'
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('system') || urlParams.has('category')) {
+    // Jeśli tak, automatycznie rozwijaj div z formularzem
+    document.getElementById("add-part-form").style.display = "block";
   }
-}
+};
 
 </script>
-

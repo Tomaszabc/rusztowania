@@ -33,27 +33,19 @@ module Warehouse
     end
 
     def show 
-      @selected_system = System.find(params[:system_id]) if params[:system_id]
-      @selected_category = Category.find(params[:category_id]) if params[:category_id]
       @order = Order.find(params[:id])
-      @system = System.find(params[:system_id]) if params[:system_id]
-
-      if @system
-        @categories = Category.joins(parts: :part_systems).where(part_systems: { system_id: @system.id }).distinct
-      else
-        @categories = Category.all
+      
+      if params[:system].present?
+        system = System.find_by(name: params[:system])
+        puts "System found: #{system.inspect}" # Debugging
+        @categories = system ? system.categories : Category.none
+        puts "Categories found: #{@categories.inspect}" # Debugging
       end
+      
 
-      if params[:category_id]
-        session[:selected_category_id] = params[:category_id]
-      end
-    
-      @selected_category = Category.find_by(id: session[:selected_category_id])
-    
-      if @selected_category
-        @parts = @selected_category.parts
-      else
-        @parts = Part.all
+      if params[:category].present?
+        category = Category.find_by(name: params[:category])
+        @parts = category ? category.parts : Part.none
       end
     end
     
