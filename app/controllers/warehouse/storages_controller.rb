@@ -35,17 +35,21 @@ module Warehouse
     def show 
       @order = Order.find(params[:id])
       
-      if params[:system].present?
+      if params[:system].present? && !params[:system].empty?
         system = System.find_by("LOWER(name) = ?", params[:system].downcase)
         puts "System found: #{system.inspect}" # Debugging
         @categories = system ? system.categories : Category.none
         puts "Categories found: #{@categories.inspect}" # Debugging
+      else
+        @categories = Category.none
       end
       
 
-      if params[:category].present?
+      if params[:category].present? && params[:category] != "Select category"
         category = Category.find_by("LOWER(name) = ?", params[:category].downcase)
-        @parts = category ? category.parts : Part.none
+        @parts = category ? category.parts.order(description: :asc) : Part.none
+      else
+        @parts = Part.none
       end
     end
     

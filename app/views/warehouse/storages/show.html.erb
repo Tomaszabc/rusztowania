@@ -9,6 +9,7 @@
   </div>
 <% end %>
 
+
 <div class="mb-1  ml-2 mt-2 text-left">
     <button class="inline-flex items-center  px-1 py-1  bg-transparent hover:bg-slate-300 text-black text-sm font-medium rounded-md border border-black hover:scale-110 transition duration-200" onclick="history.back()">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -17,7 +18,23 @@
       back
     </button>
   </div>
-
+<div class= "flex inline justify-end mr-2">
+      <div data-controller="lightbox">
+        <%= link_to asset_path('instruction_show.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
+          <div class= "flex inline">
+          <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
+          <%= button_to " Instruction", class: "your-button-classes ml-2 " %>
+          </div>
+        <% end %>
+      </div>
+      <p>/</p>
+      <div class="flex  rounded bg-orange-100">
+      <%= link_to "https://www.youtube.com/watch?v=zF2W2xk3Zhg", target: "_blank" do %>
+  <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1  ') %>
+  Video Instruction
+<% end %>
+</div>
+    </div>
 
 <div id="show-add-part-button" class="m-4 flex inline" style="cursor: pointer;">
   <%= image_tag "add_list.png", size: "40x40" %>
@@ -68,16 +85,8 @@
 
 
 <h1 class="text-lg text-center">Order Details</h1>
-<div> <div class= "flex inline justify-end">
-      <div data-controller="lightbox">
-        <%= link_to asset_path('instruction_show.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
-          <div class= "flex inline">
-          <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
-          <%= button_to " Instruction", class: "your-button-classes ml-2" %>
-          </div>
-        <% end %>
-      </div>
-    </div>
+<div> 
+    
   <p>Scaffolder: <%= @order.user.name %> <%= @order.user.email %></p>
   <p class="text-lg">Building Site: <%= @order.building_site %></p>
   <p>Site info: <%= @order.building_site_info %></p>
@@ -157,23 +166,28 @@
 <p class="text-center "><strong>Delivery Weight</strong> (Lagerman+Scaffolder): <%= total_delivery_weight(@order.order_lists, @order.order_storage_lists) %>kg</p>
 <p class="text-center text-sm">(Save to refresh delivery weight)</p>
 
-<script>
-document.getElementById("show-add-part-button").addEventListener("click", function() {
-  var form = document.getElementById("add-part-form");
-  if (form.style.display === "none" || form.style.display === "") {
-    form.style.display = "block";
-  } else {
-    form.style.display = "none";
-  }
-});
 
-window.onload = function() {
-  // Sprawdź, czy w URL są określone parametry 'system' i/lub 'category'
-  var urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has('system') || urlParams.has('category')) {
-    // Jeśli tak, automatycznie rozwijaj div z formularzem
-    document.getElementById("add-part-form").style.display = "block";
-  }
-};
+
+
+<script>
+  document.getElementById("show-add-part-button").addEventListener("click", function() {
+    var form = document.getElementById("add-part-form");
+    if (form.style.display === "none" || form.style.display === "") {
+      form.style.display = "block";
+    } else {
+      form.style.display = "none";
+    }
+  });
+
+  window.onload = function() {
+    // Sprawdź, czy w URL są określone parametry 'system' i/lub 'category'
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('system') || urlParams.has('category')) {
+      // Jeśli tak, automatycznie rozwijaj div z formularzem
+      document.getElementById("add-part-form").style.display = "block";
+    }
+  };
+
+
 
 </script>
