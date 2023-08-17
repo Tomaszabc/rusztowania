@@ -134,7 +134,10 @@ Car number: <%= @order.car_number%>
 <% end %>
 <% end %>
 <p class="text-center m-4"><strong>Order Weight:</strong> <%= total_weight %>kg</p>
-<p class="text-center m-4"><strong>Delivery Weight</strong>: <%= total_delivery_weight(@order.order_lists, @order.order_storage_lists) %>kg</p>
-
+<% if @order.status == "completed" || @order.status == "missing_parts" %>
+  <p class="text-center m-4"><strong>Delivery Weight</strong>: <%= total_delivery_weight(@order.order_lists, @order.order_storage_lists) %>kg</p>
+<% else %>
+<p class="text-center m-4"><strong>Delivery Weight</strong>: Not completed</p>
+<% end %>
 
 <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
