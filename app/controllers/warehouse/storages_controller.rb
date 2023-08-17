@@ -36,7 +36,7 @@ module Warehouse
       @order = Order.find(params[:id])
       
       if params[:system].present?
-        system = System.find_by(name: params[:system])
+        system = System.find_by("LOWER(name) = ?", params[:system].downcase)
         puts "System found: #{system.inspect}" # Debugging
         @categories = system ? system.categories : Category.none
         puts "Categories found: #{@categories.inspect}" # Debugging
@@ -44,7 +44,7 @@ module Warehouse
       
 
       if params[:category].present?
-        category = Category.find_by(name: params[:category])
+        category = Category.find_by("LOWER(name) = ?", params[:category].downcase)
         @parts = category ? category.parts : Part.none
       end
     end

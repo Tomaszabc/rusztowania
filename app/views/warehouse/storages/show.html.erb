@@ -18,14 +18,19 @@
     </button>
   </div>
 
-<%= image_tag "add_list.png", size: "40x40", id: "show-add-part-button", class: "m-4", style: "cursor: pointer;" %>
+
+<div id="show-add-part-button" class="m-4 flex inline" style="cursor: pointer;">
+  <%= image_tag "add_list.png", size: "40x40" %>
+  <span class="pt-2 ml-2">Add More Parts</span>
+</div>
 
 
 <div id="add-part-form" style="display: none;">
 
   <%= form_with(url: warehouse_storage_path(@order), method: :get, html: { id: 'system-form' }) do |form| %>
-    <%= form.select :system,
-      [["Select system", nil]] + System.all.pluck(:name).uniq.sort,
+   <% sorted_systems = System.pluck(:name).sort_by { |name| ["peri", "haki", "alfix", "combisafe", "rullestias", "other"].index(name.downcase) || Float::INFINITY } %>
+   <%= form.select :system,
+      [["Select system", nil]] + sorted_systems.map { |name| name.capitalize }.uniq,
       { selected: params[:system] },
       { class: "rounded-md border-1 p-1 pr-7", onchange: 'this.form.submit()' } %>
   <% end %>
@@ -35,7 +40,7 @@
       <%= form_with(url: warehouse_storage_path(@order), method: :get, html: { id: 'category-form' }) do |form| %>
         <%= form.hidden_field :system, value: params[:system] %>
         <%= form.select :category,
-          [["Select category", nil]] + @categories.pluck(:name).uniq.sort,
+          [["Select category", nil]] + @categories.pluck(:name).map { |name| name.capitalize }.uniq.sort,
           { selected: params[:category] },
           { class: "rounded-md border-1 p-1 pr-7", onchange: 'this.form.submit()' } %>
       <% end %>
