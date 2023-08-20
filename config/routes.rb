@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       post :add_part
       delete :delete_part
       get :set_to_hide
+      get :set_to_visible
     end
   end
  
@@ -42,6 +43,8 @@ Rails.application.routes.draw do
         get :search_orders
         get :missing_parts_orders
         get 'parts_on_site'
+        get :hidden_orders
+        get :visible_orders
        
       end
     end
@@ -61,6 +64,5 @@ Rails.application.routes.draw do
   end
 end
   
-
 
 end

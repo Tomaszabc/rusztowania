@@ -46,5 +46,10 @@ class Order < ApplicationRecord
     self.hidden = true
     save
   end
+
+  def set_to_visible
+    self.hidden = false
+    save
+  end
   
 end
