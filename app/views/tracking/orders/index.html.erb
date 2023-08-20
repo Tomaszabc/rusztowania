@@ -1,24 +1,19 @@
 <button id="toggle-storage-menu" class="ml-4 btn btn-primary  rounded-lg p-1 flex inline bg-neutral-200 hover:bg-neutral-300" onclick="toggleMenu()"><%= image_tag "menu.png", class: "w-6 h-6 flex inline mr-1 " %>  Tracking Menu</button>
-<div id="storage-menu" class="transition-all duration-500 max-h-0 overflow-hidden">
+<div id="storage-menu" class="transition-all duration-500 max-h-0 overflow-hidden mt-2">
+     
+  <%= form_with url: tracking_orders_path, method: :get, local: true do |form| %>
+    <%= form.label :site, "Search for:", class: "mr-1" %> 
+    <%= form.collection_select :site, Site.order(:name), :id, :name, { prompt: "Choose a site" }, { class: "w-44 rounded-lg" } %>
     <div class="mb-2">
-    <%= form_with url: tracking_orders_path, method: :get, local: true do |form| %>
-      <%= form.label :start_date, "From:" %>
-      <%= form.date_field :start_date, class: "w-20" %>
-      <%= form.label :end_date, "To:" %>
-      <%= form.date_field :end_date, class: "w-20" %>
-      <%= image_submit_tag 'search.png', class: 'w-8 h-8', alt: 'Search' %>
-      <% end %>
-  
-  </div>
-    <%= form_with url: search_orders_tracking_orders_path, method: :get, local: true do |form| %>
-    <div class="flex justify-between mb-2 mt-2">
-      <div class="flex inline ">
-        <%= form.label :site, "Select Site:", class: "mr-1" %> 
-        <%= form.collection_select :site, Site.order(:name), :id, :name, { prompt: "Choose a site" }, { class: "w-44" } %>
-        <%= image_submit_tag 'search.png', class: 'w-8 h-8', alt: 'Search' %>
-      </div>
-    </div>
+    <%= form.label :start_date, "From:" %>
+    <%= form.date_field :start_date, class: "w-20 border-1 rounded-lg" %>
+    <%= form.label :end_date, "To:" %>
+    <%= form.date_field :end_date, class: "w-20 border-1 rounded-lg" %>
+    
+    <%= image_submit_tag 'search.png', class: 'w-8 h-8', alt: 'Search' %>
   <% end %>
+</div>
+   
 
   <div class="flex justify-between ">
     <div class="flex inline ">

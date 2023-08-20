@@ -150,8 +150,8 @@ module Warehouse
     end
 
     def recent_orders
-      six_months_ago = 6.months.ago
-      Order.where('created_at > ?', six_months_ago)
+      two_months_ago = 2.months.ago
+      Order.where('created_at > ?', two_months_ago)
     end
 
     def order_params
