@@ -41,5 +41,10 @@ class Order < ApplicationRecord
     order_lists.sum { |list| list.quantity * list.part.weight }
   end
 
+
+  def set_to_hide
+    self.hidden = true
+    save
+  end
   
 end

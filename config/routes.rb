@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get :set_to_missing_parts
       post :add_part
       delete :delete_part
+      get :set_to_hide
     end
   end
  

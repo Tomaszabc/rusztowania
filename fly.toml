@@ -29,10 +29,3 @@ console_command = "/rails/bin/rails console"
   guest_path = "/rails/public"
   url_prefix = "/"
 
-[[services]]
-  internal_port = 5432 # Postgres instance
-  protocol = "tcp"
-
-[[services.ports]]
-  handlers = ["pg_tls"]
-  port = 5432

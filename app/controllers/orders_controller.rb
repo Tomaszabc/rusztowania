@@ -93,6 +93,12 @@ class OrdersController < ApplicationController
     redirect_to request.referer || warehouse_storages_path, notice: "Order set to Pending"
   end
 
+  def set_to_hide
+    order = Order.find(params[:id])
+    order.set_to_hide
+    redirect_to request.referer || warehouse_storages_path, notice: 'Order has been hidden.' # zmień 'some_path' na odpowiednią ścieżkę przekierowania
+  end
+
   def add_part
     @order = Order.find(params[:id])
     
