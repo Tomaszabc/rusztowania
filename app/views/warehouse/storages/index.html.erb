@@ -26,19 +26,19 @@
   <div class="flex justify-between ">
     <div class="flex inline ">
       Select only:
-        <%= button_to pending_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
-        <%= image_tag('hourglass.png', size: '20x20', alt: 'Show Completed Orders') %>
+        <%= button_to pending_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-2' do %>
+        <%= image_tag('hourglass.png', size: '30x30', alt: 'Show Completed Orders') %>
       <% end %>
-        <%= button_to in_progress_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
-        <%= image_tag('list.png', size: '20x20', alt: 'Show Completed Orders') %>
+        <%= button_to in_progress_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-2' do %>
+        <%= image_tag('list.png', size: '30x30', alt: 'Show Completed Orders') %>
       <% end %>
-       <%= button_to missing_parts_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
-        <%= image_tag('missing_parts.png', size: '20x20', alt: 'Show Missing Orders') %>
+       <%= button_to missing_parts_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-2' do %>
+        <%= image_tag('missing_parts.png', size: '30x30', alt: 'Show Missing Orders') %>
       <% end %>
-      <%= button_to completed_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
-        <%= image_tag('ok.png', size: '20x20', alt: 'Show Completed Orders') %>
+      <%= button_to completed_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-2' do %>
+        <%= image_tag('ok.png', size: '30x30', alt: 'Show Completed Orders') %>
       <% end %>
-     <%= button_to hidden_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-1' do %>
+     <%= button_to hidden_orders_warehouse_storages_path, method: :get, class: 'your-button-classes m-2' do %>
         <%= image_tag('hide.png', class: "", size: '30x30', alt: 'Show Hidden Orders') %>
       <% end %>
     </div>
@@ -89,7 +89,11 @@
     <% @orders.each do |order| %>
       <tr class="transition duration-300 hover:bg-slate-300 border ">
         <td class="m-2"> <%= link_to warehouse_storage_path(order), class: "ml-2" do %>
-          <%= image_tag('go_to.png', size: '30x30', class: 'inline') %>
+        <% if order.hidden == false%>
+            <%= image_tag('go_to.png', size: '30x30', class: 'inline') %>
+          <% else %>
+            <%= image_tag('hide.png', size: '30x30', class: 'inline') %>
+          <% end %>
           <%= order.id %>
         <% end %></td>
         <td class="m-2 text-sm "><%= order.building_site %></td>

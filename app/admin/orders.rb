@@ -42,7 +42,9 @@ ActiveAdmin.register Order do
       row :storage_info
       row :car_number
       row :status
+      row :hidden
       row :total_weight
+
     end
 
     panel 'Ordered Parts' do
@@ -50,7 +52,6 @@ ActiveAdmin.register Order do
         column :quantity
         column :description
         column :weight
-        # ... tu wypisz atrybuty, które chcesz wyświetlać z OrderList
       end
     end
 
@@ -59,7 +60,6 @@ ActiveAdmin.register Order do
         column :quantity
         column :description
         column :weight
-        # ... tu wypisz atrybuty, które chcesz wyświetlać z OrderList
       end
     end
   end  
@@ -78,10 +78,10 @@ ActiveAdmin.register Order do
       f.input :info
       f.input :car_number
       f.input :status, as: :select, collection: %w[pending in_progress completed missing_parts], include_blank: false
-      # Dodaj tutaj inne pola, które chcesz wyświetlić
+      f.input :hidden
     end
 
-    f.actions # Dodaje standardowe przyciski akcji, takie jak "Save"
+    f.actions 
   end
 
 end
