@@ -1,6 +1,6 @@
 class OrderMailer < ApplicationMailer
   include OrderMailerHelper
-  default from: 'stillasstillas6@gmail.com'
+  default from: 'dariusz.borowiec@cstillas.no'
  
   def order_confirmation(order)
     @order = order

@@ -140,7 +140,7 @@
   <p class="text-center mt-4"><strong>Delivery Date wanted:</strong> <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
   <div class="mt-4 justify-center text-center">
     <%= form.label :new_delivery_date, "Change Delivery Date?" %>
-    <%= form.date_field :new_delivery_date, min: Date.today, value: @order.new_delivery_date %>
+    <%= form.date_field :new_delivery_date, value: @order.new_delivery_date %>
   </div>
   <div class="flex justify-center mt-4">
     <%= form.label :car_number, "Delivery Car Number:", class: "mr-2 mt-2" %>
