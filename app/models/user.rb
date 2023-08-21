@@ -18,7 +18,7 @@ class User < ApplicationRecord
   end
 
   def display_name
-    self.email # lub inny atrybut, który chcesz wyświetlić
+    self.email 
   end
 
   def password_required?

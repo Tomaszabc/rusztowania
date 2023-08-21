@@ -109,10 +109,6 @@ ActiveAdmin.register Part do
           content_tag(:span, 'No image attached')
         end
       end
-      # Add more attributes you want to display in the show view
-
-      # If you want to display all other attributes by default, you can use:
-      # default_attribute_table_rows(except: [:created_at, :updated_at])
     end
   end
 

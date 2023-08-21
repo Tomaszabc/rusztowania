@@ -12,7 +12,6 @@ module Warehouse
       @start_date = params[:start_date]
       @end_date = params[:end_date]
 
-      
       @orders = filtered_orders(recent_orders.order(created_at: :desc))
 
       if start_date && end_date
@@ -28,9 +27,7 @@ module Warehouse
         @orders = filtered_orders(@orders.where(building_site: site.name))
         @site_name = site.name
       end
-        
       @orders = @orders.limit(100) unless @all_orders_view
-      
     end
 
     def show 
@@ -38,9 +35,7 @@ module Warehouse
       
       if params[:system].present? && !params[:system].empty?
         system = System.find_by("LOWER(name) = ?", params[:system].downcase)
-        puts "System found: #{system.inspect}" # Debugging
         @categories = system ? system.categories : Category.none
-        puts "Categories found: #{@categories.inspect}" # Debugging
       else
         @categories = Category.none
       end
@@ -141,7 +136,6 @@ module Warehouse
     private
 
     def filtered_orders(base_query)
-      # Przesłanie parametru 'show_hidden' spowoduje, że zwrócone zostaną również ukryte zamówienia
       if params[:show_hidden] == "true"
         base_query
       else

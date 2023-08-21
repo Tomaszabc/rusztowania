@@ -4,7 +4,7 @@ module OrderMailerHelper
     weight = 0
     order_list.each do |part|
       
-      weight += part.quantity * part.weight
+    weight += part.quantity * part.weight
     end
     weight
   end

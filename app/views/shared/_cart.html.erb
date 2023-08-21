@@ -1,17 +1,13 @@
- <% unless current_page?(new_order_path) %>
-
-      <% if @cart && @cart.cart_items.any? %>
-<div class="flex justify-center text-sm w-120">
-  
-    <div>
-    <strong>Items in cart:</strong>
-    <% sorted_cart_items = cart.cart_items.sort_by { |item| item.created_at } %>
-    <% sorted_cart_items.each do |item| %>
-      <p class="flex inline border-b-2"><%= item.part.name %> <%= item.part.description %>--<strong><%= item.quantity %> </strong>-stk</p>
-      
+<% unless current_page?(new_order_path) %>
+  <% if @cart && @cart.cart_items.any? %>
+    <div class="flex justify-center text-sm w-120">
+      <div>
+        <strong>Items in cart:</strong>
+          <% sorted_cart_items = cart.cart_items.sort_by { |item| item.created_at } %>
+          <% sorted_cart_items.each do |item| %>
+        <p class="flex inline border-b-2"><%= item.part.name %> <%= item.part.description %>--<strong><%= item.quantity %> </strong>-stk</p>
       <% end %>
+      </div>
     </div>
-  
-</div>
-<% end %>
+  <% end %>
 <% end %>

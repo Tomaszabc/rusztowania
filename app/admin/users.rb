@@ -20,9 +20,9 @@ ActiveAdmin.register User do
       f.input :name
       f.input :status, as: :select, collection: %w[scaffolder admin lagermann], include_blank: false
       
-    # Dodaj opis
+  
     f.li do
-      f.label 'Hint:' # Puste etykiety, aby utworzyć odstęp
+      f.label 'Hint:' 
       f.div 'Leave password empty if no password change', class: 'instruction-text'
     end
       f.input :password

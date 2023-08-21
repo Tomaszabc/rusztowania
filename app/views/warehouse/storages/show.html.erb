@@ -2,39 +2,40 @@
   <div id="error_explanation">
     <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
     <ul>
-    <% @order.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
+      <% @order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
     </ul>
   </div>
 <% end %>
 
 
 <div class="mb-1  ml-2 mt-2 text-left">
-    <button class="inline-flex items-center  px-1 py-1  bg-transparent hover:bg-slate-300 text-black text-sm font-medium rounded-md border border-black hover:scale-110 transition duration-200" onclick="history.back()">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-      </svg>
-      back
-    </button>
-  </div>
+  <button class="inline-flex items-center  px-1 py-1  bg-transparent hover:bg-slate-300 text-black text-sm font-medium rounded-md border border-black hover:scale-110 transition duration-200" onclick="history.back()">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+    </svg>
+    back
+  </button>
+</div>
+
 <div class= "flex inline justify-end mr-2">
-      <div data-controller="lightbox">
-        <%= link_to asset_path('instruction_show.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
-          <div class= "flex inline">
-          <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
-          <%= button_to " Instruction", class: "your-button-classes ml-2 " %>
-          </div>
-        <% end %>
-      </div>
-      <p>/</p>
-      <div class="flex  rounded bg-orange-100">
-      <%= link_to "https://www.youtube.com/watch?v=zF2W2xk3Zhg", target: "_blank" do %>
+  <div data-controller="lightbox">
+  <%= link_to asset_path('instruction_show.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
+  <div class= "flex inline">
+  <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
+  <%= button_to " Instruction", class: "your-button-classes ml-2 " %>
+  </div>
+  <% end %>
+  </div>
+  <p>/</p>
+  <div class="flex  rounded bg-orange-100">
+  <%= link_to "https://www.youtube.com/watch?v=zF2W2xk3Zhg", target: "_blank" do %>
   <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1  ') %>
   Video Instruction
-<% end %>
+  <% end %>
+  </div>
 </div>
-    </div>
 
 <div id="show-add-part-button" class="m-4 flex inline" style="cursor: pointer;">
   <%= image_tag "add_list.png", size: "40x40" %>
@@ -66,7 +67,6 @@
 
  <% if params[:category] %>
     <div class="mt-1 mb-8">
-    
       <%= form_with(url: add_part_order_path(@order), method: :post, html: { id: 'part-form' }) do |form| %>
         <%= form.hidden_field :system_id, value: @selected_system.id if @selected_system %>
         <%= form.hidden_field :category_id, value: @selected_category.id if @selected_category %>
@@ -86,8 +86,7 @@
 
 <h1 class="text-lg text-center">Order <%= @order.id %></h1>
 <h1 class="text-sm text-center mb-4">Created: <%= @order.created_at.strftime("%d-%m-%Y") %></h1>
-<div> 
-    
+<div>   
   <p>Scaffolder: <%= @order.user.name %> <%= @order.user.email %></p>
   <p class="text-lg">Building Site: <%= @order.building_site %></p>
   <p>Site info: <%= @order.building_site_info %></p>
@@ -99,27 +98,21 @@
 <% if @order.order_storage_lists.any? %>
   <h2 class="mt-10 text-purple-900">Additional/more parts from Lagermann:</h2>
   <% total_storage_weight = 0 %>
-  
     <% @order.order_storage_lists.includes(:part).sort_by { |osl| osl.description.downcase }.each_with_index do |order_storage_list, index| %>
-     
-        <div class="m-2 ml-1 border-b-2 flex inline justify-between">
-    <div>
-      <p class="text-lg pt-2 mb-6 inline"> 
-        
-        <strong><%= index + 1 %>. <%= order_storage_list.part.name if order_storage_list.part %></strong>/<%= order_storage_list.description %>--
-        <span class="text-lg text-indigo-800 pt-2"><strong><%= order_storage_list.quantity %></strong> stk</span>
-      </p>
+    <div class="m-2 ml-1 border-b-2 flex inline justify-between">
+      <div>
+        <p class="text-lg pt-2 mb-6 inline"> 
+          <strong><%= index + 1 %>. <%= order_storage_list.part.name if order_storage_list.part %></strong>/<%= order_storage_list.description %>--
+          <span class="text-lg text-indigo-800 pt-2"><strong><%= order_storage_list.quantity %></strong> stk</span>
+        </p>
+      </div>
+      <div class="mb-3 ml-2 mt-2 hover:scale-110 transition duration-200">
+        <%= link_to delete_part_order_path(@order, order_storage_list_id: order_storage_list.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "inline-flex items-center px-2 py-1 bg-transparent hover:bg-red-100 text-black text-sm font-medium rounded-md border border-black" do %>
+          <%= image_tag "trash.png", size: "20x20", alt: "Delete", class: "" %>
+        <% end %>
+      </div>
+      <% total_storage_weight += order_storage_list.quantity * order_storage_list.weight %>
     </div>
-    <div class="mb-3 ml-2 mt-2 hover:scale-110 transition duration-200">
-      <%= link_to delete_part_order_path(@order, order_storage_list_id: order_storage_list.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "inline-flex items-center px-2 py-1 bg-transparent hover:bg-red-100 text-black text-sm font-medium rounded-md border border-black" do %>
-        <%= image_tag "trash.png", size: "20x20", alt: "Delete", class: "" %>
-      <% end %>
-    </div>
-    <% total_storage_weight += order_storage_list.quantity * order_storage_list.weight %>
-  </div>
-
-      
-    
   <% end %>
 <% end %>
 
@@ -136,18 +129,13 @@
         <% total_weight += order_list.quantity * order_list.weight %>
       </div>
     <% end %>
-  
 <% end %>
 
-
-
-
-
 <p><strong>Additional Info:</strong> <%= simple_format(@order.info) %></p>
-    <div class="mt-4">
-      <p><%= form.label :storage_info, "Storage Parts/Delivery Info:", class: "mr-2 mt-2" %></p>
-      <p><%= form.text_area :storage_info, value: (@order.storage_info || @order.info ), rows: 6, cols: 40 %></p>
-    </div>
+<div class="mt-4">
+  <p><%= form.label :storage_info, "Storage Parts/Delivery Info:", class: "mr-2 mt-2" %></p>
+  <p><%= form.text_area :storage_info, value: (@order.storage_info || @order.info ), rows: 6, cols: 40 %></p>
+</div>
 
   <p class="text-center mt-4"><strong>Delivery Date wanted:</strong> <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
   <div class="mt-4 justify-center text-center">
@@ -163,7 +151,6 @@
   </div>
 <% end %>
 <p class="text-center m-4"><strong>Order Weight:</strong> <%= total_weight %>kg</p>
-
 <p class="text-center "><strong>Delivery Weight</strong> (Lagerman+Scaffolder): <%= total_delivery_weight(@order.order_lists, @order.order_storage_lists) %>kg</p>
 <p class="text-center text-sm">(Save to refresh delivery weight)</p>
 
@@ -181,14 +168,9 @@
   });
 
   window.onload = function() {
-    // Sprawdź, czy w URL są określone parametry 'system' i/lub 'category'
     var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('system') || urlParams.has('category')) {
-      // Jeśli tak, automatycznie rozwijaj div z formularzem
       document.getElementById("add-part-form").style.display = "block";
     }
   };
-
-
-
 </script>

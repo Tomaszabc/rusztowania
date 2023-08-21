@@ -59,7 +59,6 @@
 
 
 
-  <!-- Dane produktów z koszyka -->
   <p class="ml-2 mt-7 text-lg">Parts in cart:</p>
   <% @products.each do |product| %>
     <div>
@@ -84,7 +83,6 @@
 <% end %>
 
   <script>
-      // Wrap the script in a self-invoking function
       (function() {
         const siteSelect = document.getElementById("site-select");
         const fullAddressElement = document.getElementById("full-address");
@@ -92,7 +90,7 @@
         siteSelect.addEventListener("change", (event) => {
           const selectedSite = event.target.value;
 
-          // Wykonaj zapytanie AJAX za pomocą API Fetch, aby pobrać pełny adres na podstawie wybranego "selectedSite".
+          
           fetch(`/get_full_address?site=${selectedSite}`)
             .then((response) => response.json())
             .then((data) => {
@@ -104,4 +102,4 @@
             });
         });
       })();
-    </script>
+  </script>

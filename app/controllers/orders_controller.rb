@@ -96,13 +96,13 @@ class OrdersController < ApplicationController
   def set_to_hide
     order = Order.find(params[:id])
     order.set_to_hide
-    redirect_to request.referer || warehouse_storages_path, notice: 'Order has been hidden.' # zmień 'some_path' na odpowiednią ścieżkę przekierowania
+    redirect_to request.referer || warehouse_storages_path, notice: 'Order has been hidden.' 
   end
 
   def set_to_visible
     order = Order.find(params[:id])
     order.set_to_visible
-    redirect_to request.referer || warehouse_storages_path, notice: 'Order is visible.' # zmień 'some_path' na odpowiednią ścieżkę przekierowania
+    redirect_to request.referer || warehouse_storages_path, notice: 'Order is visible.' 
   end
 
   def add_part
@@ -111,9 +111,7 @@ class OrdersController < ApplicationController
     if params[:system_id].present?
       @selected_system = System.find(params[:system_id])
     else
-      # Tutaj możesz dodać odpowiednią logikę, jeśli system_id nie jest obecny, np.:
-      # redirect_to some_path, alert: "System ID is required."
-      # return
+    
     end
     
     @selected_category = Category.find(params[:category_id]) if params[:category_id].present?
@@ -126,7 +124,7 @@ class OrdersController < ApplicationController
     @part = Part.find(params[:part_id])
     order_storage_list = OrderStorageList.find_or_initialize_by(order: @order, part: @part)
     
-    # Jeśli istnieje, aktualizuj ilość; jeśli nie, ustaw nową ilość i inne atrybuty
+   
     if order_storage_list.persisted?
       order_storage_list.quantity += params[:quantity].to_i
     else

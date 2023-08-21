@@ -7,42 +7,30 @@
     <%= csp_meta_tag %>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js", "data-turbolinks-track": "reload" %>
-  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js", "data-turbolinks-track": "reload" %>
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css", "data-turbolinks-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-   <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'application' %>
   </head>
-<%# <nav class="fixed sticky top-0 w-full z-50"> %>
-<nav>
-<%= render 'shared/tracking_navbar'%>
-</nav>
   <body class="bg-no-repeat bg-cover bg-center" style="background-image: url(<%= asset_path 'bg-lines.png' %>); background-attachment: fixed;">
-  
-
+    <nav>
+      <%= render 'shared/tracking_navbar'%>
+    </nav>
     <% flash.each do |key, value| %>
       <div class="flash text-center text-lime-700 <%= key %>">
         <%= value %>
       </div>
     <% end %>
     <main class="flex justify-center mt-4 px-5 ">
-      <div class="min-w-[350px]  min-h-[400px] border-2 rounded-lg shadow-xl bg-white"
-        style="">
+      <div class="min-w-[350px] min-h-[400px] border-2 rounded-lg shadow-xl bg-white" style="">
         <div class="m-2">
           <%= yield %>
         </div>
-      </div>  
+      </div>
     </main>
-    
-      <%= render 'shared/log_in'%>
-      
+    <%= render 'shared/log_in'%>
     <%= render 'shared/tracking_footer'%>
-    
-
-
-</div>
-
-
-   <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
   </body>
 </html>

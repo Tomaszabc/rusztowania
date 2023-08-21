@@ -7,8 +7,8 @@
     <%= csp_meta_tag %>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js", "data-turbolinks-track": "reload" %>
-  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js", "data-turbolinks-track": "reload" %>
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css", "data-turbolinks-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
    <%= javascript_include_tag 'application' %>
@@ -38,11 +38,8 @@
         </div>
       </div>  
     </main>
-    
-      <%= render 'shared/log_in'%>
-    
+  <%= render 'shared/log_in'%>
   <%= render 'shared/main_footer'%>
-
 </div>
   </body>
 </html>
