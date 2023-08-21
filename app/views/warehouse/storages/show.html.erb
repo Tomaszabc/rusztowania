@@ -84,7 +84,8 @@
 
 
 
-<h1 class="text-lg text-center">Order Details</h1>
+<h1 class="text-lg text-center">Order <%= @order.id %></h1>
+<h1 class="text-sm text-center mb-4">Created: <%= @order.created_at.strftime("%d-%m-%Y") %></h1>
 <div> 
     
   <p>Scaffolder: <%= @order.user.name %> <%= @order.user.email %></p>

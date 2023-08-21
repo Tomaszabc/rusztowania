@@ -17,8 +17,9 @@
     back
   </button>
 </div>
-
-  <p class="text-lg text-center ">Order status: <%= @order.status.gsub('_', ' ').titleize %></p>
+<p class=" text-center ">Order: <%= @order.id %></p>
+<p class=" text-center text-sm">Created at: <%= @order.created_at.strftime("%d-%m-%Y") %></p>
+  <p class="text-lg text-center ">Status: <%= @order.status.gsub('_', ' ').titleize %></p>
   <p class="flex justify-center mb-4">
     <% if @order.pending? %>
     <%= image_tag('hourglass.png', size: '40x40', alt: "Pending") %>
