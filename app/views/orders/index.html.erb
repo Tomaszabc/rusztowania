@@ -1,0 +1,15 @@
+<%= form_with(model: Order.new, url: orders_path, method: :post) do |form| %>
+  <div class="field">
+    <%= form.label :building_site, "Building Site" %>
+    <%= form.text_field :building_site %>
+  </div>
+  <div class="field">
+    <%= form.label :delivery_date, "Delivery Date" %>
+    <%= form.date_field :delivery_date %>
+  </div>
+  <div class="field">
+    <%= form.label :info, "Additional Information" %>
+    <%= form.text_area :info %>
+  </div>
+  <%= form.submit "Submit" %>
+<% end %>
