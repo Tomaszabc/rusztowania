@@ -138,10 +138,15 @@
 </div>
 
   <p class="text-center mt-4"><strong>Delivery Date wanted:</strong> <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
-  <div class="mt-4 justify-center text-center">
-    <%= form.label :new_delivery_date, "Change Delivery Date?" %>
-    <%= form.date_field :new_delivery_date, value: @order.new_delivery_date %>
-  </div>
+<div class="mt-4 justify-center text-center">
+  <%= form.label :new_delivery_date, "Change Delivery Date?" %>
+  <%= form.date_field :new_delivery_date, value: @order.new_delivery_date, id: 'new_delivery_date' %>
+  <button type="button" onclick="clearDateField()" style="background: none; border: none; padding: 0; cursor: pointer;">
+    <%= image_tag("eraser.png", size: "40x40", class: "", style: "margin-bottom: -14px;") %>
+  </button>
+</div>
+
+
   <div class="flex justify-center mt-4">
     <%= form.label :car_number, "Delivery Car Number:", class: "mr-2 mt-2" %>
     <%= form.text_field :car_number, class: "w-32" %>
@@ -173,4 +178,10 @@
       document.getElementById("add-part-form").style.display = "block";
     }
   };
+
+  
+  function clearDateField() {
+    document.getElementById('new_delivery_date').value = '';
+  }
+
 </script>
