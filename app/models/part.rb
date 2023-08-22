@@ -1,4 +1,6 @@
 class Part < ApplicationRecord
+  acts_as_paranoid
+
   has_many :order_lists
   has_many :orders, through: :order_lists
   has_one_attached :image

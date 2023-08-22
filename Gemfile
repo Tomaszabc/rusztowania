@@ -84,3 +84,5 @@ gem 'pry'
 gem 'jquery-rails'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'faker'
+
+gem 'paranoia'

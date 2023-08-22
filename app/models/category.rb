@@ -1,4 +1,6 @@
 class Category < ApplicationRecord
+  acts_as_paranoid
+
   has_many :part_categories
   has_many :parts, through: :part_categories
 

@@ -1,10 +1,12 @@
 class Order < ApplicationRecord
+  
+
   attribute :storage_info, :text
   attribute :name, :string
   
   has_many :order_lists, dependent: :destroy
   has_many :parts, through: :order_lists
-  belongs_to :user
+  belongs_to :user, -> { with_deleted }
   has_many :order_storage_lists, dependent: :destroy
   
   validates :building_site, presence: true
@@ -38,7 +40,7 @@ class Order < ApplicationRecord
   end
   
   def total_weight
-    order_lists.sum { |list| list.quantity * list.part.weight }
+    order_lists.sum { |list| list.part ? list.quantity * list.part.weight : 0 }
   end
 
 

@@ -1,4 +1,6 @@
 class System < ApplicationRecord
+  acts_as_paranoid
+
   has_many :part_systems
   has_many :parts, through: :part_systems
   has_many :categories, through: :parts

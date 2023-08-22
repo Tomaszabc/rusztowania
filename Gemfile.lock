@@ -190,6 +190,8 @@ GEM
     nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    paranoia (2.6.2)
+      activerecord (>= 5.1, < 7.1)
     pg (1.5.3)
     pry (0.14.2)
       coderay (~> 1.1)
@@ -314,6 +316,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   mail
+  paranoia
   pg (~> 1.1)
   pry
   puma (~> 5.0)

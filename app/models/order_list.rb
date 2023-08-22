@@ -1,6 +1,6 @@
 class OrderList < ApplicationRecord
   belongs_to :order
-  belongs_to :part
+  belongs_to :part, -> { with_deleted }
 
   validates :delivery_quantity, presence: true, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
   validates :quantity, presence: true, numericality: { greater_than_or_equal_to: 0 }
