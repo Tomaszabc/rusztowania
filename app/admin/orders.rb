@@ -50,6 +50,7 @@ ActiveAdmin.register Order do
     panel 'Ordered Parts' do
       table_for order.order_lists do
         column :quantity
+        column :delivery_quantity
         column :description
         column :weight
       end
