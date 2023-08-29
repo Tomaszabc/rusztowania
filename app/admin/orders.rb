@@ -17,6 +17,7 @@ ActiveAdmin.register Order do
   # permit_params :building_site, :delivery_date, :info, :part_number, :part_description, :quantity, :weight
   #
   index do
+    
     selectable_column
     id_column
     column :building_site
@@ -30,39 +31,46 @@ ActiveAdmin.register Order do
     actions
   end
 
-
   show do
+    
+    div do
+      link_to '', '#', onclick: 'window.print();return false;', class: 'print-button'
+    end
+   
     attributes_table do
       row :building_site
       row :building_site_info
       row :delivery_date
-      row :new_delivery_datedelivery_date
+      row :new_delivery_date
       row :user
       row :info
       row :storage_info
       row :car_number
       row :status
-      row :hidden
+      row :hidden, class: 'row-hidden'
       row :total_weight
 
     end
 
-    panel 'Ordered Parts' do
+    panel 'Ordered Parts', class: 'ordered-parts' do
       table_for order.order_lists do
         column :quantity
         column :delivery_quantity
         column :description
+        column :name
         column :weight
       end
     end
 
-    panel 'Parts added in Storage(Lagerman parts)' do
+    panel 'Parts added in Storage(Lagerman parts)', class: 'storage-parts' do
       table_for order.order_storage_lists do
         column :quantity
         column :description
+        column :name
         column :weight
       end
     end
+    
   end  
 
 
