@@ -3,7 +3,11 @@ ActiveAdmin.register Order do
   
   member_action :print, method: :get do
     @order = Order.find(params[:id])
-    render pdf: "order_#{@order.id}", template: 'admin/orders/print'
+    render pdf: "order_#{@order.id}", template: 'admin/orders/print',
+    margin:  { top:      10,            
+      bottom:            10,
+      left:              15,
+      right:             15 }
   end
   
   # See permitted parameters documentation:
