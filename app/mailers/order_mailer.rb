@@ -13,6 +13,8 @@ class OrderMailer < ApplicationMailer
       mailer_emails << site.ledermann.email
     end
 
+    mailer_emails = mailer_emails.uniq
+
     mail(to: mailer_emails, subject:"Order for: #{@order.building_site}, #{@order.building_site_info}")
   end
 
