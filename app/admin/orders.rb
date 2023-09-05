@@ -37,8 +37,8 @@ ActiveAdmin.register Order do
     actions
   end
 
-  action_item :print, only: :show do
-    link_to 'Print this', print_admin_order_path(resource)
+  action_item :print, only: :show, class: 'left-align-action' do
+    link_to 'Print this Order', print_admin_order_path(resource), class: 'custom-green-button'
   end
 
   show do
@@ -66,6 +66,10 @@ ActiveAdmin.register Order do
         
         column :quantity
         column :delivery_quantity
+        column "Art. Number" do |order_list|
+          order_list.part.name
+        end
+        
         column :description
         
         column :weight
@@ -75,6 +79,9 @@ ActiveAdmin.register Order do
     panel 'Parts added in Storage(Lagerman parts)', class: 'storage-parts' do
       table_for order.order_storage_lists do
         column :quantity
+        column "Art. Number" do |storage_list|
+          storage_list.part.name
+        end
         column :description
         
         column :weight

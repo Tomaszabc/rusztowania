@@ -46,3 +46,19 @@
   cursor: pointer;
   margin-top: -14px;
 }
+
+.custom-green-button {
+  /* ... pozostałe style ... */
+
+  /* Dodaj tło z obrazkiem */
+  background-image: image-url('print.png');
+
+  background-repeat: no-repeat;
+  background-position: center; /* Wycentruj obrazek w przycisku */
+  padding-left: 25px; /* Dodaj trochę miejsca po lewej stronie, aby tekst nie nachodził na obrazek */
+}
+
+.left-align-action {
+  float: left;
+  margin-right: 10px;
+}
