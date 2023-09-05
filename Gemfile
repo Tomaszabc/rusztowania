@@ -86,3 +86,4 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'faker'
 
 gem 'paranoia'
+gem 'wicked_pdf'

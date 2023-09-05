@@ -1,5 +1,11 @@
 ActiveAdmin.register Order do
   permit_params :user_id, :building_site, :building_site_info, :delivery_date, :new_delivery_date, :info, :car_number, :status, :checkbox, :storage_info, order_lists_attributes: [:part_id, :quantity, :description, :delivery_quantity, :checkbox]
+  
+  member_action :print, method: :get do
+    @order = Order.find(params[:id])
+    render pdf: "order_#{@order.id}", template: 'admin/orders/print'
+  end
+  
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -31,11 +37,14 @@ ActiveAdmin.register Order do
     actions
   end
 
+  action_item :print, only: :show do
+    link_to 'Print this', print_admin_order_path(resource)
+  end
+
   show do
+
+   
     
-    div do
-      link_to '', '#', onclick: 'window.print();return false;', class: 'print-button'
-    end
    
     attributes_table do
       row :building_site
@@ -54,10 +63,11 @@ ActiveAdmin.register Order do
 
     panel 'Ordered Parts', class: 'ordered-parts' do
       table_for order.order_lists do
+        
         column :quantity
         column :delivery_quantity
         column :description
-        column :name
+        
         column :weight
       end
     end
@@ -66,7 +76,7 @@ ActiveAdmin.register Order do
       table_for order.order_storage_lists do
         column :quantity
         column :description
-        column :name
+        
         column :weight
       end
     end
