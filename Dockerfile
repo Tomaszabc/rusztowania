@@ -51,6 +51,10 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl postgresql-client imagemagick && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+    # Instaluj wkhtmltopdf
+RUN apt-get update -qq && apt-get install -y wkhtmltopdf
+
+
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
