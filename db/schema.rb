@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_22_131620) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_05_153604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -179,7 +179,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_22_131620) do
     t.datetime "updated_at", null: false
     t.string "address"
     t.datetime "deleted_at"
+    t.bigint "ledermann_id"
     t.index ["deleted_at"], name: "index_sites_on_deleted_at"
+    t.index ["ledermann_id"], name: "index_sites_on_ledermann_id"
   end
 
   create_table "systems", force: :cascade do |t|
@@ -219,4 +221,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_22_131620) do
   add_foreign_key "part_categories", "parts"
   add_foreign_key "part_systems", "parts"
   add_foreign_key "part_systems", "systems"
+  add_foreign_key "sites", "users", column: "ledermann_id"
 end
