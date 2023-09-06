@@ -62,3 +62,9 @@
   float: left;
   margin-right: 10px;
 }
+
+.custom-chart-container {
+  position: relative;
+  z-index: 10;
+  margin-bottom: 20px;
+}

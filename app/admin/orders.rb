@@ -1,4 +1,11 @@
 ActiveAdmin.register Order do
+  filter :user
+  filter :building_site, as: :select, collection: proc { Site.all.map(&:name) }
+  filter :delivery_date
+  filter :created_at
+  filter :car_number
+  filter :status, as: :select, collection: Order.statuses.map { |key, value| [value, key] }
+
   permit_params :user_id, :building_site, :building_site_info, :delivery_date, :new_delivery_date, :info, :car_number, :status, :checkbox, :storage_info, order_lists_attributes: [:part_id, :quantity, :description, :delivery_quantity, :checkbox]
   
   member_action :print, method: :get do
@@ -9,6 +16,17 @@ ActiveAdmin.register Order do
       left:              15,
       right:             15 }
   end
+
+  sidebar "Orders by Building Site", only: :index do
+    @orders_grouped_by_site = Order.group(:building_site).count
+    @labels = @orders_grouped_by_site.keys
+    @data = @orders_grouped_by_site.values
+  
+    div do
+      render partial: 'admin/orders_chart', locals: { labels: @labels, data: @data }
+    end
+  end
+  
   
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -28,6 +46,8 @@ ActiveAdmin.register Order do
   #
   index do
     
+  
+
     selectable_column
     id_column
     column :building_site
@@ -92,6 +112,9 @@ ActiveAdmin.register Order do
       end
     end
     
+
+    
+
   end  
 
 
