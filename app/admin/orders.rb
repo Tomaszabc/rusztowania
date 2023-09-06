@@ -57,7 +57,9 @@ ActiveAdmin.register Order do
     column :created_at
     column :user
     column :car_number
-    column :status
+    column :status do |order|
+      order.status.humanize
+    end
     actions
   end
 
