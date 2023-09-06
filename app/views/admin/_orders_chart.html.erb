@@ -1,0 +1,22 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<canvas id="ordersChart" width="400" height="400"></canvas>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var ctx = document.getElementById('ordersChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: <%= raw labels.to_json %>,
+      datasets: [{
+        data: <%= raw data.to_json %>,
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#FF9F40', '#FFCD56', '#C9CBCF']
+      }]
+    }
+  });
+});
+
+
+</script>

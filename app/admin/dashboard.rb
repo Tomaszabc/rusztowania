@@ -3,6 +3,11 @@ ActiveAdmin.register_page "Dashboard" do
   menu priority: 1, label: proc { I18n.t("active_admin.dashboard") }
 
   content title: proc { I18n.t("active_admin.dashboard") } do
+
+    
+
+    @orders_grouped_by_site = Order.group(:building_site).count
+
     div style: 'display: flex; justify-content: center;' do
     panel  'Welcome to admin panel.' do
       div style: 'text-align: center;' do
@@ -10,6 +15,9 @@ ActiveAdmin.register_page "Dashboard" do
       end
     end
   end
+
+  
+
   columns do
     column do
       panel "User Statistics" do
@@ -34,6 +42,10 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
     end
+
+    
+    
+
   end # end of columns
       
 
@@ -57,6 +69,15 @@ ActiveAdmin.register_page "Dashboard" do
     #   end
     # end
 
+    div style: 'display: flex; justify-content: center;' do
+      panel "Orders by Building Site" do
+        @labels = @orders_grouped_by_site.keys
+        @data = @orders_grouped_by_site.values
     
+        div do
+          render partial: 'admin/orders_chart', locals: { labels: @labels, data: @data }
+        end
+      end
+    end
   end # content
 end
