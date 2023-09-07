@@ -14,6 +14,11 @@ module ApplicationHelper
     weight
   end
 
+  def total_order_delivery_weight(order_lists)
+    order_lists.sum { |list| (list.delivery_quantity || 0) * (list.part.weight || 0) }
+  end
+  
+
 
   def total_delivery_weight(order_lists, order_storage_lists)
     weight = 0

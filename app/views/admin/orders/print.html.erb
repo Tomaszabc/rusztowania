@@ -23,10 +23,11 @@
       <thead>
         <tr>
           <th></th>
-          <th>Art. number</th>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Comb. weight</th>
+          <th class="text-sm">Art. number</th>
+          <th class="text-sm">Name</th>
+          <th class="text-sm">Stk.</th>
+          <th class="text-sm">Stk. for delivery</th>
+          <th class="text-sm">Order/Delivery Weight</th>
         </tr>
       </thead>
       <tbody>
@@ -35,15 +36,23 @@
           <td><%= index + 1 %></td>
           <td><%= order_list.part.name %></td>
           <td><%= order_list.part.description %></td>
-          <td><strong><%= order_list.quantity %></strong></td>
-          <td><%= order_list.part.weight * order_list.quantity %> kg</td>
+          <td class="text-center"><strong><%= order_list.quantity %></strong></td>
+          <td class="text-center"><strong><%= order_list.delivery_quantity %></strong></td>
+          <td class="text-center"><%= order_list.part.weight * order_list.quantity %> / <%= order_list.part.weight * order_list.delivery_quantity if order_list.delivery_quantity.present? %> kg</td>
         </tr>
         <% end %>
       </tbody>
     </table>
 
 <div class="align-right">
-  <p><strong>Weight: <%= total_weight(@order.order_lists) %> kg</strong></p>
+<% unless total_weight(@order.order_lists) == total_order_delivery_weight(@order.order_lists) %>
+  <p><strong>Order Weight: <%= total_weight(@order.order_lists) %> kg</strong></p>
+<% end %>
+  
+  <% if @order.order_lists.any? { |list| list.delivery_quantity.present? } %>
+  <p><strong>Delivery Weight: <%= total_order_delivery_weight(@order.order_lists) %> kg</strong></p>
+<% end %>
+ 
 </div>
 
 <% if @order.order_storage_lists.any? %>
@@ -52,10 +61,10 @@
   <thead>
     <tr>
     <th></th>
-          <th>Art. number</th>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Comb. weight</th>
+          <th class="text-sm">Art. number</th>
+          <th class="text-sm">Name</th>
+          <th class="text-sm">Stk.</th>
+          <th class="text-sm">Comb. weight</th>
     </tr>
   </thead>
   <tbody>
@@ -65,8 +74,8 @@
     <td> <%= storage_list.part.name %></td>
       
       <td><%= storage_list.description %></td>
-      <td><strong><%= storage_list.quantity %></strong></td>
-      <td><%= storage_list.weight %> kg</td>
+      <td class="text-center"><strong><%= storage_list.quantity %></strong></td>
+      <td class="text-center"><%= storage_list.weight %> kg</td>
     </tr>
     <% end %>
   </tbody>
@@ -77,9 +86,10 @@
 </div>
 
 <% end %>
-
- <p><strong>Total Weight: <%= total_weight(@order.order_storage_lists) +  total_weight(@order.order_lists)%> kg</strong></p>
-
+<% unless total_weight(@order.order_storage_lists) +  total_weight(@order.order_lists) == total_weight(@order.order_storage_lists) + total_order_delivery_weight(@order.order_lists) %>
+ <p><strong>Total Order Weight: <%= total_weight(@order.order_storage_lists) +  total_weight(@order.order_lists)%> kg</strong></p>
+ <% end %>
+<p><strong>Total Delivery Weight: <%= total_weight(@order.order_storage_lists) + total_order_delivery_weight(@order.order_lists) %> kg</strong></p>
 
 
 
@@ -120,15 +130,23 @@ th, td {
   border: 1px solid black;
   padding: 2px;
   text-align: left;
-  padding-left: 6px;
+  padding-left: px;
 }
 
 th {
   background-color: #f2f2f2;
+  text-align: center;
 }
 
 .big-text {
   font-size: 18px;
+}
+
+.text-sm {
+  font-size: 12px;
+}
+.text-center {
+  text-align: center;
 }
 
     </style>
