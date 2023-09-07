@@ -25,8 +25,8 @@
           <th></th>
           <th class="text-sm">Art. number</th>
           <th class="text-sm">Name</th>
-          <th class="text-sm">Stk.</th>
-          <th class="text-sm">Stk. for delivery</th>
+          <th class="text-sm">Ordered stk</th>
+          <th class="text-sm">Delivery stk</th>
           <th class="text-sm">Order/Delivery Weight</th>
         </tr>
       </thead>
@@ -89,9 +89,9 @@
 <% unless total_weight(@order.order_storage_lists) +  total_weight(@order.order_lists) == total_weight(@order.order_storage_lists) + total_order_delivery_weight(@order.order_lists) %>
  <p><strong>Total Order Weight: <%= total_weight(@order.order_storage_lists) +  total_weight(@order.order_lists)%> kg</strong></p>
  <% end %>
-<p><strong>Total Delivery Weight: <%= total_weight(@order.order_storage_lists) + total_order_delivery_weight(@order.order_lists) %> kg</strong></p>
-
-
+<% if @order.order_lists.any? { |list| list.delivery_quantity.present? } %>
+  <p><strong>Total Delivery Weight: <%= total_weight(@order.order_storage_lists) + total_order_delivery_weight(@order.order_lists) %> kg</strong></p>
+<% end %>
 
 
 
