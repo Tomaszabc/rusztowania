@@ -19,6 +19,7 @@
 
 
     <h3 class="align-center">Order Items:</h3>
+    
     <table class=" table-auto border-2">
       <thead>
         <tr>
@@ -32,12 +33,12 @@
       </thead>
       <tbody>
         <% @order.order_lists.sort_by { |order_list| order_list.part.description }.each_with_index do |order_list, index| %>
-        <tr class="mb-4">
+        <tr class="mb-4 ">
           <td><%= index + 1 %></td>
           <td><%= order_list.part.name %></td>
           <td><%= order_list.part.description %></td>
-          <td class="text-center"><strong><%= order_list.quantity %></strong></td>
-          <td class="text-center"><strong><%= order_list.delivery_quantity %></strong></td>
+          <td class="text-center <%= 'gray-row' if order_list.delivery_quantity && order_list.quantity != order_list.delivery_quantity %>"><strong><%= order_list.quantity %></strong></td>
+          <td class="text-center <%= 'gray-row' if order_list.delivery_quantity && order_list.quantity != order_list.delivery_quantity %>"><strong><%= order_list.delivery_quantity %></strong></td>
           <td class="text-center"><%= order_list.part.weight * order_list.quantity %> / <%= order_list.part.weight * order_list.delivery_quantity if order_list.delivery_quantity.present? %> kg</td>
         </tr>
         <% end %>
@@ -147,6 +148,9 @@ th {
 }
 .text-center {
   text-align: center;
+}
+.gray-row {
+    background-color: #F0F8FF; /* Szary kolor */
 }
 
     </style>
