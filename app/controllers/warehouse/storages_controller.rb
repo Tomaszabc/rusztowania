@@ -131,6 +131,12 @@ module Warehouse
       render :index
     end
     
+    def print
+     
+      @order = Order.find(params[:id])
+      render pdf: "order_#{@order.id}", template: 'warehouse/storages/print',
+      margin: { top: 10, bottom: 10, left: 15, right: 15 }
+    end
     
     
     private

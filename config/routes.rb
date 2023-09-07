@@ -34,7 +34,12 @@ Rails.application.routes.draw do
    namespace :warehouse do
   
     resources :storages, only: [:index, :show, :update] do
-      
+      member do
+        # ... (inne akcje member)
+        get :print
+
+      end
+
       collection do
         get :completed_orders
         get :pending_orders
@@ -45,6 +50,7 @@ Rails.application.routes.draw do
         get 'parts_on_site'
         get :hidden_orders
         get :visible_orders
+        get :print
        
       end
     end
