@@ -85,17 +85,22 @@
 
 
 <div class="flex justify-center">
-  <div>
-    <h1 class="text-lg text-center">Order <%= @order.id %></h1>
-    <h1 class="text-sm text-center mb-4">Created: <%= @order.created_at.strftime("%d-%m-%Y") %></h1>
+  <div class="flex relative">
+    <div>
+      <h1 class="text-lg text-center">Order <%= @order.id %></h1>
+      <h1 class="text-sm text-center mb-4">Created: <%= @order.created_at.strftime("%d-%m-%Y") %></h1>
+    </div>
+    <div class="absolute left-1/2 ml-24">
+      <%= link_to print_warehouse_storage_path(@order) do %>
+        <%= image_tag "print.png", alt: "Print Icon", size: '30x30', class: 'animate-spin45' %>
+        <div>Print</div>
+      <% end %>
+    </div>
   </div>
-  <div class="ml-10">
-  <%= link_to print_warehouse_storage_path(@order) do %>
-    <%= image_tag "print.png", alt: "Print Icon", size: '30x30' %>
-    <div>Print</div>
-  <% end %>
 </div>
-</div>
+
+
+
 
 <div>   
   <p>Scaffolder: <%= @order.user.name %> <%= @order.user.email %></p>
