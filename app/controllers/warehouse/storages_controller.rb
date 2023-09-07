@@ -53,6 +53,7 @@ module Warehouse
       @order = Order.find(params[:id])
       if @order.update(order_params)
        @order.in_progress!
+       OrderMailer.storage_confirmation(@order).deliver_now
         redirect_to warehouse_storages_path, notice: "Remember to accept order as completed"
 
       else

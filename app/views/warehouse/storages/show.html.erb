@@ -170,6 +170,10 @@
   <div class="flex justify-center m-6">
     <%= form.submit "Save as In Progress", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md"%>
   </div>
+  <%= form.hidden_field :send_email, value: "true" %>
+  <div class="flex justify-center m-6">
+    <%= form.submit "Save as In Progress and send Emails", class: "inline-flex items-center px-4 py-2 bg-blue-800 hover:bg-gray-700 text-white font-semibold rounded-md" %>
+  </div>
 <% end %>
 <p class="text-center m-4"><strong>Order Weight:</strong> <%= total_weight %>kg</p>
 <p class="text-center "><strong>Delivery Weight</strong> (Lagerman+Scaffolder): <%= total_delivery_weight(@order.order_lists, @order.order_storage_lists) %>kg</p>

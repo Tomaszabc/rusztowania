@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <style>
+      /* Dodaj style do tabeli */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th, td {
+        border: 2px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+      .big-text {
+  font-size: 18px; /* Zmień na rozmiar, który chcesz */
+}
+
+      /* Dodaj inne style według potrzeb */
+    </style>
+  </head>
+  <body>
+ 
+    <p><strong>Scaffolder:</strong> <%= @order.user.email %></p>
+    <p>Building Site: <%= @order.building_site %></p>
+    <p>Site info: <%= @order.building_site_info %></p>
+    <p>Delivery Date: <%= @order.delivery_date.strftime("%d-%m-%Y")  %></p>
+    
+  <p class="big-text"><strong>Additional Info: <%= simple_format(@order.info) %> </strong></p>
+
+    <p>Order Items:</p>
+
+
+
+    <table class=" table-auto border-2">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Art. number</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Comb. weight</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.order_lists.sort_by { |order_list| order_list.part.description }.each_with_index do |order_list, index| %>
+        <tr class="mb-4">
+          <td><%= index + 1 %></td>
+          <td><%= order_list.part.name %></td>
+          <td><%= order_list.part.description %></td>
+          <td><strong><%= order_list.quantity %></strong></td>
+          <td><%= order_list.part.weight * order_list.quantity %> kg</td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+
+
+
+    <p><strong>Total Weight: <%= total_weight(@order.order_lists) %> kg</strong></p>
+  </body>
+</html>
