@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   
+  attr_accessor :send_email
 
   attribute :storage_info, :text
   attribute :name, :string
@@ -52,6 +53,17 @@ class Order < ApplicationRecord
   def set_to_visible
     self.hidden = false
     save
+  end
+
+  def recipients_emails(current_user)
+    mailer_emails = { "Scaffolder" => self.user.email }
+    site = Site.find_by(name: self.building_site)
+    mailer_emails["Site Ledermann"] = site.ledermann.email if site&.ledermann.present?
+    mailer_emails["Your Email"] = current_user.email
+    DeliveryEmail.pluck(:recipient_email).each_with_index do |email, index|
+      mailer_emails["Email #{index + 1}"] = email
+    end
+    mailer_emails.uniq
   end
   
 end

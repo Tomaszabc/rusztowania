@@ -53,8 +53,14 @@ module Warehouse
       @order = Order.find(params[:id])
       if @order.update(order_params)
        @order.in_progress!
-       OrderMailer.storage_confirmation(@order).deliver_now
-        redirect_to warehouse_storages_path, notice: "Remember to accept order as completed"
+       if params[:order][:send_email] == "1"
+        OrderMailer.storage_confirmation(@order, current_user).deliver_now
+        flash[:notice] = "Emails sent. Remember to accept order as completed"
+        
+      else
+        flash[:notice] = "Remember to accept order as completed"
+        end
+        redirect_to warehouse_storages_path
 
       else
         render :show, alert: "Something goes wrong"
@@ -156,7 +162,7 @@ module Warehouse
     end
 
     def order_params
-      params.require(:order).permit(:new_delivery_date, :car_number, :storage_info, :hidden, order_lists_attributes: [:id, :delivery_quantity, :checkbox])
+      params.require(:order).permit(:new_delivery_date, :car_number, :storage_info, :hidden, :send_email, order_lists_attributes: [:id, :delivery_quantity, :checkbox])
     end
   end
 end

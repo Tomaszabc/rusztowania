@@ -152,7 +152,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:building_site, :delivery_date, :info, :building_site_info, :new_delivery_date, :car_number, :status, :storage_info, :checkbox, order_lists_attributes: [:part_id, :quantity, :description, :delivery_quantity, :checkbox])  end
+    params.require(:order).permit(:building_site, :delivery_date, :info, :building_site_info, :new_delivery_date, :car_number, :status, :storage_info, :checkbox, :send_email, order_lists_attributes: [:part_id, :quantity, :description, :delivery_quantity, :checkbox])  end
 
   def calculate_total_weight
     @cart.cart_items.sum { |item| item.part.weight * item.quantity }

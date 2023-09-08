@@ -167,14 +167,29 @@
     <%= form.label :car_number, "Delivery Car Number:", class: "mr-2 mt-2" %>
     <%= form.text_field :car_number, class: "w-32" %>
   </div>
+
+<div class="flex justify-center mt-10 mb-10">
+
+  <%= form.label :send_email, "Send Emails after Save?" %>
+  <%= form.check_box :send_email, class: 'w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 ml-2 ' %>
+   <div class="ml-4">
+    <strong>to:</strong>
+    <ul>
+      <% @order.recipients_emails(current_user).each do |label, email| %>
+        <li><%= "#{label}: #{email}" %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
   <div class="flex justify-center m-6">
     <%= form.submit "Save as In Progress", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md"%>
   </div>
-  <%= form.hidden_field :send_email, value: "true" %>
-  <div class="flex justify-center m-6">
-    <%= form.submit "Save as In Progress and send Emails", class: "inline-flex items-center px-4 py-2 bg-blue-800 hover:bg-gray-700 text-white font-semibold rounded-md" %>
-  </div>
+  
+ 
 <% end %>
+
+
 <p class="text-center m-4"><strong>Order Weight:</strong> <%= total_weight %>kg</p>
 <p class="text-center "><strong>Delivery Weight</strong> (Lagerman+Scaffolder): <%= total_delivery_weight(@order.order_lists, @order.order_storage_lists) %>kg</p>
 <p class="text-center text-sm">(Save to refresh delivery weight)</p>

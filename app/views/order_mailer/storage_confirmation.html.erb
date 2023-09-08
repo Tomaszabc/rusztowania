@@ -20,19 +20,53 @@
   font-size: 18px; /* Zmień na rozmiar, który chcesz */
 }
 
+.text-sm {
+  font-size: 12px;
+}
+.text-center {
+  text-align: center;
+}
+.gray-row {
+    background-color: #F0F8FF; /* Szary kolor */
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-item {
+  flex: 1; /* Pozwala elementom flex na rozwinięcie się i zajęcie dostępnego miejsca */
+  padding: 0 10px; /* Opcjonalny padding dla lepszego wyglądu */
+  box-sizing: border-box; /* Upewnia się, że padding i border są uwzględniane w całkowitej szerokości elementu */
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+
       /* Dodaj inne style według potrzeb */
     </style>
   </head>
   <body>
- 
-    <p><strong>Scaffolder:</strong> <%= @order.user.email %></p>
-    <p>Building Site: <%= @order.building_site %></p>
-    <p>Site info: <%= @order.building_site_info %></p>
-    <p>Delivery Date: <%= @order.delivery_date.strftime("%d-%m-%Y")  %></p>
+ <h1>Order #<%= @order.id %> Site: <strong><%= @order.building_site %></strong></h1>
     
-  <p class="big-text"><strong>Additional Info: <%= simple_format(@order.info) %> </strong></p>
-
-    <p>Order Items:</p>
+    <p>Site info: <%= @order.building_site_info %></p>
+    <p><strong>Scaffolder:</strong> <%= @order.user.email %></p>
+    
+    
+        <p>Delivery Date: <strong><%= @order.delivery_date.strftime("%d-%m-%Y")  %></strong> /// New Delivery Date: <strong><%= @order.new_delivery_date.strftime("%d-%m-%Y") if @order.new_delivery_date %></strong> /// Car number: <strong><%= @order.car_number %></strong> </p>
+    
+  <p class="big-text"><strong>Scaffolder Info: <%= simple_format(@order.info) %> </strong></p>
+<p class="big-text"><strong>Storage Info: <%= simple_format(@order.storage_info) %> </strong></p>
+   
+   
+    <p class="align-center">Order Items:</p>
 
 
 
@@ -40,10 +74,11 @@
       <thead>
         <tr>
           <th></th>
-          <th>Art. number</th>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Comb. weight</th>
+          <th class="text-sm">Art. number</th>
+          <th class="text-sm">Name</th>
+          <th class="text-sm">Ordered stk</th>
+          <th class="text-sm">Delivery stk</th>
+          <th class="text-sm">Order/Delivery Weight</th>
         </tr>
       </thead>
       <tbody>
@@ -52,16 +87,47 @@
           <td><%= index + 1 %></td>
           <td><%= order_list.part.name %></td>
           <td><%= order_list.part.description %></td>
-          <td><strong><%= order_list.quantity %></strong></td>
-          <td><%= order_list.part.weight * order_list.quantity %> kg</td>
+          <td class="text-center <%= 'gray-row' if order_list.delivery_quantity && order_list.quantity != order_list.delivery_quantity %>"><strong><%= order_list.quantity %></strong></td>
+          <td class="text-center <%= 'gray-row' if order_list.delivery_quantity && order_list.quantity != order_list.delivery_quantity %>"><strong><%= order_list.delivery_quantity %></strong></td>
+          <td><%= order_list.part.weight * order_list.quantity %> kg/ <%= order_list.part.weight * order_list.delivery_quantity if order_list.delivery_quantity.present? %> kg</td>
         </tr>
         <% end %>
       </tbody>
     </table>
+    <p class="align-right">Weight: <%= total_weight(@order.order_lists) %> kg</p>
+  
+    <p class="align-center">Additional parts from Lagermann:</p>
+<table class=" table-auto border-2">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="text-sm">Art. number</th>
+          <th class="text-sm">Name</th>
+          <th class="text-sm">Ordered stk</th>
+          <th class="text-sm"> Weight</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.order_storage_lists.sort_by { |storage_list| storage_list.part.description }.each_with_index do |storage_list, index| %>
+        <tr class="mb-4">
+          <td><%= index + 1 %></td>
+          <td><%= storage_list.part.name %></td>
+          <td><%= storage_list.part.description %></td>
+          <td  class="text-center"><strong><%= storage_list.quantity %></strong></td>
 
-
-
-
-    <p><strong>Total Weight: <%= total_weight(@order.order_lists) %> kg</strong></p>
+          <td><%= storage_list.part.weight * storage_list.quantity %> kg</td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+<div class="align-right">
+  <p>Weight: <%= total_weight(@order.order_storage_lists) %> kg</p>
+</div>
+<% unless total_weight(@order.order_storage_lists) +  total_weight(@order.order_lists) == total_weight(@order.order_storage_lists) + total_order_delivery_weight(@order.order_lists) %>
+ <p><strong>Total Order Weight: <%= total_weight(@order.order_storage_lists) +  total_weight(@order.order_lists)%> kg</strong></p>
+ <% end %>
+<% if @order.order_lists.any? { |list| list.delivery_quantity.present? } %>
+  <p><strong>Total Delivery Weight: <%= total_weight(@order.order_storage_lists) + total_order_delivery_weight(@order.order_lists) %> kg</strong></p>
+<% end %>
   </body>
 </html>
