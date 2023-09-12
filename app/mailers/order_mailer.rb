@@ -2,6 +2,8 @@ class OrderMailer < ApplicationMailer
   include OrderMailerHelper
   default from: 'stillasstillas6@gmail.com'
  
+
+
   def order_confirmation(order)
     @order = order
     user_email = @order.user.email
@@ -24,4 +26,12 @@ class OrderMailer < ApplicationMailer
     mail(to: mailer_emails, subject:"Order for: #{@order.building_site}, #{@order.building_site_info}")  end
   
 
+    def lager_order_confirmation(order, products, total_weight)
+      @order = order
+      @products = products
+      @total_weight = total_weight
+      user_email = @order.user.email
+  
+      mail(to: user_email, subject: "Order for: #{@order.building_site}")
+    end
 end

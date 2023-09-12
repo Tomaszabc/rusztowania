@@ -46,6 +46,36 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
+  def lager_order
+    @order = Order.new
+    @cart = current_cart
+    @products = @cart.cart_items.map { |item| { name: item.part.name, description: item.part.description, weight: item.part.weight, quantity: item.quantity } }
+    @total_weight = calculate_total_weight
+    @lager_site = Site.find_or_create_by(name: "Lager - Storage")
+    @order.building_site = @lager_site.name
+    @order.delivery_date = Date.current
+  end
+
+  def create_lager_order
+    @order = Order.new(order_params.except(:order_lists_attributes)) 
+    @order.user = current_user
+    @order.status = "pending"
+    @cart = current_cart
+    @products = @cart.cart_items.map { |item| { name: item.part.name, description: item.part.description, weight: item.part.weight, quantity: item.quantity } }
+    @total_weight = calculate_total_weight
+  begin
+    puts @products.inspect
+    OrderMailer.lager_order_confirmation(@order, @products, @total_weight).deliver_now
+      @cart.destroy
+      session[:cart_id] = nil
+      redirect_to root_path, notice: "Email sent to: #{current_user.email}"
+  rescue => e
+    Rails.logger.error("Error sending email: #{e.message}")
+    redirect_to lager_order_path, alert: "There was an error sending the email. Please try again."
+  end
+  
+  end
+
   def get_full_address
    
     site = Site.find_by(name: params[:site])

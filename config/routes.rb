@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     end
   end
   
+  get 'orders/lager_order', to: 'orders#lager_order', as: 'lager_order'
+  post 'orders/create_lager_order', to: 'orders#create_lager_order', as: 'create_lager_order'
+
   resources :orders, only: [:new, :create, :show, :update, :edit] do
     member do
       get :complete
@@ -28,6 +31,8 @@ Rails.application.routes.draw do
   end
  
    root "pages#welcome"
+
+
 
    get "/get_full_address", to: "orders#get_full_address"
   

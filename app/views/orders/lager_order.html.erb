@@ -1,0 +1,93 @@
+
+
+
+<p class="m-3 text-sm text-center">This page allow to send email with order to <%= current_user.email %> without creating order in system </p>
+<%= form_with(model: @order, url: create_lager_order_path) do |form| %>
+  <% if @order.errors.any? %>
+    <div class="alert alert-danger">
+        <ul>
+        <% @order.errors.full_messages.each do |message| %>
+            <li class="text-center text-orange-700"><%= message %></li>
+        <% end %>
+        </ul>
+    </div>
+<% end %>
+  <div>
+    <div class="flex justify-center mt-2">
+      <%= form.label :building_site, "Site:" %> 
+    </div>
+    <p class="text-sm text-center">(Default: Lager)</p>
+    <div class="flex justify-center mb-1">
+      <%= form.collection_select :building_site, Site.order(:name), :name, :name, { prompt: true }, { id: "site-select" } %>
+    </div>
+
+
+    <%= form.hidden_field :delivery_date, value: Date.current %>
+
+    <% @cart.cart_items.each do |cart_item| %>
+      <%= form.fields_for :order_lists, OrderList.new do |order_list_fields| %>
+        <%= order_list_fields.hidden_field :part_id, value: cart_item.part_id %>
+        <%= order_list_fields.hidden_field :quantity, value: cart_item.quantity %>
+        <%= order_list_fields.hidden_field :description, value: cart_item.part.description %>
+      <% end %>
+    <% end %>
+
+
+
+    <div class="flex justify-center">
+      <%= form.label :info, "Additional info for Order:" %>
+    </div>
+    <div class="flex justify-center">
+      <%= form.text_area :info %>
+    </div>
+  </div>
+
+
+
+  <p class="ml-2 mt-7 text-lg">Parts in cart:</p>
+  <% @products.each do |product| %>
+    <div>
+      <div class="m-2 ml-4 border-b-2">
+        <p> <%= product[:description] %></p>
+        <p>Quantity: <strong><%= product[:quantity] %></strong></p>
+      </div>
+    <% end %>
+
+    <p class="text-center m-4">Total Weight: <strong><%= @total_weight %> kg</strong></p>
+
+    <% if @cart.cart_items.any? %>
+      <div class="flex justify-center m-6">
+        <%= form.submit "ORDER", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md" %>
+      </div>
+    <% else %>
+      <div class="flex justify-center m-6">
+        <%= form.submit "ORDER", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md", disabled: true %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+
+
+
+  <script>
+      (function() {
+        const siteSelect = document.getElementById("site-select");
+        const fullAddressElement = document.getElementById("full-address");
+
+        siteSelect.addEventListener("change", (event) => {
+          const selectedSite = event.target.value;
+
+          
+          fetch(`/get_full_address?site=${selectedSite}`)
+            .then((response) => response.json())
+            .then((data) => {
+              const fullAddress =  data.full_address;
+              fullAddressElement.innerText = fullAddress;
+            })
+            .catch((error) => {
+              console.error("Address not found");
+            });
+        });
+      })();
+  </script>

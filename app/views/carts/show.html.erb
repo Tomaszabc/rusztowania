@@ -62,6 +62,50 @@
     class: "inline-flex items-center px-4 py-2 bg-gray-500 hover:bg-gray-700 text-white font-semibold rounded-md",
     disabled: @cart.cart_items.empty? do %>
   <%= image_tag "cart.png", size: "40x20", alt: "Order" %>
-  <span class="ml-2 ">GO to Order</span>
+  <span class="ml-2 ">GO to Scaffolder Order</span>
   <% end %>
+
+
 </div>
+ 
+ <div class="container text-right">
+ <div class="flex justify-end items-center mt-40 mb-3">
+ <div class="tooltip-container mr-2">
+    <span class="question-mark">?</span>
+    <div class="tooltip-text">Option for ordering from System distributor. Only email is sent. </div>
+  </div>
+  <div class="mr-2">
+    <%= button_to lager_order_path(cart_id: @cart.id), method: :get, 
+        class: "inline-flex items-center px-4 py-2 bg-gray-300 hover:bg-gray-500 text-white font-semibold rounded-md",
+        disabled: @cart.cart_items.empty? do %>
+    <%= image_tag "storage.png", size: "20x20", alt: "Lager Order" %>
+    <span class="ml-2 ">Lager Order</span>
+    <% end %>
+  </div>
+  
+</div>
+</div>
+
+
+<script>
+document.querySelector('.question-mark').addEventListener('click', function(event) {
+  const tooltip = this.nextElementSibling;
+  if (tooltip.style.visibility === 'visible') {
+    tooltip.style.visibility = 'hidden';
+    tooltip.style.opacity = '0';
+  } else {
+    tooltip.style.visibility = 'visible';
+    tooltip.style.opacity = '1';
+    event.stopPropagation(); // Zapobiega wywołaniu zdarzenia na document
+  }
+});
+
+document.addEventListener('click', function() {
+  const tooltip = document.querySelector('.tooltip-text');
+  if (tooltip.style.visibility === 'visible') {
+    tooltip.style.visibility = 'hidden';
+    tooltip.style.opacity = '0';
+  }
+});
+
+</script>

@@ -24,3 +24,37 @@
   top: 8px;
 }
 
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.question-mark {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Pozycja nad znakiem zapytania */
+  left: 50%;
+  margin-left: -60px; /* Centrowanie podpowiedzi */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
