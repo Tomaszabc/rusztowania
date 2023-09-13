@@ -57,7 +57,7 @@
 
     <% if @cart.cart_items.any? %>
       <div class="flex justify-center m-6">
-        <%= form.submit "ORDER", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md" %>
+        <%= form.submit "Email to: #{truncate(current_user.email, length: 20, omission: '...')}", class: "inline-flex items-center px-4 py-2 bg-green-800 hover:bg-gray-700 text-white font-semibold rounded-md" %>
       </div>
     <% else %>
       <div class="flex justify-center m-6">

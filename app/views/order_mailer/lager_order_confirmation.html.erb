@@ -42,15 +42,17 @@
         </tr>
       </thead>
       <tbody>
-  <% @products.each_with_index do |product, index| %>
-    <tr class="mb-4">
-      <td><%= index + 1 %></td>
-      <td><%= product[:name] %></td>
-      <td><%= product[:description] %></td>
-      <td><strong><%= product[:quantity] %></strong></td>
-      <td><%= product[:weight] * product[:quantity] %> kg</td>
-    </tr>
-  <% end %>
+  <% sorted_products = @products.sort_by { |product| product[:description] } %>
+<% sorted_products.each_with_index do |product, index| %>
+  <tr class="mb-4">
+    <td><%= index + 1 %></td>
+    <td><%= product[:name] %></td>
+    <td><%= product[:description] %></td>
+    <td><strong><%= product[:quantity] %></strong></td>
+    <td><%= product[:weight] * product[:quantity] %> kg</td>
+  </tr>
+<% end %>
+
 </tbody>
 
     </table>
