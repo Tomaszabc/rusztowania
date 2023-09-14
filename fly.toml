@@ -3,10 +3,9 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "cstillas"
+app = "scaffoldlist"
 primary_region = "arn"
 console_command = "/rails/bin/rails console"
-
 
 
 [deploy]

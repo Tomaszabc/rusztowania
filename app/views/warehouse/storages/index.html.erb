@@ -61,6 +61,10 @@
   <p class="flex justify-center text-slate-400 mt-2">Orders for site: <%= @site_name %></p>
 <% end %>
 
+<p class="text-center text-green-500">Now You can set Order to Completed without saving it first</p>
+<p class="text-center text-green-500">For setting Parts Delivery Quantity please save it first</p>
+<p class="text-center text-green-500">Delivery quantity is not needed. It is only for Tracking information purpose.</p>
+
   <% if @orders.present?  %>
  <% if @all_orders_view == true %>
   <h1 class="text-center m-4">All orders</h1>

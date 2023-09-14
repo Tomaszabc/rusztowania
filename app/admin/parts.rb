@@ -1,6 +1,6 @@
 ActiveAdmin.register Part do
   filter :part_id, label: 'Part Id'
-  filter :name
+  filter :name, label: "Part Number"
   filter :description
   filter :weight
   filter :multipack
@@ -68,7 +68,7 @@ ActiveAdmin.register Part do
   index do
     selectable_column
     id_column
-    column :name
+    column "Part Number", :name
     column :description
     column :weight
     column :systems do |part|
@@ -93,7 +93,9 @@ ActiveAdmin.register Part do
   show do
     attributes_table do
       row :id
-      row :name
+      row "Part Number" do |part|
+        part.name
+      end
       row :description
       row :weight
       row :systems do |part|
@@ -114,7 +116,7 @@ ActiveAdmin.register Part do
 
   form do |f|
     f.inputs do
-      f.input :name
+      f.input :name, label: "Part Number"
       f.input :description
       f.input :weight
       f.input :system_ids, as: :check_boxes, collection: System.all.map { |system| [system.name, system.id] }
