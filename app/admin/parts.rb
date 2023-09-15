@@ -6,6 +6,9 @@ ActiveAdmin.register Part do
   filter :multipack
   filter :created_at
   filter :updated_at
+  filter :systems, as: :select, collection: -> { System.all }
+  filter :categories, as: :select, collection: -> { Category.all }
+
 
   controller do
     def index

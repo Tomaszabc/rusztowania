@@ -28,6 +28,6 @@ class Part < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["order_lists", "orders"]
+    ["order_lists", "orders", "part_systems", "part_categories"]
   end
 end
