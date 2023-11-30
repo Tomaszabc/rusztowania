@@ -7,12 +7,12 @@ class PagesController < ApplicationController
     @parts = system ? system.parts : Part.none
    end
 
-   if params[:category].present?
+   if params[:category].present? && @parts
     category = Category.find_by(name: params[:category])
-    @parts = category ? category.parts : Part.none
+    @parts = @parts.joins(:categories).where(categories: { id: category.id }) if category
    end
 
-   if params[:description].present?
+   if params[:description].present? && @parts
     @part = Part.find_by(description: params[:description])
    end
    

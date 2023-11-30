@@ -19,9 +19,18 @@ ActiveAdmin.register Site do
     f.inputs "Site Details" do
       f.input :name
       f.input :address
-      f.input :ledermann, as: :select, collection: User.all.map { |user| [user.email, user.id] }
+      f.input :ledermann, as: :select, collection: User.all.sort_by { |user| user.email.downcase }.map { |user| [user.email, user.id] }
     end
     f.actions
+  end
+
+
+  controller do
+    def create
+      super do |format|
+        redirect_to collection_url and return if resource.valid?
+      end
+    end
   end
 
 end
