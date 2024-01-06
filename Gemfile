@@ -88,7 +88,7 @@ gem 'faker'
 
 gem 'paranoia'
 gem 'wicked_pdf'
-
+gem 'wkhtmltopdf-binary'
 
 group :development, :test do
   gem 'rspec-rails'
