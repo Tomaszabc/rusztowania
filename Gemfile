@@ -72,6 +72,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem 'rails-controller-testing'
 end
 
 gem "dockerfile-rails", ">= 1.5", :group => :development
@@ -87,3 +88,11 @@ gem 'faker'
 
 gem 'paranoia'
 gem 'wicked_pdf'
+
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+
+ 
+end

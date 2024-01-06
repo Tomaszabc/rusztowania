@@ -61,6 +61,8 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl imagemagick libvips postgresql-client && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+RUN apt-get update -qq && apt-get install -y wkhtmltopdf
+
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails

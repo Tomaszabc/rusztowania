@@ -10,7 +10,7 @@ class CartItemsController < ApplicationController
           redirect_to request.referrer || root_path
           flash[:notice] = "More parts added"
         else
-          render :new
+          redirect_back(fallback_location: root_path, alert: "Something went wrong")
         end
     else
       @cart_item = @cart.cart_items.build(cart_item_params)
@@ -18,17 +18,18 @@ class CartItemsController < ApplicationController
         flash[:notice] = "Successfully added"
         redirect_to request.referrer || root_path
       else
-      render :new
+        redirect_back(fallback_location: root_path, alert: "Something went wrong")
       end
     end
   end
+  
   def update
     @cart_item = CartItem.find(params[:id])
 
     if @cart_item.update(cart_item_params)
       redirect_to cart_path(@cart_item.cart), notice: "Quantity updated"
     else
-      render :edit
+      redirect_back(fallback_location: root_path, alert: "Something went wrong")
     end
   end
 
