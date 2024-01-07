@@ -1,5 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+require 'capybara/rspec'
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
@@ -75,4 +77,11 @@ RSpec.configure do |config|
     Faker::UniqueGenerator.clear
   end
 
+end
+
+
+
+Capybara.configure do |config|
+  config.default_driver = :selenium_chrome # lub :selenium_chrome_headless dla trybu bezgłowego
+#  Webdrivers::Chromedriver.required_version = '120.0.6099.199' #sciagnalem najnowszy niekompatybilny chrome
 end
