@@ -16,7 +16,9 @@ class Part < ApplicationRecord
   validates :name, :description, :multipack, :weight, presence: true
   validates :name, uniqueness: true
   validates :weight, comparison: { greater_than_or_equal_to: 0.0 }
-  
+  validate :validate_image_format
+  validate :image_size_under_15_mb
+
   def name_with_description
     "#{name}, #{description}"
   end
@@ -30,4 +32,20 @@ class Part < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     ["order_lists", "orders", "part_systems", "part_categories"]
   end
+
+  private
+
+  def validate_image_format
+    return unless image.attached?
+    unless image.content_type.in?(%w(image/jpeg image/png image/gif))
+      errors.add(:image, 'must be a JPEG, PNG, or GIF')
+    end
+  end
+
+  def image_size_under_15_mb
+    if image.attached? && image.blob.byte_size > 15.megabytes
+      errors.add(:image, 'is too large, must be under 15MB')
+    end
+  end
+  
 end

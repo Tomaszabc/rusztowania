@@ -25,6 +25,8 @@ ActiveAdmin.register Part do
       super
     end
 
+
+
     def edit
       # Zapamiętaj bieżące parametry sortowania przed edycją
       if params[:order].present?
@@ -35,13 +37,17 @@ ActiveAdmin.register Part do
     end
 
     def update
-      # Przywróć zapamiętane parametry sortowania po edycji
       if session[:parts_order].present?
         params[:order] = session[:parts_order]
       end
 
       super do |success, failure|
-        success.html { redirect_to admin_parts_path(order: params[:order]) }
+        success.html do 
+          redirect_to admin_parts_path(order: params[:order]), notice: 'Part was successfully updated.'
+        end
+        failure.html do
+          redirect_to edit_admin_part_path(resource), alert: resource.errors.full_messages.join(', ')
+        end
       end
     end
   end
@@ -125,14 +131,15 @@ ActiveAdmin.register Part do
       f.input :system_ids, as: :check_boxes, collection: System.all.map { |system| [system.name, system.id] }
     f.input :category_ids, as: :check_boxes, collection: Category.all.map { |category| [category.name, category.id] }
       f.input :multipack
-      if f.object.image.attached?
+      f.input :image, as: :file, label: "Image (must be JPG, PNG, GIF format and less than 15MB)"
+      if f.object.image.attached? && f.object.image.content_type.in?(%w(image/jpeg image/png image/gif))
         div do
           image_tag url_for(f.object.image.variant( resize_to_limit: [400, 400]))
         end
       end
-      f.file_field :image
     end
     f.actions
   end
   
 end
+
