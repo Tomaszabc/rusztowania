@@ -21,5 +21,6 @@ module ScaffoldData
     config.autoload_paths += %W(#{config.root}/app/helpers)
     config.time_zone = 'Europe/Oslo'
  
+    config.action_mailer.default_url_options = { host: 'cstillas.fly.dev' }
   end
 end
