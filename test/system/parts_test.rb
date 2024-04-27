@@ -16,7 +16,7 @@ class PartsTest < ApplicationSystemTestCase
 
     fill_in "Category", with: @part.category
     fill_in "Description", with: @part.description
-    
+
     fill_in "Multipack", with: @part.multipack
     fill_in "Name", with: @part.name
     fill_in "System", with: @part.system
@@ -33,7 +33,7 @@ class PartsTest < ApplicationSystemTestCase
 
     fill_in "Category", with: @part.category
     fill_in "Description", with: @part.description
-    
+
     fill_in "Multipack", with: @part.multipack
     fill_in "Name", with: @part.name
     fill_in "System", with: @part.system

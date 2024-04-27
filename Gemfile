@@ -19,7 +19,7 @@ gem "puma", "~> 5.0"
 gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
- gem "turbo-rails"
+gem "turbo-rails"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
@@ -40,7 +40,7 @@ gem "jbuilder"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -49,11 +49,11 @@ gem "bootsnap", require: false
 # gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
- gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "debug", platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
@@ -72,27 +72,26 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
-  gem 'rails-controller-testing'
+  gem "rails-controller-testing"
 end
 
-gem "dockerfile-rails", ">= 1.5", :group => :development
-gem 'devise'
-gem 'activeadmin'
-gem 'sass-rails'
-gem 'mail'
+gem "dockerfile-rails", ">= 1.5", group: :development
+gem "devise"
+gem "activeadmin"
+gem "sass-rails"
+gem "mail"
 
-gem 'pry'
-gem 'jquery-rails'
-gem 'dotenv-rails', groups: [:development, :test]
-gem 'faker'
+gem "pry"
+gem "jquery-rails"
+gem "dotenv-rails", groups: [:development, :test]
+gem "faker"
 
-gem 'paranoia'
-gem 'wicked_pdf'
-
+gem "paranoia"
+gem "wicked_pdf"
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'factory_bot_rails'
-  gem 'wkhtmltopdf-binary'
- 
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "wkhtmltopdf-binary"
+  gem "standard"
 end

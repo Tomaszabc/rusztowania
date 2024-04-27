@@ -24,11 +24,9 @@ module Tracking
         @orders = @orders.where(building_site: site.name)
         @site_name = site.name
       end
-        
-      @orders = @orders.limit(100) unless @all_orders_view
-      
-    end
 
+      @orders = @orders.limit(100) unless @all_orders_view
+    end
 
     def search_orders
       site_id = params[:site].presence
@@ -39,8 +37,8 @@ module Tracking
       end
       render :index
     end
-    
-    def show 
+
+    def show
       @order = Order.find(params[:id])
     end
 
@@ -49,53 +47,46 @@ module Tracking
       @all_orders_view = true
       render :index
     end
-    
+
     def your_orders
       @orders = Order.where(user: current_user).order(created_at: :desc)
       @your_orders_view = true
       render :index
     end
-    
-    
+
     def completed_orders
-      @orders = Order.where(status: 'completed').order(created_at: :desc).limit(100)
-      @status = 'completed'
+      @orders = Order.where(status: "completed").order(created_at: :desc).limit(100)
+      @status = "completed"
       render :index
     end
 
     def pending_orders
-      @orders = Order.where(status: 'pending').order(created_at: :desc).limit(100)
-      @status = 'pending'
+      @orders = Order.where(status: "pending").order(created_at: :desc).limit(100)
+      @status = "pending"
       render :index
     end
 
     def in_progress_orders
-      @orders = Order.where(status: 'in_progress').order(created_at: :desc).limit(100)
-      @status = 'in progress'
+      @orders = Order.where(status: "in_progress").order(created_at: :desc).limit(100)
+      @status = "in progress"
       render :index
     end
-    
+
     def missing_parts_orders
-      @orders = Order.where(status: 'missing_parts').order(created_at: :desc).limit(100)
-      @status = 'missing parts'
+      @orders = Order.where(status: "missing_parts").order(created_at: :desc).limit(100)
+      @status = "missing parts"
       render :index
     end
-    
-    
 
     private
 
-   
-
     def recent_orders
       six_months_ago = 6.months.ago
-      Order.where('created_at > ?', six_months_ago)
+      Order.where("created_at > ?", six_months_ago)
     end
 
     def order_params
       params.require(:order).permit(:delivery_date, :new_delivery_date, :car_number, :storage_info, order_lists_attributes: [:id, :delivery_quantity, :checkbox])
     end
-
-
   end
 end

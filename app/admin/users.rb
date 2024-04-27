@@ -1,6 +1,6 @@
 ActiveAdmin.register User do
   permit_params :email, :password, :password_confirmation, :name, :status
-  
+
   index do
     selectable_column
     id_column
@@ -11,28 +11,23 @@ ActiveAdmin.register User do
     column :updated_at
     actions
   end
-  
-  
-  
+
   form do |f|
     f.inputs do
       f.input :email
       f.input :name
       f.input :status, as: :select, collection: %w[scaffolder admin lagermann], include_blank: false
-      
-  
-    f.li do
-      f.label 'Hint:' 
-      f.div 'Leave password empty if no password change', class: 'instruction-text'
-    end
+
+      f.li do
+        f.label "Hint:"
+        f.div "Leave password empty if no password change", class: "instruction-text"
+      end
       f.input :password
       f.input :password_confirmation
     end
     f.actions
   end
-  
- 
-  
+
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -47,5 +42,4 @@ ActiveAdmin.register User do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
 end

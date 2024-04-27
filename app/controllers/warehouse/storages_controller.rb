@@ -1,8 +1,6 @@
 module Warehouse
   class StoragesController < ApplicationController
-    
-    layout 'warehouse'
-   
+    layout "warehouse"
 
     def index
       @all_orders_view = false
@@ -21,7 +19,7 @@ module Warehouse
         @all_orders_view = true
         flash[:notice] = "Date selected"
       end
-        
+
       if site_id
         site = Site.find(site_id)
         @orders = filtered_orders(@orders.where(building_site: site.name))
@@ -30,16 +28,15 @@ module Warehouse
       @orders = @orders.limit(100) unless @all_orders_view
     end
 
-    def show 
+    def show
       @order = Order.find(params[:id])
-      
+
       if params[:system].present? && !params[:system].empty?
         system = System.find_by("LOWER(name) = ?", params[:system].downcase)
         @categories = system ? system.categories : Category.none
       else
         @categories = Category.none
       end
-      
 
       if params[:category].present? && params[:category] != "Select category"
         category = Category.find_by("LOWER(name) = ?", params[:category].downcase)
@@ -48,17 +45,17 @@ module Warehouse
         @parts = Part.none
       end
     end
-    
+
     def update
       @order = Order.find(params[:id])
       if @order.update(order_params)
-       @order.in_progress!
-       if params[:order][:send_email] == "1"
-        OrderMailer.storage_confirmation(@order, current_user).deliver_now
-        flash[:notice] = "Emails sent. Remember to accept order as completed"
-        
-      else
-        flash[:notice] = "Remember to accept order as completed"
+        @order.in_progress!
+        if params[:order][:send_email] == "1"
+          OrderMailer.storage_confirmation(@order, current_user).deliver_now
+          flash[:notice] = "Emails sent. Remember to accept order as completed"
+
+        else
+          flash[:notice] = "Remember to accept order as completed"
         end
         redirect_to warehouse_storages_path
 
@@ -71,21 +68,20 @@ module Warehouse
       if params[:site_id]
         @site = Site.find(params[:site_id])
         @parts = {}
-  
-        orders = Order.where(building_site: @site.name).where(status: ['completed', 'missing_parts'])
+
+        orders = Order.where(building_site: @site.name).where(status: ["completed", "missing_parts"])
         orders.each do |order|
           order.order_lists.each do |order_list|
             part = order_list.part
             ordered_quantity = order_list.quantity
             delivered_quantity = order_list.delivery_quantity || 0
-            @parts[part] ||= { ordered: 0, delivered: 0 }
+            @parts[part] ||= {ordered: 0, delivered: 0}
             @parts[part][:ordered] += ordered_quantity
             @parts[part][:delivered] += delivered_quantity
           end
         end
       end
     end
-
 
     def search_orders
       site_id = params[:site].presence
@@ -96,56 +92,48 @@ module Warehouse
       end
       render :index
     end
-    
-    
-    
-    
+
     def all_orders
-      
       @orders = filtered_orders(Order.order(created_at: :desc))
       @all_orders_view = true
       render :index
     end
-    
+
     def completed_orders
-      
-      @orders = filtered_orders(Order.where(status: 'completed').order(created_at: :desc).limit(100))
-      @status = 'completed'
+      @orders = filtered_orders(Order.where(status: "completed").order(created_at: :desc).limit(100))
+      @status = "completed"
       render :index
     end
 
     def pending_orders
-      @orders = filtered_orders(Order.where(status: 'pending').order(created_at: :desc).limit(100))
-      @status = 'pending'
+      @orders = filtered_orders(Order.where(status: "pending").order(created_at: :desc).limit(100))
+      @status = "pending"
       render :index
     end
 
     def in_progress_orders
-      @orders = filtered_orders(Order.where(status: 'in_progress').order(created_at: :desc).limit(100))
-      @status = 'in progress'
+      @orders = filtered_orders(Order.where(status: "in_progress").order(created_at: :desc).limit(100))
+      @status = "in progress"
       render :index
     end
-    
+
     def missing_parts_orders
-      @orders = filtered_orders(Order.where(status: 'missing_parts').order(created_at: :desc).limit(100))
-      @status = 'missing parts'
+      @orders = filtered_orders(Order.where(status: "missing_parts").order(created_at: :desc).limit(100))
+      @status = "missing parts"
       render :index
     end
-  
 
     def hidden_orders
       @orders = Order.where(hidden: true).order(created_at: :desc)
       render :index
     end
-    
+
     def print
-     
       @order = Order.find(params[:id])
-      render pdf: "order_#{@order.id}", template: 'warehouse/storages/print',
-      margin: { top: 10, bottom: 10, left: 15, right: 15 }
+      render pdf: "order_#{@order.id}", template: "warehouse/storages/print",
+        margin: {top: 10, bottom: 10, left: 15, right: 15}
     end
-    
-    
+
     private
 
     def filtered_orders(base_query)
@@ -158,7 +146,7 @@ module Warehouse
 
     def recent_orders
       two_months_ago = 2.months.ago
-      Order.where('created_at > ?', two_months_ago)
+      Order.where("created_at > ?", two_months_ago)
     end
 
     def order_params

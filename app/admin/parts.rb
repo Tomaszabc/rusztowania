@@ -1,5 +1,5 @@
 ActiveAdmin.register Part do
-  filter :part_id, label: 'Part Id'
+  filter :part_id, label: "Part Id"
   filter :name, label: "Part Number"
   filter :description
   filter :weight
@@ -8,7 +8,6 @@ ActiveAdmin.register Part do
   filter :updated_at
   filter :systems, as: :select, collection: -> { System.all }
   filter :categories, as: :select, collection: -> { Category.all }
-
 
   controller do
     def index
@@ -25,8 +24,6 @@ ActiveAdmin.register Part do
       super
     end
 
-
-
     def edit
       # Zapamiętaj bieżące parametry sortowania przed edycją
       if params[:order].present?
@@ -42,22 +39,15 @@ ActiveAdmin.register Part do
       end
 
       super do |success, failure|
-        success.html do 
-          redirect_to admin_parts_path(order: params[:order]), notice: 'Part was successfully updated.'
+        success.html do
+          redirect_to admin_parts_path(order: params[:order]), notice: "Part was successfully updated."
         end
         failure.html do
-          redirect_to edit_admin_part_path(resource), alert: resource.errors.full_messages.join(', ')
+          redirect_to edit_admin_part_path(resource), alert: resource.errors.full_messages.join(", ")
         end
       end
     end
   end
-
-
-
-
-
-
-
 
   permit_params :name, :description, :weight, :category, :multipack, :image, system_ids: [], category_ids: []
   # See permitted parameters documentation:
@@ -81,17 +71,17 @@ ActiveAdmin.register Part do
     column :description
     column :weight
     column :systems do |part|
-      part.systems.map(&:name).join(', ')
+      part.systems.map(&:name).join(", ")
     end
     column :categories do |part|
-      part.categories.map(&:name).join(', ')
+      part.categories.map(&:name).join(", ")
     end
     column :multipack
     column :created_at
     column :updated_at
     column :image do |part|
       if part.image.attached?
-        image_tag(part.image.variant( resize_to_limit: [150, 150] ))
+        image_tag(part.image.variant(resize_to_limit: [150, 150]))
       else
         "No image"
       end
@@ -108,16 +98,16 @@ ActiveAdmin.register Part do
       row :description
       row :weight
       row :systems do |part|
-        part.systems.map(&:name).join(', ')
+        part.systems.map(&:name).join(", ")
       end
       row :categories do |part|
-        part.categories.map(&:name).join(', ')
+        part.categories.map(&:name).join(", ")
       end
       row :image do |part|
         if part.image.attached?
-          image_tag(part.image.variant( resize_to_limit: [400, 400] ))
+          image_tag(part.image.variant(resize_to_limit: [400, 400]))
         else
-          content_tag(:span, 'No image attached')
+          content_tag(:span, "No image attached")
         end
       end
     end
@@ -129,17 +119,15 @@ ActiveAdmin.register Part do
       f.input :description
       f.input :weight
       f.input :system_ids, as: :check_boxes, collection: System.all.map { |system| [system.name, system.id] }
-    f.input :category_ids, as: :check_boxes, collection: Category.all.map { |category| [category.name, category.id] }
+      f.input :category_ids, as: :check_boxes, collection: Category.all.map { |category| [category.name, category.id] }
       f.input :multipack
       f.input :image, as: :file, label: "Image (must be JPG, PNG, GIF format and less than 15MB)"
-      if f.object.image.attached? && f.object.image.content_type.in?(%w(image/jpeg image/png image/gif))
+      if f.object.image.attached? && f.object.image.content_type.in?(%w[image/jpeg image/png image/gif])
         div do
-          image_tag url_for(f.object.image.variant( resize_to_limit: [400, 400]))
+          image_tag url_for(f.object.image.variant(resize_to_limit: [400, 400]))
         end
       end
     end
     f.actions
   end
-  
 end
-

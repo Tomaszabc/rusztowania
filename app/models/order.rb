@@ -1,26 +1,22 @@
 class Order < ApplicationRecord
-  
   attr_accessor :send_email
 
   attribute :storage_info, :text
   attribute :name, :string
-  
+
   has_many :order_lists, dependent: :destroy
   has_many :parts, through: :order_lists
   belongs_to :user, -> { with_deleted }
   has_many :order_storage_lists, dependent: :destroy
-  
+
   validates :building_site, presence: true
   validates :delivery_date, presence: true
-  
-
-  
 
   after_initialize :set_default_status, if: :new_record?
 
   accepts_nested_attributes_for :order_lists
 
-  enum status: { pending: 'Pending', in_progress: 'In Progress', completed: 'Completed', missing_parts: "Missing Parts" }
+  enum status: {pending: "Pending", in_progress: "In Progress", completed: "Completed", missing_parts: "Missing Parts"}
 
   def set_default_status
     self.status ||= "pending"
@@ -39,11 +35,10 @@ class Order < ApplicationRecord
       errors.add(:delivery_date, "can't be in the past")
     end
   end
-  
+
   def total_weight
     order_lists.sum { |list| list.part ? list.quantity * list.part.weight : 0 }
   end
-
 
   def set_to_hide
     self.hidden = true
@@ -56,8 +51,8 @@ class Order < ApplicationRecord
   end
 
   def recipients_emails(current_user)
-    mailer_emails = { "Scaffolder" => self.user.email }
-    site = Site.find_by(name: self.building_site)
+    mailer_emails = {"Scaffolder" => user.email}
+    site = Site.find_by(name: building_site)
     mailer_emails["Site Ledermann"] = site.ledermann.email if site&.ledermann.present?
     mailer_emails["Your Email"] = current_user.email
     DeliveryEmail.pluck(:recipient_email).each_with_index do |email, index|
@@ -65,5 +60,4 @@ class Order < ApplicationRecord
     end
     mailer_emails.uniq
   end
-  
 end

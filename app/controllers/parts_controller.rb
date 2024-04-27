@@ -1,7 +1,6 @@
 class PartsController < ApplicationController
-  before_action :set_part, only: %i[ show edit update destroy ]
+  before_action :set_part, only: %i[show edit update destroy]
 
-  
   def index
     @parts = Part.all
   end
@@ -30,7 +29,6 @@ class PartsController < ApplicationController
     end
   end
 
-
   def update
     respond_to do |format|
       if @part.update(part_params)
@@ -43,7 +41,6 @@ class PartsController < ApplicationController
     end
   end
 
-
   def destroy
     @part.destroy
 
@@ -53,14 +50,13 @@ class PartsController < ApplicationController
     end
   end
 
-
-  
   private
-    def set_part
-      @part = Part.find(params[:id])
-    end
 
-    def part_params
-      params.require(:part).permit(:name, :description, :weight, :multipack, system_ids: [], category_ids: [])
-    end
+  def set_part
+    @part = Part.find(params[:id])
+  end
+
+  def part_params
+    params.require(:part).permit(:name, :description, :weight, :multipack, system_ids: [], category_ids: [])
+  end
 end

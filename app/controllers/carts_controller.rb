@@ -1,15 +1,14 @@
 class CartsController < ApplicationController
-
   def show
     @cart = Cart.find(params[:id])
     @cart_items = @cart.cart_items.includes(:part)
-    @total_weight= calculate_total_weight
+    @total_weight = calculate_total_weight
   end
 
   def clear_cart
     @cart = Cart.find(params[:id])
     @cart.cart_items.destroy_all
-    redirect_to @cart, notice: 'Cart deleted !'
+    redirect_to @cart, notice: "Cart deleted !"
   end
 
   private

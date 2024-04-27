@@ -9,10 +9,7 @@ class System < ApplicationRecord
     ["created_at", "id", "name", "updated_at"]
   end
 
-
   def self.ransackable_associations(auth_object = nil)
     ["part_systems", "parts"]
   end
-
-
 end

@@ -14,7 +14,7 @@ ActiveAdmin.register Site do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
+
   form do |f|
     f.inputs "Site Details" do
       f.input :name
@@ -24,7 +24,6 @@ ActiveAdmin.register Site do
     f.actions
   end
 
-
   controller do
     def create
       super do |format|
@@ -32,5 +31,4 @@ ActiveAdmin.register Site do
       end
     end
   end
-
 end

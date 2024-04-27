@@ -5,5 +5,4 @@ class PartSystem < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "id", "part_id", "system_id", "updated_at"]
   end
-
 end

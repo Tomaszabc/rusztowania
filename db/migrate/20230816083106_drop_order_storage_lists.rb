@@ -4,7 +4,6 @@ class DropOrderStorageLists < ActiveRecord::Migration[7.0]
       drop_table :order_storage_lists
     end
   end
-  
 
   def down
     raise ActiveRecord::IrreversibleMigration
