@@ -73,6 +73,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem "rails-controller-testing"
+  gem 'rspec-rails'
 end
 
 gem "dockerfile-rails", ">= 1.5", group: :development
@@ -90,7 +91,6 @@ gem "paranoia"
 gem "wicked_pdf"
 
 group :development, :test do
-  gem "rspec-rails"
   gem "factory_bot_rails"
   gem "wkhtmltopdf-binary"
   gem "standard"
