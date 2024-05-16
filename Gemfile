@@ -73,7 +73,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem "rails-controller-testing"
-  gem 'rspec-rails'
+  gem "rspec-rails"
 end
 
 gem "dockerfile-rails", ">= 1.5", group: :development
