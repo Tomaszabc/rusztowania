@@ -23,23 +23,33 @@
        </div>
       <% end %>
 
-    <% else %>
-
     <% end %>
-
   <% end %>
 </div>
 
 <div class="mb-3">
   <% if params[:category] %>
-    <p class="text-center">select part:</p>
-    <%= form_with(url: pages_index_path, method: :get, html: { id: 'description-form' }) do |form| %>
-      <%= form.hidden_field :system, value: params[:system] %>
-      <%= form.hidden_field :category, value: params[:category] %>
-      <%= form.select :description, 
-        [["Select Part", nil]] + @parts.pluck(:description).uniq.sort,
-        { selected: params[:description] },
-        { class: "rounded-md border border-black-500 w-62", onchange: 'this.form.submit()', include_blank: true } %>
+    <p class="text-center">Select part:</p>
+
+    <% if @view_mode == 'desktop' %>
+      <!-- Lista części w widoku desktopowym -->
+      <div class="desktop-parts-list">
+        <% @parts.each do |part| %>
+          <div class="part-item border p-2 mb-2">
+            <%= link_to part.description, pages_index_path(params.permit(:system, :category).merge(description: part.description)), class: "text-blue-600 hover:underline" %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <!-- Dropdown w widoku mobilnym -->
+      <%= form_with(url: pages_index_path, method: :get, html: { id: 'description-form' }) do |form| %>
+        <%= form.hidden_field :system, value: params[:system] %>
+        <%= form.hidden_field :category, value: params[:category] %>
+        <%= form.select :description, 
+          [["Select Part", nil]] + @parts.pluck(:description).uniq.sort,
+          { selected: params[:description] },
+          { class: "rounded-md border border-black-500 w-62", onchange: 'this.form.submit()', include_blank: true } %>
+      <% end %>
     <% end %>
   <% end %>
 </div>
@@ -56,15 +66,12 @@
     <% if @part.multipack > 1 %>
       <p class="m-2"><strong>Multipack: <%= @part.multipack %></strong></p>
     <% end %>
-    <% if @cart.present? %>
-      <% current_quantity = @cart.cart_items.where(part_id: @part.id).sum(:quantity) %>
-    <% end %>
     <div class="columns-2">
       <div class="ml-2 mt-2">
         <%= form_with(model: [ @cart, CartItem.new ], local: true, html: { id: 'add-to-cart-form' }) do |form| %>
           <div>
             <%= form.hidden_field :part_id, value: @part.id %>
-    <%= form.number_field :quantity, value: 0, class: "m-2 w-24", id: "quantity-field", min: 1 %>
+            <%= form.number_field :quantity, value: 0, class: "m-2 w-24", id: "quantity-field", min: 1 %>
           </div>
           <div class="mt-1 ml-3"> 
             <%= button_tag type: 'submit', class: "bg-green-500 hover:bg-green-600 rounded-full p-2 inline-flex items-center hover:scale-110 transition duration-200" do %>

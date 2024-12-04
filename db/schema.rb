@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_05_153604) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_27_104530) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,6 +66,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_153604) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "cars", force: :cascade do |t|
+    t.string "plate_number"
+    t.string "model"
+    t.integer "number"
+    t.string "actual_driver"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "cart_items", force: :cascade do |t|
@@ -192,6 +202,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_153604) do
     t.index ["deleted_at"], name: "index_systems_on_deleted_at"
   end
 
+  create_table "trip_trackings", force: :cascade do |t|
+    t.bigint "car_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "start_time"
+    t.datetime "finish_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["car_id"], name: "index_trip_trackings_on_car_id"
+    t.index ["user_id"], name: "index_trip_trackings_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -222,4 +243,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_153604) do
   add_foreign_key "part_systems", "parts"
   add_foreign_key "part_systems", "systems"
   add_foreign_key "sites", "users", column: "ledermann_id"
+  add_foreign_key "trip_trackings", "cars"
+  add_foreign_key "trip_trackings", "users"
 end

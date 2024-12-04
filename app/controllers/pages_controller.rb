@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_action :set_cart
+  before_action :set_view_mode
 
   def index
     if params[:system].present?
@@ -15,6 +16,11 @@ class PagesController < ApplicationController
     if params[:description].present? && @parts
       @part = Part.find_by(description: params[:description])
     end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   private
@@ -25,5 +31,10 @@ class PagesController < ApplicationController
       @cart = Cart.create
       session[:cart_id] = @cart.id
     end
+  end
+
+  def set_view_mode
+    session[:set_view_mode] = params[:view_mode] if params[:view_mode].present?
+    @view_mode = session[:view_mode] || 'mobile'
   end
 end
