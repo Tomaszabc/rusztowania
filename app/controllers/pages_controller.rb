@@ -34,7 +34,9 @@ class PagesController < ApplicationController
   end
 
   def set_view_mode
-    session[:set_view_mode] = params[:view_mode] if params[:view_mode].present?
+    if params[:view_mode].present?
+      session[:view_mode] = params[:view_mode]
+    end
     @view_mode = session[:view_mode] || 'mobile'
   end
 end
