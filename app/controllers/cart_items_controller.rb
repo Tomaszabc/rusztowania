@@ -36,7 +36,7 @@ class CartItemsController < ApplicationController
     @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
 
-    redirect_to cart_path(@cart_item.cart), notice: "Item deleted"
+    redirect_to request.referrer || root_path, notice: "Item deleted"
   end
 
   private

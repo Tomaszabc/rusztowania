@@ -45,7 +45,8 @@
 
     <% if @view_mode == 'desktop' %>
       <div class="desktop-parts-list">
-        <% @parts.each do |part| %>
+        <% sorted_parts = @parts.sort_by(&:description) %>
+        <% sorted_parts.each do |part| %>
           <div class="part-item border p-1 flex items-center justify-between w-full min-w-[680px] md:max-w-[900px] max-h-[120px]">
             <div class="flex-shrink-0 mr-4">
               <% if part.image.attached? %>
@@ -59,6 +60,13 @@
             <div class="flex-grow">
               <p class="text-lg font-semibold"><%= part.description %></p>
               <p class="text-gray-500">Multipack: <strong><%= part.multipack %></strong></p>
+            </div>
+            <div>
+              <% if @cart.cart_items.exists?(part_id: part.id) %>
+            <%= button_to cart_cart_item_path(@cart, @cart.cart_items.find_by(part_id: part.id)), method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2" do %>
+              <%= image_tag "trash.png", size: "30x30", alt: "Delete", class: "hover:scale-110 transition duration-200 hover:bg-red-100 rounded" %>
+            <% end %>
+          <% end %>
             </div>
             <div class="flex items-center">
               <% if @cart.present? %>
@@ -76,6 +84,7 @@
                   <%= image_tag("cart_2.png", alt: "Cart", size: "20x20") %>
                 <% end %>
               <% end %>
+                           
             </div>
           </div>
         <% end %>
