@@ -1,5 +1,10 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-//= require jquery3
-//= require jquery_ujs
-import "@hotwired/turbo-rails"
-import "controllers"
+console.log("Start of application.js");
+import "@hotwired/turbo-rails";
+import "controllers";
+import "jquery";
+import "lightbox2";
+
+console.log("Lightbox2 loaded successfully!");
+
+console.log("Application.js loaded successfully!");
+console.log("Checking Lightbox:", typeof lightbox);
