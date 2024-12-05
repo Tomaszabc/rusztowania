@@ -17,10 +17,6 @@ class PagesController < ApplicationController
       @part = Part.find_by(description: params[:description])
     end
 
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
   end
 
   private
