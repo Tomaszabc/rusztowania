@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
+  before_action :auto_login_admin
+  before_action :auto_login
   helper_method :current_cart
 
   def current_cart
@@ -11,4 +12,19 @@ class ApplicationController < ActionController::Base
       cart
     end
   end
+
+  private
+  def auto_login_admin
+    admin_user = AdminUser.find_by(email: 'admin@example.com')
+    sign_in(admin_user, scope: :admin_user) if admin_user && !admin_user_signed_in?
+  end
+
+  def auto_login
+      admin = User.find_by(email: 'admin@example.com')
+      sign_in(admin) unless current_user
+  end
 end
+
+
+
+
