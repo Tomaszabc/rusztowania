@@ -38,11 +38,13 @@
         </div>
       <% end %>
 
-      <main class="mt-4 px-5 <%= @view_mode == 'desktop' ? 'flex justify-between' : 'flex flex-col items-center' %>">
+      <main class="mt-4 px-5 <%= @view_mode == 'desktop' ? 'flex justify-between relative' : 'flex flex-col items-center' %>">
         <% if @view_mode == 'desktop' %>
           <!-- Desktop view: Cart displayed on the right -->
-          <div class="w-1/4 bg-white/[.6] rounded shadow-lg p-4">
+          <div class="w-1/4 relative">
+            <div class='sticky top-0 left-0 w-full bg-white/[.9] rounded shadow-lg p-4'>
             <%= render 'shared/cart', cart: @cart %>
+            </div>
           </div>
         <% end %>
 
