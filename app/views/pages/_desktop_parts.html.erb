@@ -1,7 +1,7 @@
 <div class="desktop-parts-list">
   <% sorted_parts = @parts.sort_by { |part| part.description.strip.downcase } %>
   <% sorted_parts.each do |part| %>
-    <div class="part-item border p-2 flex flex-col md:flex-row items-center justify-between w-full min-w-[500px] md:max-w-[900px] max-h-[120px]">
+    <div class="part-item border p-2 flex flex-row items-center justify-between w-full min-w-[500px] md:max-w-[900px] max-h-[120px]">
       <div class="flex-shrink-0 mr-4">
         <% if part.image.attached? %>
           <%= link_to url_for(part.image.variant(resize_to_limit: [500, nil])), data: { lightbox: 'part-image', title: part.name } do %>
