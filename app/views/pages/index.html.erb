@@ -10,7 +10,9 @@
     <p class="text-center">Select part:</p>
 
     <% if @view_mode == 'desktop' %>
-      <%= render partial: 'pages/desktop_parts', locals: { parts: @parts }%>
+    <%= turbo_frame_tag "parts_frame" do %>
+        <%= render partial: 'pages/desktop_parts', locals: { parts: @parts } %>
+    <% end %>
     <% else %>
     <%= render partial: 'pages/mobile_parts', locals: { parts: @parts }%>
     <% end %>

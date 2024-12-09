@@ -31,7 +31,7 @@
       </div>
 
       <div class="flex items-center mt-4 md:mt-0">
-        <%= form_with(model: [@cart, CartItem.new], local: true, html: { class: 'flex items-center', data: { controller: 'scroll', action: 'submit->scroll#saveScroll turbo:load->scroll#restoreScroll'} }) do |form| %>
+        <%= form_with(model: [@cart, CartItem.new], data: { turbo_frame: "parts_frame" }, class: 'flex items-center') do |form| %>
           <%= form.hidden_field :part_id, value: part.id %>
           <%= form.number_field :quantity, value: 0, min: 1, class: "border mr-2 w-20 text-center rounded-md" %>
           <%= button_tag type: 'submit', class: "bg-green-500 hover:bg-green-600 text-white p-2 rounded shadow" do %>
