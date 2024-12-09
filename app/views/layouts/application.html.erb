@@ -38,7 +38,7 @@
         </div>
       <% end %>
 
-      <main class="mt-4 px-5 <%= @view_mode == 'desktop' ? 'flex justify-between relative' : 'flex flex-col items-center' %>">
+      <main class="mt-4 px-5 <%= @view_mode == 'desktop' ? 'flex justify-between' : 'flex flex-col items-center' %>">
         <% if @view_mode == 'desktop' %>
           <!-- Desktop view: Cart displayed on the right -->
           <div class="w-1/4 relative">

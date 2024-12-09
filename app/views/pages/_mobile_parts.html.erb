@@ -4,12 +4,12 @@
         <%= form.select :description, 
                          [["Select Part", nil]] + @parts.pluck(:description).uniq.sort,
                          { selected: params[:description] },
-                         { class: "rounded-md border border-black-500 w-62", onchange: 'this.form.submit()', include_blank: true } %>
+                         { class: "rounded-md border border-black-500 w-full max-w-xs md:max-w-full", onchange: 'this.form.submit()', include_blank: true } %>
       <% end %>
 
       <% if @part %>
         <div class="border-t-2 mb-4 justify-between mt-2">
-          <p class="text-center m-2"><%= @part.description %></p>
+          <p class="text-center m-2 max-w-xs md:max-w-full break-words"><%= @part.description %></p>
           <% if @cart.present? %>
             <% current_quantity = @cart.cart_items.where(part_id: @part.id).sum(:quantity) %>
             <% if current_quantity > 0 %>
