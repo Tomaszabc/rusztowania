@@ -49,8 +49,8 @@
         <% end %>
 
         <!-- Main content -->
-        <div class="<%= @view_mode == 'desktop' ? 'w-3/4 mx-auto max-w-[700px]' : 'w-full' %> border-2 rounded-lg shadow-xl bg-white
-        <%= @view_mode != 'desktop' ? 'w-3/4 mx-auto max-w-[600px]' : 'w-full' %>">
+        <div class="<%= @view_mode == 'desktop' ? 'w-3/4 mx-auto max-w-[500px]' : 'w-full' %> border-2 rounded-lg shadow-xl bg-white
+        <%= @view_mode != 'desktop' ? 'w-3/4 mx-auto max-w-[500px]' : 'w-full' %>">
           <div class="flex flex-col items-center min-h-470 p-4">
             <%= yield %>
           </div>
