@@ -1,5 +1,5 @@
 <div class="desktop-parts-list">
-        <% sorted_parts = @parts.sort_by(&:description) %>
+        <% sorted_parts = @parts.sort_by { |part| part.description.strip.downcase } %>
         <% sorted_parts.each do |part| %>
           <div class="part-item border p-1 flex items-center justify-between w-full min-w-[680px] md:max-w-[900px] max-h-[120px]">
             <div class="flex-shrink-0 mr-4">
