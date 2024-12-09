@@ -1,6 +1,9 @@
 <% unless current_page?(new_order_path) %>
   <% if @view_mode == 'desktop' %>
   <strong>Items in cart:</strong>
+    <% unless @cart && @cart.cart_items.any? %>
+      <p>Cart is empty</p>
+    <% end %>
   <% end %>
   <% if @cart && @cart.cart_items.any? %>
     <div class="flex justify-center text-sm w-120">

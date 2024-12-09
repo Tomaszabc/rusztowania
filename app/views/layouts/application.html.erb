@@ -39,14 +39,7 @@
       <% end %>
 
       <main class="mt-4 px-5 <%= @view_mode == 'desktop' ? 'flex justify-between' : 'flex flex-col items-center' %>">
-        <% if @view_mode == 'desktop' %>
-          <!-- Desktop view: Cart displayed on the right -->
-          <div class="w-1/3 relative">
-            <div class='sticky top-0 left-0 w-full bg-white/[.9] rounded shadow-lg p-4'>
-            <%= render 'shared/cart', cart: @cart %>
-            </div>
-          </div>
-        <% end %>
+        
 
         <!-- Main content -->
         <div class="<%= @view_mode == 'desktop' ? 'w-3/4 mx-auto max-w-[800px]' : 'w-full' %> border-2 rounded-lg shadow-xl bg-white
@@ -55,6 +48,15 @@
             <%= yield %>
           </div>
         </div>
+
+        <% if @view_mode == 'desktop' %>
+          <!-- Desktop view: Cart displayed on the right -->
+          <div class="w-1/3 relative">
+            <div class='sticky top-0 left-0 w-full bg-white/[.9] rounded shadow-lg p-4'>
+            <%= render 'shared/cart', cart: @cart %>
+            </div>
+          </div>
+        <% end %>
       </main>
 
       <%= render 'shared/log_in'%>
