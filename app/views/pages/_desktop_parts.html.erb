@@ -1,0 +1,45 @@
+<div class="desktop-parts-list">
+        <% sorted_parts = @parts.sort_by(&:description) %>
+        <% sorted_parts.each do |part| %>
+          <div class="part-item border p-1 flex items-center justify-between w-full min-w-[680px] md:max-w-[900px] max-h-[120px]">
+            <div class="flex-shrink-0 mr-4">
+              <% if part.image.attached? %>
+                <%= link_to url_for(part.image.variant(resize_to_limit: [500, nil])), data: { lightbox: 'part-image', title: part.name } do %>
+                  <%= image_tag(part.image.variant(resize_to_limit: [80, 80]), alt: part.name, class: "rounded shadow") %>
+                <% end %>
+              <% else %>
+                <%= image_tag("scaffold_img.png", alt: "No image", size: "80x80", class: "rounded shadow") %>
+              <% end %>
+            </div>
+            <div class="flex-grow">
+              <p class="text-lg font-semibold"><%= part.description %></p>
+              <p class="text-gray-500">Multipack: <strong><%= part.multipack %></strong></p>
+            </div>
+            <div>
+              <% if @cart.cart_items.exists?(part_id: part.id) %>
+            <%= button_to cart_cart_item_path(@cart, @cart.cart_items.find_by(part_id: part.id)), method: :delete, data: { confirm: 'Are you sure?' }, class: "ml-2" do %>
+              <%= image_tag "trash.png", size: "30x30", alt: "Delete", class: "hover:scale-110 transition duration-200 hover:bg-red-100 rounded" %>
+            <% end %>
+          <% end %>
+            </div>
+            <div class="flex items-center">
+              <% if @cart.present? %>
+                <% current_quantity = @cart.cart_items.where(part_id: part.id).sum(:quantity) %>
+                <% if current_quantity > 0 %>
+                  <p class="text-green-500 mr-4">In Cart: <strong><%= current_quantity %></strong></p>
+                <% end %>
+              <% end %>
+            </div>
+            <div>
+              <%= form_with(model: [@cart, CartItem.new], local: true, html: { class: 'flex items-center', data: { controller: 'scroll', action: 'submit->scroll#saveScroll turbo:load->scroll#restoreScroll'} }) do |form| %>
+                <%= form.hidden_field :part_id, value: part.id %>
+                <%= form.number_field :quantity, value: 0, min: 1, class: "border mr-2 w-20 text-center rounded-md" %>
+                <%= button_tag type: 'submit', class: "bg-green-500 hover:bg-green-600 text-white p-2 rounded shadow" do %>
+                  <%= image_tag("cart_2.png", alt: "Cart", size: "20x20") %>
+                <% end %>
+              <% end %>
+                           
+            </div>
+          </div>
+        <% end %>
+      </div>
