@@ -13,6 +13,8 @@
     
     <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js", "data-turbolinks-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+    <%= yield :head %>
   </head>
 
   <body class="bg-no-repeat bg-cover bg-center" style="background-image: url(<%= asset_path 'bg-lines.png' %>); background-attachment: fixed;">
