@@ -6,14 +6,14 @@
     <% end %>
   <% end %>
   <% if @cart && @cart.cart_items.any? %>
-    <div class="flex justify-center text-sm w-120">
+    <div class="flex justify-center text-sm w-120 ">
       <div>
         <% if @view_mode != 'desktop' %>
           <strong>Items in cart:</strong>
         <% end %>
           <% sorted_cart_items = cart.cart_items.sort_by { |item| item.created_at } %>
-          <% sorted_cart_items.each do |item| %>
-        <p class="flex inline border-b-2"><%= item.part.name %> <%= item.part.description %>--<strong><%= item.quantity %> </strong>-stk</p>
+          <% sorted_cart_items.each_with_index do |item, index| %>
+        <p class="flex inline border-b-2 mt-2 <%= index.even? ? 'bg-gray-200 rounded' : '' %>"><%= item.part.name %> <%= item.part.description %>--<strong><%= item.quantity %> </strong>-stk</p>
       <% end %>
       </div>
     </div>
