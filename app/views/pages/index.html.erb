@@ -14,7 +14,9 @@
         <%= render partial: 'pages/desktop_parts', locals: { parts: @parts } %>
     <% end %>
     <% else %>
-    <%= render partial: 'pages/mobile_parts', locals: { parts: @parts }%>
+      <%= turbo_frame_tag "mobile_frame" do %>
+        <%= render partial: 'pages/mobile_parts', locals: { parts: @parts }%>
+      <%end%>
     <% end %>
   <% end %>
 </div>

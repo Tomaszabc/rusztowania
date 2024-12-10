@@ -21,10 +21,10 @@
           <% end %>
           <div class="columns-2">
             <div class="ml-2 mt-2">
-              <%= form_with(model: [@cart, CartItem.new], local: true, html: { id: 'add-to-cart-form' }) do |form| %>
+              <%= form_with(model: [@cart, CartItem.new], data: { turbo_frame: "mobile_frame" }) do |form| %>
                 <div>
                   <%= form.hidden_field :part_id, value: @part.id %>
-                  <%= form.number_field :quantity, value: 0, class: "m-2 w-24", id: "quantity-field", min: 1 %>
+                  <%= form.number_field :quantity, class: "m-2 w-24", id: "quantity-field", min: 1 %>
                 </div>
                 <div class="mt-1 ml-3">
                   <%= button_tag type: 'submit', class: "bg-green-500 hover:bg-green-600 rounded-full p-2 inline-flex items-center hover:scale-110 transition duration-200" do %>
