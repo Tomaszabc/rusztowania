@@ -25,14 +25,7 @@
         </nav>
       <% end %>
 
-      <% if @view_mode != 'desktop' %>
-        <!-- Mobile view: Cart displayed above the content -->
-        <div class="flex justify-center ">
-          <div class="bg-white/[.6] rounded">
-            <%= render 'shared/cart', cart: @cart %>
-          </div>
-        </div>
-      <% end %>
+      
 
       <% flash.each do |key, value| %>
         <div class="flash text-center text-lime-700 <%= key %>">
@@ -59,6 +52,14 @@
             </div>
           </div>
         <% end %>
+        <% if @view_mode != 'desktop' %>
+        <!-- Mobile view: Cart displayed above the content -->
+        <div class="flex justify-center mb-4 mt-4">
+          <div class="bg-white/[.6] rounded">
+            <%= render 'shared/cart', cart: @cart %>
+          </div>
+        </div>
+      <% end %>
       </main>
 
       <%= render 'shared/log_in'%>
