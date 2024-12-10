@@ -7,44 +7,55 @@
                          { class: "rounded-md border border-black-500 w-full max-w-xs md:max-w-full", onchange: 'this.form.submit()', include_blank: true } %>
       <% end %>
 
-      <% if @part %>
-        <div class="border-t-2 mb-4 justify-between mt-2">
-          <p class="text-center m-2 max-w-xs md:max-w-full break-words"><%= @part.description %></p>
-          <% if @cart.present? %>
-            <% current_quantity = @cart.cart_items.where(part_id: @part.id).sum(:quantity) %>
-            <% if current_quantity > 0 %>
-              <p class="ml-2 text-lg text-green-500 text-center">In Cart: <strong><%= current_quantity %></strong></p>
-            <% end %>
-          <% end %>
-          <% if @part.multipack > 1 %>
-            <p class="m-2"><strong>Multipack: <%= @part.multipack %></strong></p>
-          <% end %>
-          <div class="columns-2">
-            <div class="ml-2 mt-2">
-              <%= form_with(model: [@cart, CartItem.new], data: { turbo_frame: "mobile_frame" }) do |form| %>
-                <div>
-                  <%= form.hidden_field :part_id, value: @part.id %>
-                  <%= form.number_field :quantity, class: "m-2 w-24", id: "quantity-field", min: 1 %>
-                </div>
-                <div class="mt-1 ml-3">
-                  <%= button_tag type: 'submit', class: "bg-green-500 hover:bg-green-600 rounded-full p-2 inline-flex items-center hover:scale-110 transition duration-200" do %>
-                    <%= image_tag("cart_2.png", alt: "Cart", class: "h-8 w-8") %>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
-            <div class="flex justify-end">
-              <% if @part.image.attached? %>
-                <div data-controller="lightbox">
-                  <%= link_to url_for(@part.image.variant(resize_to_limit: [500, nil])), data: { lightbox: 'part-image', title: @part.name } do %>
-                    <%= image_tag(@part.image.variant(resize_to_limit: [140, nil]), alt: @part.name) %>
-                  <% end %>
-                </div>
-              <% else %>
-                <%= image_tag("scaffold_img.png", alt: "scaffold", size: "120x100") %>
-              <% end %>
-            </div>
-          </div>
-        </div>
+<% if @part %>
+  <div class="border-t-2 mb-4 justify-between mt-2">
+    <p class="text-center m-2 max-w-xs md:max-w-full break-words"><%= @part.description %></p>
+    <% if @cart.present? %>
+      <% current_quantity = @cart.cart_items.where(part_id: @part.id).sum(:quantity) %>
+      <% if current_quantity > 0 %>
+        <div class="mb-2">
+      <p class="ml-2 text-lg text-green-500 text-center">In Cart: <strong><%= current_quantity %></strong></p>
+      <div class="flex justify-center mt-2">
+        <%= button_to cart_cart_item_path(@cart, @cart.cart_items.find_by(part_id: @part.id)), 
+                      method: :delete, 
+                      data: { confirm: 'Are you sure?' }, 
+                      class: "bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-full shadow hover:scale-110 transition duration-200" do %>
+          <%= image_tag "trash.png", size: "20x20", alt: "Delete", class: "inline-block" %>
+        <% end %>
+      </div>
+    </div>
+        
       <% end %>
+    <% end %>
+    <% if @part.multipack > 1 %>
+      <p class="m-2"><strong>Multipack: <%= @part.multipack %></strong></p>
+    <% end %>
+    <div class="columns-2">
+      <div class="ml-2 mt-2">
+        <%= form_with(model: [@cart, CartItem.new], data: { turbo_frame: "mobile_frame" }) do |form| %>
+          <div>
+            <%= form.hidden_field :part_id, value: @part.id %>
+            <%= form.select :quantity, options_for_select((1..1000).map { |n| [n, n] }), {}, class: "m-2 w-24", id: "quantity-field", min: 1 %>
+          </div>
+          <div class="mt-1 ml-3">
+            <%= button_tag type: 'submit', class: "bg-green-500 hover:bg-green-600 rounded-full p-2 inline-flex items-center hover:scale-110 transition duration-200" do %>
+              <%= image_tag("cart_2.png", alt: "Cart", class: "h-8 w-8") %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="flex justify-end">
+        <% if @part.image.attached? %>
+          <div data-controller="lightbox">
+            <%= link_to url_for(@part.image.variant(resize_to_limit: [500, nil])), data: { lightbox: 'part-image', title: @part.name } do %>
+              <%= image_tag(@part.image.variant(resize_to_limit: [140, nil]), alt: @part.name) %>
+            <% end %>
+          </div>
+        <% else %>
+          <%= image_tag("scaffold_img.png", alt: "scaffold", size: "120x100") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
     
