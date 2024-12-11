@@ -11,7 +11,7 @@
         <% if @view_mode != 'desktop' %>
           <strong>Items in cart:</strong>
         <% end %>
-          <% sorted_cart_items = cart.cart_items.sort_by { |item| item.created_at } %>
+          <% sorted_cart_items = cart.cart_items.sort_by { |item| item.created_at }.reverse %>
           <% sorted_cart_items.each_with_index do |item, index| %>
         <p class="flex inline border-b-2 mt-2 <%= index.even? ? 'bg-gray-200 rounded' : '' %>"><%= item.part.name %> <%= item.part.description %>--<strong><%= item.quantity %> </strong>-stk</p>
       <% end %>
