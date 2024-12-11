@@ -11,8 +11,8 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
-    <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js", "data-turbolinks-track": "reload" %>
-    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css", "data-turbo-track": "reload" %>
     <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
     <%= yield :head %>
   </head>
