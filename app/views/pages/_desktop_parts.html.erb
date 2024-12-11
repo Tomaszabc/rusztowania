@@ -25,7 +25,7 @@
           <% if @cart.cart_items.exists?(part_id: part.id) %>
             <div data-controller="dialog">
               <dialog data-dialog-target="dialog" class="rounded shadow-lg p-4">
-                <p class="text-lg">Delete this item from the cart?</p>
+                <p class="text-lg">Delete <%=part.description %> from the cart?</p>
                 <div class="mt-4 flex justify-end gap-4">
                   <%= button_to cart_cart_item_path(@cart, @cart.cart_items.find_by(part_id: part.id)), method: :delete, class: "bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200" do %>
                     Yes, Delete
