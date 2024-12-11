@@ -101,3 +101,41 @@ dialog[data-dialog-target="dialog"][closing] {
 
 /* notification
 
+/* Notification Container */
+.notification {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 500px;
+  width: 100%;
+  background-color: #ffffff;
+  border-left-width: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Colors for Notice and Alert */
+.text-green-700 {
+  color: #2f855a;
+}
+
+.text-red-700 {
+  color: #c53030;
+}
+
+/* Close Button */
+button {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #718096;
+}
+
+button:hover {
+  color: #2d3748;
+  cursor: pointer;
+}

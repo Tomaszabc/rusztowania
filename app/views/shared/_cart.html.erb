@@ -46,14 +46,14 @@
                   <button type="button" data-action="dialog#close" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition duration-200">Cancel</button>
                 </div>
               </dialog>
-              <button type="button" data-action="dialog#open" class="mr-1 px-2 text-red-500 border border-red-500 rounded hover:bg-red-500 hover:text-white transition duration-200">
+              <button type="button" data-action="dialog#open" class="mr-2 px-2 text-red-500 border border-red-500 rounded hover:bg-red-500 hover:text-white transition duration-200">
                 X
               </button>
             </div>
             
             <!-- Item Details -->
             <p class="flex-grow">
-              <strong><%= item.part.name %></strong>/ <%= item.part.description %>--<strong><%= item.quantity %></strong>-stk
+              <strong class="text-blue-800 underline"><%= item.quantity %></strong>-stk/<strong><%= item.part.name %></strong>/ <%= item.part.description %>
             </p>
           </div>
         <% end %>
