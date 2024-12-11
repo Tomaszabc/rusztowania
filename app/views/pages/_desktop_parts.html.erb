@@ -4,9 +4,11 @@
     <div class="part-item border p-2 flex flex-row items-center justify-between w-full sm:min-w-[400px] md:min-w-[650px] md:max-w-[900px] max-h-[120px] <%= @cart.cart_items.exists?(part_id: part.id) ? 'bg-green-50' : '' %>">
       <div class="flex-shrink-0 mr-4">
         <% if part.image.attached? %>
-          <%= link_to url_for(part.image.variant(resize_to_limit: [500, nil])), data: { controller: "lightbox", glightbox: "title: #{part.name}" } do %>
-            <%= image_tag(part.image.variant(resize_to_limit: [40, 40]), alt: part.name, class: "rounded shadow") %>
-          <% end %>
+          <%= link_to url_for(part.image.variant(resize_to_limit: [500, nil])),
+            data: { lightbox: "image-set", title: part.name } do %>
+  <%= image_tag(part.image.variant(resize_to_limit: [40, 40]), alt: part.name, class: "rounded shadow") %>
+<% end %>
+
         <% else %>
           <%= image_tag("scaffold_img_small.webp", alt: "No image", size: "40x40", class: "rounded shadow") %>
         <% end %>
