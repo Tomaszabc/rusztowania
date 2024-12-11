@@ -55,9 +55,16 @@
         </div>
         <div>
           <% if item.part.image.attached? %>
-        <%= image_tag item.part.image, size: "80x80", alt: "img" %>
+                  <%= image_tag(
+            item.part.image.variant(
+              resize_to_limit: [80, 80], # Ograniczenie rozmiaru
+              saver: { quality: 90 },   # Ustawienie jakości na 90%
+              format: :webp             # Konwersja na format WEBP
+            ),
+            alt: item.part.name
+          ) %>
       <% else %>
-        <%= image_tag "scaffold_img.png", size: "80x80", alt: "img" %>
+        <%= image_tag "scaffold_img_small.webp", size: "80x80", alt: "img" %>
       <% end %>
         </div>
         <div data-controller="dialog">
