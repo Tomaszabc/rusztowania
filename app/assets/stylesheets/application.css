@@ -127,15 +127,14 @@ dialog[data-dialog-target="dialog"][closing] {
 .text-red-700 {
   color: #c53030;
 }
-
-/* Close Button */
-button {
+/* Close Button for Dialog */
+button.dialog-button {
   font-size: 1.25rem;
   font-weight: bold;
   color: #718096;
 }
 
-button:hover {
+button.dialog-button:hover {
   color: #2d3748;
   cursor: pointer;
 }
