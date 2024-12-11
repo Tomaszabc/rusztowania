@@ -1,20 +1,40 @@
 <% unless current_page?(new_order_path) %>
   <% if @view_mode == 'desktop' %>
-  <strong>Items in cart:</strong>
+    <strong>Items in cart:</strong>
     <% unless @cart && @cart.cart_items.any? %>
       <p>Cart is empty</p>
     <% end %>
   <% end %>
+  
   <% if @cart && @cart.cart_items.any? %>
-    <div class="flex justify-center text-sm w-120 ">
+    <div class="flex justify-center text-sm w-120">
       <div>
         <% if @view_mode != 'desktop' %>
           <strong>Items in cart:</strong>
         <% end %>
-          <% sorted_cart_items = cart.cart_items.sort_by { |item| item.created_at }.reverse %>
-          <% sorted_cart_items.each_with_index do |item, index| %>
-        <p class="flex inline border-b-2 mt-2 <%= index.even? ? 'bg-gray-200 rounded' : '' %>"><%= item.part.name %> <%= item.part.description %>--<strong><%= item.quantity %> </strong>-stk</p>
+        <div class="flex justify-end">
+        <% if @cart && @cart.cart_items.any? %>
+        <%= button_to clear_cart_cart_path(@cart), method: :delete, data: { confirm: 'Are you sure you want to clear the cart?' }, class: "inline-flex items-center px-4 py-2 bg-transparent hover:bg-red-500 text-red-500 hover:text-white text-sm font-medium rounded-md border border-red-500 " do %>
+          <strong>Clear all cart</strong>
+        <% end %>
       <% end %>
+      </div>
+        
+        <% sorted_cart_items = cart.cart_items.sort_by { |item| item.created_at }.reverse %>
+        <% sorted_cart_items.each_with_index do |item, index| %>
+          <div class="flex items-center justify-between border-b-2 mt-4 px-2 <%= index.even? ? 'bg-gray-200 rounded' : '' %> <%= @view_mode == 'desktop' ? 'text-lg' : '' %>">
+            
+            <!-- Delete Button -->
+            <%= button_to cart_cart_item_path(@cart, item), method: :delete, data: { confirm: 'Are you sure?' }, class: "px-2  text-red-500 border border-red-500 rounded hover:bg-red-500 hover:text-white transition duration-200 mr-2" do %>
+              X
+            <% end %>
+            
+            <!-- Item Details -->
+            <p class="flex-grow">
+              <strong><%= item.part.name %></strong>/ <%= item.part.description %>--<strong><%= item.quantity %></strong>-stk
+            </p>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>
