@@ -18,7 +18,7 @@
       <div class="flex justify-center mt-2" data-controller="dialog">
   <!-- Confirmation Dialog -->
         <dialog data-dialog-target="dialog" class="rounded shadow-lg p-4">
-          <p>Delete <%=@part.description %> the cart?</p>
+          <p>Delete <%=@part.description %> from the cart?</p>
           <div class="mt-4 flex justify-end gap-4">
             <!-- Confirm Deletion -->
             <%= button_to cart_cart_item_path(@cart, @cart.cart_items.find_by(part_id: @part.id)), 
