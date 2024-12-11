@@ -7,13 +7,25 @@
       back
     </button>
   </div>
-  <div class="mb-3  mr-2 mt-2 bg-red-100 hover:scale-110 transition duration-200">
-      <%= button_to clear_cart_cart_path(@cart), method: :delete, data: { confirm: 'Are you sure?' }, class: "inline-flex items-center px-4 py-2 bg-transparent hover:bg-slate-300 text-black text-sm font-medium rounded-md border border-black" do %>
-        <%= image_tag "trash.png", size: "15x15", alt: "Delete", class: "mr-2" %>
-        Clear cart
-      <% end %>
+
+  <div class="mb-3 mr-2 mt-2 bg-red-100 hover:scale-110 transition duration-200" data-controller="dialog">
+    <dialog data-dialog-target="dialog" class="rounded shadow-lg p-4">
+      <p>Are you sure you want to clear the cart?</p>
+      <div class="mt-4 flex justify-end gap-4">
+        <%= button_to clear_cart_cart_path(@cart), method: :delete, class: "bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full shadow" do %>
+          Yes, Clear All
+        <% end %>
+        <button type="button" data-action="dialog#close" class="bg-gray-300 px-4 py-2 rounded-full shadow hover:bg-gray-400 transition duration-200">Cancel</button>
+      </div>
+    </dialog>
+    <button type="button" data-action="dialog#open" class="inline-flex items-center px-4 py-2 bg-transparent hover:bg-slate-300 text-black text-sm font-medium rounded-md border border-black">
+      <%= image_tag "trash.png", size: "15x15", alt: "Delete", class: "mr-2" %>
+      Clear cart
+    </button>
   </div>
+
 </div>
+
   <% if @cart.cart_items.empty? %>
       <h1>Your Order Cart is Empty</h1>
     <% else %>
@@ -48,11 +60,20 @@
         <%= image_tag "scaffold_img.png", size: "80x80", alt: "img" %>
       <% end %>
         </div>
-        <div>
-          <%= button_to cart_cart_item_path(@cart, item), method: :delete, data: { confirm: 'Are you sure?' } do %>
-            <%= image_tag "trash.png", size: "30x30", alt: "Delete", class:" mt-3 hover:scale-110 transition duration-200 hover:bg-red-100 rounded" %>
-          <% end %>
-        </div>
+        <div data-controller="dialog">
+        <dialog data-dialog-target="dialog" class="rounded shadow-lg p-4">
+          <p>Delete <%= item.part.description %> from the cart?</p>
+          <div class="mt-4 flex justify-end gap-4">
+            <%= button_to cart_cart_item_path(@cart, item), method: :delete, class: "bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full shadow" do %>
+              Yes, Delete
+            <% end %>
+            <button type="button" data-action="dialog#close" class="bg-gray-300 px-4 py-2 rounded-full shadow hover:bg-gray-400 transition duration-200">Cancel</button>
+          </div>
+        </dialog>
+        <button type="button" data-action="dialog#open" class=" hover:bg-red-600 text-white px-3 py-1 rounded-full shadow hover:scale-110 transition duration-200">
+          <%= image_tag "trash.png", size: "30x30", alt: "Delete", class: "inline-block" %>
+        </button>
+      </div>
       </div>
     <% end %>
 </div>
