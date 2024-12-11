@@ -8,7 +8,7 @@ class CartsController < ApplicationController
   def clear_cart
     @cart = Cart.find(params[:id])
     @cart.cart_items.destroy_all
-    redirect_to @cart, notice: "Cart deleted !"
+    redirect_back(fallback_location: root_path, notice: "Cart cleared!")
   end
 
   private
