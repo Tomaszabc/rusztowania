@@ -21,13 +21,8 @@
         </nav>
       <% end %>
 
-      
+      <%= render 'shared/flash_notification' %>
 
-      <% flash.each do |key, value| %>
-        <div class="flash text-center text-lime-700 <%= key %>">
-          <%= value %>
-        </div>
-      <% end %>
 
       <main class="mt-4 px-5 <%= @view_mode == 'desktop' ? 'flex justify-between' : 'flex flex-col items-center' %>">
         

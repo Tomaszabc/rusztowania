@@ -97,3 +97,7 @@ dialog[data-dialog-target="dialog"][open] {
 dialog[data-dialog-target="dialog"][closing] {
   animation: fade-out 200ms forwards;
 }
+
+
+/* notification
+
