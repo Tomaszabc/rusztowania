@@ -2,7 +2,7 @@
   <div class="text-center">
     <h2>Current System: <%= params[:system].upcase %></h2>
     <p class="m-1 flex justify-center">
-      <%= image_tag("#{params[:system]}.jpg", alt: "System", size: "30x30") %>
+      <%= image_tag(url_for(image_variant("#{params[:system]}.jpg")), alt: "System", size: "30x30") %>
     </p>
   </div>
 <% end %>

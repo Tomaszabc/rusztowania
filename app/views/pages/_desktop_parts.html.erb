@@ -8,7 +8,7 @@
             <%= image_tag(part.image.variant(resize_to_limit: [40, 40]), alt: part.name, class: "rounded shadow") %>
           <% end %>
         <% else %>
-          <%= image_tag("scaffold_img.png", alt: "No image", size: "40x40", class: "rounded shadow") %>
+          <%= image_tag(url_for(image_variant("scaffold_img.png")), alt: "No image", size: "40x40", class: "rounded shadow") %>
         <% end %>
       </div>
 

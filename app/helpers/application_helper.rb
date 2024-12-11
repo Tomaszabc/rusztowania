@@ -25,4 +25,21 @@ module ApplicationHelper
     end
     weight
   end
+
+  def image_variant(file_name)
+    ActiveStorage::Blob.create_and_upload!(
+      io: File.open(Rails.root.join("app/assets/images/#{file_name}")),
+      filename: file_name,
+      content_type: "image/png" # dostosuj typ MIME
+    ).variant(resize_to_limit: [20, 20], format: :webp, quality: 80)
+  end
+
+  def pert_image_variant(file_name)
+    ActiveStorage::Blob.create_and_upload!(
+      io: File.open(Rails.root.join("app/assets/images/#{file_name}")),
+      filename: file_name,
+      content_type: "image/png image/jpg" # dostosuj typ MIME
+    ).variant(resize_to_limit: [40, 40], format: :webp, quality: 100)
+  end
+
 end
