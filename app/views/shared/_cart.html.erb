@@ -13,7 +13,20 @@
         <% end %>
           <% sorted_cart_items = cart.cart_items.sort_by { |item| item.created_at }.reverse %>
           <% sorted_cart_items.each_with_index do |item, index| %>
-        <p class="flex inline border-b-2 mt-2 <%= index.even? ? 'bg-gray-200 rounded' : '' %>"><%= item.part.name %> <%= item.part.description %>--<strong><%= item.quantity %> </strong>-stk</p>
+       <p class="flex items-center justify-between border-b-2 mt-2 px-2 <%= index.even? ? 'bg-gray-200 rounded' : '' %> <%= @view_mode == 'desktop' ? 'text-lg' : '' %>">
+  <span class="flex-1">
+    <strong><%= item.part.name %></strong>/ <%= item.part.description %>--<strong><%= item.quantity %></strong>-stk
+  </span>
+  <% if @view_mode == 'desktop' %>
+    <button
+      class="ml-2 px-2 py-1 text-red-500 border border-red-500 rounded hover:bg-red-500 hover:text-white transition duration-200"
+      data-confirm="Are you sure?"
+      onclick="location.href='<%= cart_cart_item_path(@cart, item) %>'">
+      X
+    </button>
+  <% end %>
+</p>
+
       <% end %>
       </div>
     </div>
