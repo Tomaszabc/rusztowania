@@ -1,7 +1,7 @@
 <div class="desktop-parts-list">
   <% sorted_parts = @parts.sort_by { |part| part.description.strip.downcase } %>
   <% sorted_parts.each do |part| %>
-    <div class="part-item border p-2 flex flex-row items-center justify-between w-full min-w-[500px] md:max-w-[900px] max-h-[120px] <%= @cart.cart_items.exists?(part_id: part.id) ? 'bg-green-50' : '' %>">
+    <div class="part-item border p-2 flex flex-row items-center justify-between w-full min-w-[480px] md:max-w-[900px] max-h-[120px] <%= @cart.cart_items.exists?(part_id: part.id) ? 'bg-green-50' : '' %>">
       <div class="flex-shrink-0 mr-4">
         <% if part.image.attached? %>
           <%= link_to url_for(part.image.variant(resize_to_limit: [500, nil])), data: { lightbox: 'part-image', title: part.name } do %>
@@ -13,7 +13,7 @@
       </div>
 
       <div class="flex-grow ">
-        <p class="font-semibold w-72"><%= part.description %></p>
+        <p class="font-semibold w-60"><%= part.description %></p>
         <p class="text-gray-500">Multipack: <strong><%= part.multipack %></strong></p>
         <div class="mt-2 flex">
           <% if @cart.present? %>
@@ -33,7 +33,7 @@
       <div class="flex items-center mt-4 md:mt-0">
         <%= form_with(model: [@cart, CartItem.new], data: { turbo_frame: "parts_frame" }, class: 'flex items-center') do |form| %>
           <%= form.hidden_field :part_id, value: part.id %>
-          <%= form.select :quantity, options_for_select((1..1000).map { |n| [n, n] }), {}, class: "border mr-2 w-20 text-center rounded-md" %>
+          <%= form.select :quantity, options_for_select((1..1000).map { |n| [n, n] }), {}, class: "border  w-20 text-center rounded-md" %>
           <%= button_tag type: 'submit', class: "bg-green-500 hover:bg-green-600 text-white p-2 rounded shadow" do %>
             <%= image_tag("cart_2.png", alt: "Cart", size: "20x20") %>
           <% end %>
