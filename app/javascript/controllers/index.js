@@ -7,9 +7,11 @@ import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
 eagerLoadControllersFrom("controllers", application)
 import Dialog from '@stimulus-components/dialog'
 import Notification from '@stimulus-components/notification'
+import LightboxController from "./lightbox_controller";
 
 // Lazy load controllers as they appear in the DOM (remember not to preload controllers in import map!)
 // import { lazyLoadControllersFrom } from "@hotwired/stimulus-loading"
 // lazyLoadControllersFrom("controllers", application)
 application.register('dialog', Dialog)
 application.register('notification', Notification)
+application.register("lightbox", LightboxController);
