@@ -62,7 +62,7 @@
   <h1 class="text-center m-4">Last 100 orders:</h1>
 <% end %>
 <div class="flex justify-center items-center ">
-  <table class="table-fixed ">
+  <table class="table-fixed m-1">
     <thead>
       <tr>
         <th>Order no:</th>
@@ -71,10 +71,11 @@
         <th>Status</th>
       </tr>
     </thead>
+
     <tbody>
       <% @orders.each do |order| %>
         <tr class="transition duration-300 hover:bg-slate-300 border ">
-          <td class="m-2"> <%= link_to tracking_order_path(order), class: "ml-2" do %>
+          <td class="m-20"> <%= link_to tracking_order_path(order), class: "ml-2" do %>
             <%= image_tag('go_to.png', size: '30x30', class: 'inline') %>
             <%= order.id %>
           <% end %></td>
