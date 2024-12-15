@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register System do
   permit_params :name
   # See permitted parameters documentation:

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register User do
   permit_params :email, :password, :password_confirmation, :name, :status
 
@@ -19,8 +21,8 @@ ActiveAdmin.register User do
       f.input :status, as: :select, collection: %w[scaffolder admin lagermann], include_blank: false
 
       f.li do
-        f.label "Hint:"
-        f.div "Leave password empty if no password change", class: "instruction-text"
+        f.label 'Hint:'
+        f.div 'Leave password empty if no password change', class: 'instruction-text'
       end
       f.input :password
       f.input :password_confirmation

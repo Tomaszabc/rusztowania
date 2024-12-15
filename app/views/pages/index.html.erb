@@ -1,22 +1,14 @@
-
 <div class="flex justify-end mb-4 mt-4">
   <%= render partial: 'buttons_for_view'%>
 </div>
-
 <%= render partial: 'params_for_parts'%>
-
 <div class="mb-3">
   <% if params[:category] %>
     <p class="text-center">Select part:</p>
-
     <% if @view_mode == 'desktop' %>
-   
-        <%= render partial: 'pages/desktop_parts', locals: { parts: @parts } %>
-    
+      <%= render partial: 'pages/desktop_parts', locals: { parts: @parts } %>
     <% else %>
-      
-        <%= render partial: 'pages/mobile_parts', locals: { parts: @parts }%>
-      
+      <%= render partial: 'pages/mobile_parts', locals: { parts: @parts }%>
     <% end %>
   <% end %>
 </div>

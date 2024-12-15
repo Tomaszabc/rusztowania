@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Part < ApplicationRecord
   acts_as_paranoid
 
@@ -13,7 +15,7 @@ class Part < ApplicationRecord
 
   validates :name, :description, :multipack, :weight, presence: true
   validates :name, uniqueness: true
-  validates :weight, comparison: {greater_than_or_equal_to: 0.0}
+  validates :weight, comparison: { greater_than_or_equal_to: 0.0 }
   validate :validate_image_format
   validate :image_size_under_15_mb
 
@@ -21,26 +23,28 @@ class Part < ApplicationRecord
     "#{name}, #{description}"
   end
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["category", "created_at", "description", "id", "multipack", "name", "system", "updated_at", "weight", "image_attachment_id"]
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[category created_at description id multipack name system updated_at weight
+       image_attachment_id]
   end
 
-  def self.ransackable_associations(auth_object = nil)
-    ["order_lists", "orders", "part_systems", "part_categories"]
+  def self.ransackable_associations(_auth_object = nil)
+    %w[order_lists orders part_systems part_categories]
   end
 
   private
 
   def validate_image_format
     return unless image.attached?
-    unless image.content_type.in?(%w[image/jpeg image/png image/gif])
-      errors.add(:image, "must be a JPEG, PNG, or GIF")
-    end
+
+    return if image.content_type.in?(%w[image/jpeg image/png image/gif])
+
+    errors.add(:image, 'must be a JPEG, PNG, or GIF')
   end
 
   def image_size_under_15_mb
-    if image.attached? && image.blob.byte_size > 15.megabytes
-      errors.add(:image, "is too large, must be under 15MB")
-    end
+    return unless image.attached? && image.blob.byte_size > 15.megabytes
+
+    errors.add(:image, 'is too large, must be under 15MB')
   end
 end

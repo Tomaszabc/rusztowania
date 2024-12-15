@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
-  factory :admin_user, class: "AdminUser" do
+  factory :admin_user, class: 'AdminUser' do
     email { Faker::Internet.unique.email }
-    password { "password" }
+    password { 'password' }
     # Dodaj inne atrybuty specyficzne dla admina, jeśli są potrzebne
   end
 end

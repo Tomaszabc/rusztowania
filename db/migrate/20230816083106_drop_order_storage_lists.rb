@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class DropOrderStorageLists < ActiveRecord::Migration[7.0]
   def up
-    if table_exists? :order_storage_lists
-      drop_table :order_storage_lists
-    end
+    return unless table_exists? :order_storage_lists
+
+    drop_table :order_storage_lists
   end
 
   def down

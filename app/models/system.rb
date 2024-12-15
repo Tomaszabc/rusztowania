@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class System < ApplicationRecord
   acts_as_paranoid
 
@@ -5,11 +7,11 @@ class System < ApplicationRecord
   has_many :parts, through: :part_systems
   has_many :categories, through: :parts
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "id", "name", "updated_at"]
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[created_at id name updated_at]
   end
 
-  def self.ransackable_associations(auth_object = nil)
-    ["part_systems", "parts"]
+  def self.ransackable_associations(_auth_object = nil)
+    %w[part_systems parts]
   end
 end

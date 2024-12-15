@@ -1,22 +1,24 @@
+# frozen_string_literal: true
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Admin Scaffold Panel"
+  config.site_title = 'Admin Scaffold Panel'
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
-  config.site_title_link = "/"
+  config.site_title_link = '/'
 
   # Set an optional image to be displayed for the header
   # instead of a string (overrides :site_title)
   #
   # Note: Aim for an image that's 21px high so it fits in the header.
   #
-  config.site_title_image = "peri.jpg"
+  config.site_title_image = 'peri.jpg'
 
   # == Load Paths
   #
@@ -174,7 +176,7 @@ ActiveAdmin.setup do |config|
   # You can exclude possibly sensitive model attributes from being displayed,
   # added to forms, or exported by default by ActiveAdmin
   #
-  config.filter_attributes = [:encrypted_password, :password, :password_confirmation]
+  config.filter_attributes = %i[encrypted_password password password_confirmation]
 
   # == Localize Date/Time Format
   #
@@ -351,13 +353,17 @@ ActiveAdmin.setup do |config|
   # config.use_webpacker = true
 
   config.default_namespace = :admin
-  config.root_to = "orders#index"
-  config.footer = "CStillas Site Manager"
+  config.root_to = 'orders#index'
+  config.footer = 'CStillas Site Manager'
 
   config.namespace :admin do |admin|
     admin.build_menu :utility_navigation do |menu|
-      menu.add label: "<<GO BACK TO ORDER SITE>>", url: -> { root_path }, html_options: {target: :blank, class: "bold text-lg"}
-      menu.add label: "My profile", url: -> { admin_admin_user_path current_active_admin_user }, html_options: {target: :blank}
+      menu.add label: '<<GO BACK TO ORDER SITE>>', url: lambda {
+        root_path
+      }, html_options: { target: :blank, class: 'bold text-lg' }
+      menu.add label: 'My profile', url: lambda {
+        admin_admin_user_path current_active_admin_user
+      }, html_options: { target: :blank }
       admin.add_logout_button_to_menu menu
     end
   end

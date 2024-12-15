@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register DeliveryEmail do
   index do
     selectable_column

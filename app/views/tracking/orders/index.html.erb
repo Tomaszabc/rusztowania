@@ -1,40 +1,38 @@
 <button id="toggle-storage-menu" class="ml-4 btn btn-primary  rounded-lg p-1 flex inline bg-neutral-200 hover:bg-neutral-300" onclick="toggleMenu()"><%= image_tag "menu.png", class: "w-6 h-6 flex inline mr-1 " %>  Tracking Menu</button>
 <div id="storage-menu" class="transition-all duration-500 max-h-0 overflow-hidden mt-2">
   <%= form_with url: tracking_orders_path, method: :get, local: true do |form| %>
-    <%= form.label :site, "Search for:", class: "mr-1" %> 
+    <%= form.label :site, "Search for:", class: "mr-1" %>
     <%= form.collection_select :site, Site.order(:name), :id, :name, { prompt: "Choose a site" }, { class: "w-44 rounded-lg" } %>
     <div class="mb-2">
-    <%= form.label :start_date, "From:" %>
-    <%= form.date_field :start_date, class: "w-20 border-1 rounded-lg" %>
-    <%= form.label :end_date, "To:" %>
-    <%= form.date_field :end_date, class: "w-20 border-1 rounded-lg" %>
-    <%= image_submit_tag 'search.png', class: 'w-8 h-8', alt: 'Search' %>
-  <% end %>
-</div>
-   
+      <%= form.label :start_date, "From:" %>
+      <%= form.date_field :start_date, class: "w-20 border-1 rounded-lg" %>
+      <%= form.label :end_date, "To:" %>
+      <%= form.date_field :end_date, class: "w-20 border-1 rounded-lg" %>
+      <%= image_submit_tag 'search.png', class: 'w-8 h-8', alt: 'Search' %>
+    <% end %>
+  </div>
   <div class="flex justify-between ">
     <div class="flex inline ">
       Select only:
-        <%= button_to pending_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
+      <%= button_to pending_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
         <%= image_tag('hourglass.png', size: '20x20', alt: 'Show Completed Orders') %>
       <% end %>
-        <%= button_to in_progress_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
+      <%= button_to in_progress_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
         <%= image_tag('list.png', size: '20x20', alt: 'Show Completed Orders') %>
       <% end %>
-       <%= button_to missing_parts_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
+      <%= button_to missing_parts_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
         <%= image_tag('missing_parts.png', size: '20x20', alt: 'Show Missing Orders') %>
       <% end %>
       <%= button_to completed_orders_tracking_orders_path, method: :get, class: 'your-button-classes m-1' do %>
         <%= image_tag('ok.png', size: '20x20', alt: 'Show Completed Orders') %>
       <% end %>
     </div>
-
     <div class= "flex inline justify-end">
       <div data-controller="lightbox">
         <%= link_to asset_path('instruction_tracking.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
           <div class= "flex inline">
-          <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
-          <%= button_to " Instruction", class: "your-button-classes ml-2" %>
+            <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
+            <%= button_to " Instruction", class: "your-button-classes ml-2" %>
           </div>
         <% end %>
       </div>
@@ -45,83 +43,77 @@
     <p class=""><%= button_to 'Show Your Orders', your_orders_tracking_orders_path, method: :get, class: 'your-button-classes' %></p>
   </div>
 </div>
-  
-
-
 <% if @start_date && @end_date %>
   <p class="flex justify-center text-slate-400 mt-2">Orders from <%= @start_date %> to <%= @end_date %></p>
 <% end %>
 <% if @site_name %>
   <p class="flex justify-center text-slate-400 mt-2">Orders for site: <%= @site_name %></p>
 <% end %>
-
-  <% if @orders.present?  %>
- <% if @all_orders_view == true %>
-  <h1 class="text-center m-4">All orders</h1>
-<% else %>
-  <h1 class="text-center m-4">Last 100 orders:</h1>
-<% end %>
-<div class="flex justify-center items-center ">
-  <table class="table-fixed m-1">
-    <thead>
-      <tr>
-        <th>Order no:</th>
-        <th>Site</th>
-        <th>Created</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @orders.each do |order| %>
-        <tr class="transition duration-300 hover:bg-slate-300 border ">
-          <td class="m-20"> <%= link_to tracking_order_path(order), class: "ml-2" do %>
-            <%= image_tag('go_to.png', size: '30x30', class: 'inline') %>
-            <%= order.id %>
-          <% end %></td>
-          <td class="m-2 text-sm "><%= order.building_site %></td>
-          <td class="m-2 text-sm text-center"> <%= order.created_at.strftime("%Y-%m-%d") %>
-    <br/>
-    <%= order.created_at.strftime("%H:%M")  %></td>
-          <td class="m-2 border-r-2">
-            <% if order.status == "completed" %>
-              <p class="text-green-400"><%= image_tag('ok.png', size: '40x40', alt: "Completed") %></p>
-            <% elsif order.status == "pending" %>
-              <p class="text-red-400"><%= image_tag('hourglass.png', size: '40x40', alt: "Pending") %></p>
-            <% elsif order.status == "missing_parts" %>
-              <p class="text-text-amber-600"><%= image_tag('missing_parts.png', size: '40x40', alt: "Missing parts") %></p>
-            <% else %>
-              <p class="text-blue-400"><%= image_tag('list.png', size: '40x40', alt: "In Progress") %></p>
-            <% end %>
-          </td>
+<% if @orders.present?  %>
+  <% if @all_orders_view == true %>
+    <h1 class="text-center m-4">All orders</h1>
+  <% else %>
+    <h1 class="text-center m-4">Last 100 orders:</h1>
+  <% end %>
+  <div class="flex justify-center items-center ">
+    <table class="table-fixed m-1">
+      <thead>
+        <tr>
+          <th>Order no:</th>
+          <th>Site</th>
+          <th>Created</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr class="transition duration-300 hover:bg-slate-300 border ">
+            <td class="m-20"> <%= link_to tracking_order_path(order), class: "ml-2" do %>
+                <%= image_tag('go_to.png', size: '30x30', class: 'inline') %>
+                <%= order.id %>
+              <% end %></td>
+            <td class="m-2 text-sm "><%= order.building_site %></td>
+            <td class="m-2 text-sm text-center"> <%= order.created_at.strftime("%Y-%m-%d") %>
+              <br/>
+              <%= order.created_at.strftime("%H:%M")  %></td>
+            <td class="m-2 border-r-2">
+              <% if order.status == "completed" %>
+                <p class="text-green-400"><%= image_tag('ok.png', size: '40x40', alt: "Completed") %></p>
+              <% elsif order.status == "pending" %>
+                <p class="text-red-400"><%= image_tag('hourglass.png', size: '40x40', alt: "Pending") %></p>
+              <% elsif order.status == "missing_parts" %>
+                <p class="text-text-amber-600"><%= image_tag('missing_parts.png', size: '40x40', alt: "Missing parts") %></p>
+              <% else %>
+                <p class="text-blue-400"><%= image_tag('list.png', size: '40x40', alt: "In Progress") %></p>
+              <% end %>
+            </td>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-  <% else %>
-    <p class="flex justify-center item-center mt-10" >No orders <%= @status %></p>
-  <%end%>
+<% else %>
+  <p class="flex justify-center item-center mt-10" >No orders <%= @status %></p>
+<%end%>
 </div>
- <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
 <script>
-function toggleMenu() {
-  var menu = document.getElementById('storage-menu');
-  if (menu.style.maxHeight === "" || menu.style.maxHeight === "0px") {
-    menu.style.maxHeight = menu.scrollHeight + "px"; 
-    localStorage.setItem('storageMenuState', 'open'); 
-  } else {
-    menu.style.maxHeight = "0px"; 
-    localStorage.setItem('storageMenuState', 'closed'); 
+  function toggleMenu() {
+    var menu = document.getElementById('storage-menu');
+    if (menu.style.maxHeight === "" || menu.style.maxHeight === "0px") {
+      menu.style.maxHeight = menu.scrollHeight + "px";
+      localStorage.setItem('storageMenuState', 'open');
+    } else {
+      menu.style.maxHeight = "0px";
+      localStorage.setItem('storageMenuState', 'closed');
+    }
   }
-}
 
-document.addEventListener('DOMContentLoaded', (event) => {
-  var menu = document.getElementById('storage-menu');
-  var state = localStorage.getItem('storageMenuState');
-  if (state === 'open') {
-    menu.style.maxHeight = menu.scrollHeight + "px";
-  }
-});
+  document.addEventListener('DOMContentLoaded', (event) => {
+    var menu = document.getElementById('storage-menu');
+    var state = localStorage.getItem('storageMenuState');
+    if (state === 'open') {
+      menu.style.maxHeight = menu.scrollHeight + "px";
+    }
+  });
 </script>

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def sorted_categories
-    ["stenders", "horisontals", "planks", "diagonals", "rekkverks", "fotlists", "consolers", "consolers", "UTV TRAPP", "akcesoria", "barelle"]
+    ['stenders', 'horisontals', 'planks', 'diagonals', 'rekkverks', 'fotlists', 'consolers', 'consolers', 'UTV TRAPP',
+     'akcesoria', 'barelle']
   end
 
   def total_weight(order_list)
@@ -30,7 +33,7 @@ module ApplicationHelper
     ActiveStorage::Blob.create_and_upload!(
       io: File.open(Rails.root.join("app/assets/images/#{file_name}")),
       filename: file_name,
-      content_type: "image/png" # dostosuj typ MIME
+      content_type: 'image/png' # dostosuj typ MIME
     ).variant(resize_to_limit: [20, 20], format: :webp, quality: 80)
   end
 
@@ -38,8 +41,7 @@ module ApplicationHelper
     ActiveStorage::Blob.create_and_upload!(
       io: File.open(Rails.root.join("app/assets/images/#{file_name}")),
       filename: file_name,
-      content_type: "image/png image/jpg" # dostosuj typ MIME
+      content_type: 'image/png image/jpg' # dostosuj typ MIME
     ).variant(resize_to_limit: [40, 40], format: :webp, quality: 100)
   end
-
 end

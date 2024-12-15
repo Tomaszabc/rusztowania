@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OrderMailerHelper
   def total_weight(order_list)
     weight = 0

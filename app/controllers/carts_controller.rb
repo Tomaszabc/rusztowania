@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartsController < ApplicationController
   def show
     @cart = Cart.find(params[:id])
@@ -8,7 +10,7 @@ class CartsController < ApplicationController
   def clear_cart
     @cart = Cart.find(params[:id])
     @cart.cart_items.destroy_all
-    redirect_back(fallback_location: root_path, notice: "Cart cleared!")
+    redirect_back(fallback_location: root_path, notice: 'Cart cleared!')
   end
 
   private

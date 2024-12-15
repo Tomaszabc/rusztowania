@@ -6,14 +6,12 @@
         <% if part.image.attached? %>
           <%= link_to url_for(part.image.variant(resize_to_limit: [500, nil])),
             data: { lightbox: "image-set", title: part.name } do %>
-  <%= image_tag(part.image.variant(resize_to_limit: [40, 40]), alt: part.name, class: "rounded shadow") %>
-<% end %>
-
+            <%= image_tag(part.image.variant(resize_to_limit: [40, 40]), alt: part.name, class: "rounded shadow") %>
+          <% end %>
         <% else %>
           <%= image_tag("scaffold_img_small.webp", alt: "No image", size: "40x40", class: "rounded shadow") %>
         <% end %>
       </div>
-
       <div class="flex-grow ">
         <p class="font-semibold w-60"><%= part.description %></p>
         <p class="text-gray-500">Multipack: <strong><%= part.multipack %></strong></p>
@@ -35,7 +33,6 @@
                   <button type="button" data-action="dialog#close" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition duration-200">Cancel</button>
                 </div>
               </dialog>
-
               <button type="button" data-action="dialog#open" class="mt-2 inline-block">
                 <%= image_tag "trash.png", size: "20x20", alt: "Delete", class: "hover:scale-110 transition duration-200 hover:bg-red-100 rounded" %>
               </button>
@@ -43,7 +40,6 @@
           <% end %>
         </div>
       </div>
-
       <div class="flex items-center mt-4 md:mt-0">
         <%= form_with(model: [@cart, CartItem.new], data: { turbo_frame: "parts_frame" }, class: 'flex items-center') do |form| %>
           <%= form.hidden_field :part_id, value: part.id %>
@@ -51,7 +47,7 @@
           <%= button_tag type: 'submit', class: "bg-green-500 hover:bg-green-600 text-white p-2 rounded shadow" do %>
             <%= image_tag("cart_2.png", alt: "Cart", size: "20x20") %>
           <% end %>
-        <% end %>          
+        <% end %>
       </div>
     </div>
   <% end %>

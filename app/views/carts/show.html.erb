@@ -7,7 +7,6 @@
       back
     </button>
   </div>
-
   <div class="mb-3 mr-2 mt-2 bg-red-100 hover:scale-110 transition duration-200" data-controller="dialog">
     <dialog data-dialog-target="dialog" class="rounded shadow-lg p-4">
       <p>Are you sure you want to clear the cart?</p>
@@ -23,39 +22,32 @@
       Clear cart
     </button>
   </div>
-
 </div>
-
-  <% if @cart.cart_items.empty? %>
-      <h1>Your Order Cart is Empty</h1>
-    <% else %>
-      <h1>Your Order Cart:</h1>
-  <% end %>
+<% if @cart.cart_items.empty? %>
+  <h1>Your Order Cart is Empty</h1>
+<% else %>
+  <h1>Your Order Cart:</h1>
+<% end %>
 <div class="mt-6">
   <% sorted_cart_items = @cart.cart_items.sort_by { |item| item.created_at } %>
-    <% sorted_cart_items.each do |item| %>
+  <% sorted_cart_items.each do |item| %>
     <p class=""><%= item.part.description %></p>
     <% if item.part.multipack > 1 %>
       <p class=""><strong>Multipack: <%= item.part.multipack%></strong></p>
-      <% end %>
-      <% if @cart.present? %>
-        <p class="ml-3 text-green-500">Currently in cart: <strong><%= @cart.cart_items.find_by(part_id: item.part_id).quantity %></strong></p>
-      <% end %>
-      <div class="border-b-2 mb-4 flex justify-between">
-        <div>
-          <%= form_with(model: item, url: cart_cart_item_path(@cart, item), method: :patch) do |form| %>
-           
-            <%= form.number_field :quantity, value: item.quantity, class: " w-20", id: "quantity-field", min: 1 %>
-
-            
-
-
-           <p><%=  image_submit_tag("edit.png", alt: "Update Quantity", class: "mt-1 ml-4 h-10 w-10 hover:scale-110 transition duration-200  hover:bg-green-200 rounded") %></p>
-          <% end %>
-        </div>
-        <div>
-          <% if item.part.image.attached? %>
-                  <%= image_tag(
+    <% end %>
+    <% if @cart.present? %>
+      <p class="ml-3 text-green-500">Currently in cart: <strong><%= @cart.cart_items.find_by(part_id: item.part_id).quantity %></strong></p>
+    <% end %>
+    <div class="border-b-2 mb-4 flex justify-between">
+      <div>
+        <%= form_with(model: item, url: cart_cart_item_path(@cart, item), method: :patch) do |form| %>
+          <%= form.number_field :quantity, value: item.quantity, class: " w-20", id: "quantity-field", min: 1 %>
+          <p><%=  image_submit_tag("edit.png", alt: "Update Quantity", class: "mt-1 ml-4 h-10 w-10 hover:scale-110 transition duration-200  hover:bg-green-200 rounded") %></p>
+        <% end %>
+      </div>
+      <div>
+        <% if item.part.image.attached? %>
+          <%= image_tag(
             item.part.image.variant(
               resize_to_limit: [80, 80], # Ograniczenie rozmiaru
               saver: { quality: 90 },   # Ustawienie jakości na 90%
@@ -63,11 +55,11 @@
             ),
             alt: item.part.name
           ) %>
-      <% else %>
-        <%= image_tag "scaffold_img_small.webp", size: "80x80", alt: "img" %>
-      <% end %>
-        </div>
-        <div data-controller="dialog">
+        <% else %>
+          <%= image_tag "scaffold_img_small.webp", size: "80x80", alt: "img" %>
+        <% end %>
+      </div>
+      <div data-controller="dialog">
         <dialog data-dialog-target="dialog" class="rounded shadow-lg p-4">
           <p>Delete <%= item.part.description %> from the cart?</p>
           <div class="mt-4 flex justify-end gap-4">
@@ -81,63 +73,55 @@
           <%= image_tag "trash.png", size: "30x30", alt: "Delete", class: "inline-block" %>
         </button>
       </div>
-      </div>
-    <% end %>
+    </div>
+  <% end %>
 </div>
-
-  <div class="m-3 flex">
-    <%= image_tag "weight.png", size: "40x20", alt:"weight"%>
+<div class="m-3 flex">
+  <%= image_tag "weight.png", size: "40x20", alt:"weight"%>
   <p class="text-center m-2">Total Weight: <%= @total_weight %> kg</p>
 </div>
 <div class="m-3">
   <%= button_to new_order_path(cart_id: @cart.id), method: :get, 
     class: "inline-flex items-center px-4 py-2 bg-gray-500 hover:bg-gray-700 text-white font-semibold rounded-md",
     disabled: @cart.cart_items.empty? do %>
-  <%= image_tag "cart.png", size: "40x20", alt: "Order" %>
-  <span class="ml-2 ">GO to Scaffolder Order</span>
+    <%= image_tag "cart.png", size: "40x20", alt: "Order" %>
+    <span class="ml-2 ">GO to Scaffolder Order</span>
   <% end %>
-
-
 </div>
- 
- <div class="container text-right">
- <div class="flex justify-end items-center mt-40 mb-3">
- <div class="tooltip-container mr-2">
-    <span class="question-mark">?</span>
-    <div class="tooltip-text">Order will not be saved. Only email is sent to You.</div>
-  </div>
-  <div class="mr-2">
-    <%= button_to lager_order_path(cart_id: @cart.id), method: :get, 
+<div class="container text-right">
+  <div class="flex justify-end items-center mt-40 mb-3">
+    <div class="tooltip-container mr-2">
+      <span class="question-mark">?</span>
+      <div class="tooltip-text">Order will not be saved. Only email is sent to You.</div>
+    </div>
+    <div class="mr-2">
+      <%= button_to lager_order_path(cart_id: @cart.id), method: :get, 
         class: "inline-flex items-center px-4 py-2 bg-gray-300 hover:bg-gray-500 text-white font-semibold rounded-md",
         disabled: @cart.cart_items.empty? do %>
-    <%= image_tag "storage.png", size: "20x20", alt: "Lager Order" %>
-    <span class="ml-2 ">Lager Order</span>
-    <% end %>
+        <%= image_tag "storage.png", size: "20x20", alt: "Lager Order" %>
+        <span class="ml-2 ">Lager Order</span>
+      <% end %>
+    </div>
   </div>
-  
 </div>
-</div>
-
-
 <script>
-document.querySelector('.question-mark').addEventListener('click', function(event) {
-  const tooltip = this.nextElementSibling;
-  if (tooltip.style.visibility === 'visible') {
-    tooltip.style.visibility = 'hidden';
-    tooltip.style.opacity = '0';
-  } else {
-    tooltip.style.visibility = 'visible';
-    tooltip.style.opacity = '1';
-    event.stopPropagation(); // Zapobiega wywołaniu zdarzenia na document
-  }
-});
+  document.querySelector('.question-mark').addEventListener('click', function(event) {
+    const tooltip = this.nextElementSibling;
+    if (tooltip.style.visibility === 'visible') {
+      tooltip.style.visibility = 'hidden';
+      tooltip.style.opacity = '0';
+    } else {
+      tooltip.style.visibility = 'visible';
+      tooltip.style.opacity = '1';
+      event.stopPropagation(); // Zapobiega wywołaniu zdarzenia na document
+    }
+  });
 
-document.addEventListener('click', function() {
-  const tooltip = document.querySelector('.tooltip-text');
-  if (tooltip.style.visibility === 'visible') {
-    tooltip.style.visibility = 'hidden';
-    tooltip.style.opacity = '0';
-  }
-});
-
+  document.addEventListener('click', function() {
+    const tooltip = document.querySelector('.tooltip-text');
+    if (tooltip.style.visibility === 'visible') {
+      tooltip.style.visibility = 'hidden';
+      tooltip.style.opacity = '0';
+    }
+  });
 </script>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Site do
   permit_params :name, :address, :ledermann_id
   # See permitted parameters documentation:
@@ -16,17 +18,19 @@ ActiveAdmin.register Site do
   # end
 
   form do |f|
-    f.inputs "Site Details" do
+    f.inputs 'Site Details' do
       f.input :name
       f.input :address
-      f.input :ledermann, as: :select, collection: User.all.sort_by { |user| user.email.downcase }.map { |user| [user.email, user.id] }
+      f.input :ledermann, as: :select, collection: User.all.sort_by do |user|
+        user.email.downcase
+      end.map { |user| [user.email, user.id] }
     end
     f.actions
   end
 
   controller do
     def create
-      super do |format|
+      super do |_format|
         redirect_to collection_url and return if resource.valid?
       end
     end

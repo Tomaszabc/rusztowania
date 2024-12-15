@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'image_processing/mini_magick'
 
-#'image_processing/vips'  
+# 'image_processing/vips'
 
 namespace :images do
-  desc "Convert images in app/assets/images to webp with specific settings"
+  desc 'Convert images in app/assets/images to webp with specific settings'
   task convert_to_webp: :environment do
-    input_dir = Rails.root.join("app/assets/images")
-    output_dir = Rails.root.join("app/assets/images")
+    input_dir = Rails.root.join('app/assets/images')
+    output_dir = Rails.root.join('app/assets/images')
 
     # Pliki do konwersji na format webp 90% jakości
     files_to_convert = %w[
@@ -39,7 +41,7 @@ namespace :images do
         puts "Processing #{file_name} to webp..."
         processed_image = ImageProcessing::Vips
                           .source(input_path)
-                          .convert("webp")
+                          .convert('webp')
                           .saver(quality: 90)
                           .call(destination: output_path)
 
@@ -58,7 +60,7 @@ namespace :images do
         processed_image = ImageProcessing::Vips
                           .source(input_path)
                           .resize_to_limit(100, 100)
-                          .convert("webp")
+                          .convert('webp')
                           .saver(quality: 90)
                           .call(destination: output_path)
 

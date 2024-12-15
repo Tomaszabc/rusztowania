@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartItemsController < ApplicationController
   def create
     @cart = current_cart
@@ -7,17 +9,17 @@ class CartItemsController < ApplicationController
       @existing_cart_item.quantity += params[:cart_item][:quantity].to_i
       if @existing_cart_item.save
         redirect_to request.referrer || root_path
-        flash[:notice] = "More parts added"
+        flash[:notice] = 'More parts added'
       else
-        redirect_back(fallback_location: root_path, alert: "Something went wrong")
+        redirect_back(fallback_location: root_path, alert: 'Something went wrong')
       end
     else
       @cart_item = @cart.cart_items.build(cart_item_params)
       if @cart_item.save
-        flash[:notice] = "Successfully added"
+        flash[:notice] = 'Successfully added'
         redirect_to request.referrer || root_path
       else
-        redirect_back(fallback_location: root_path, alert: "Something went wrong")
+        redirect_back(fallback_location: root_path, alert: 'Something went wrong')
       end
     end
   end
@@ -26,9 +28,9 @@ class CartItemsController < ApplicationController
     @cart_item = CartItem.find(params[:id])
 
     if @cart_item.update(cart_item_params)
-      redirect_to cart_path(@cart_item.cart), notice: "Quantity updated"
+      redirect_to cart_path(@cart_item.cart), notice: 'Quantity updated'
     else
-      redirect_back(fallback_location: root_path, alert: "Something went wrong")
+      redirect_back(fallback_location: root_path, alert: 'Something went wrong')
     end
   end
 
@@ -36,7 +38,7 @@ class CartItemsController < ApplicationController
     @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
 
-    redirect_to request.referrer || root_path, notice: "Item deleted"
+    redirect_to request.referrer || root_path, notice: 'Item deleted'
   end
 
   private

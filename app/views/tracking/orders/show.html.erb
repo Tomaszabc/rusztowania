@@ -3,52 +3,48 @@
     <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
     <ul>
       <% @order.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-    <% end %>
+        <li><%= message %></li>
+      <% end %>
     </ul>
   </div>
 <% end %>
-
 <div class="mb-1  ml-2 mt-2 text-left">
   <button class="inline-flex items-center  px-1 py-1  bg-transparent hover:bg-slate-300 text-black text-sm font-medium rounded-md border border-black hover:scale-110 transition duration-200" onclick="history.back()">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
     </svg>
     back
   </button>
 </div>
 <p class=" text-center ">Order: <%= @order.id %></p>
 <p class=" text-center text-sm">Created at: <%= @order.created_at.strftime("%d-%m-%Y") %></p>
-  <p class="text-lg text-center ">Status: <%= @order.status.gsub('_', ' ').titleize %></p>
-  <p class="flex justify-center mb-4">
-    <% if @order.pending? %>
+<p class="text-lg text-center ">Status: <%= @order.status.gsub('_', ' ').titleize %></p>
+<p class="flex justify-center mb-4">
+  <% if @order.pending? %>
     <%= image_tag('hourglass.png', size: '40x40', alt: "Pending") %>
-    <% elsif @order.in_progress? %>
+  <% elsif @order.in_progress? %>
     <%= image_tag('list.png', size: '40x40', alt: "In Progress") %>
-    <% elsif @order.missing_parts? %>
+  <% elsif @order.missing_parts? %>
     <%= image_tag('missing_parts.png', size: '40x40', alt: "Missing parts") %>
-    <% else %>
+  <% else %>
     <%= image_tag('ok.png', size: '40x40', alt: "Completed") %>
-    <% end %>
-  </p>
-
+  <% end %>
+</p>
 <p class="text-sm">Scaffolder: <%= @order.user.name %> <%= @order.user.email %></p>
 <p class="text-sm">Building Site: <strong><%= @order.building_site %></strong></p>
-  <% if @order.building_site_info.present? %>
-    <p class="text-sm">Site info: <%= @order.building_site_info %></p>
-  <% end %>
-
-<div class= "flex inline justify-end mr-2">
-<div data-controller="lightbox">
-<%= link_to asset_path('instruction_parts.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
-<div class= "flex inline">
-<%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
-<%= button_to " Instruction", class: "your-button-classes ml-2" %>
-</div>
+<% if @order.building_site_info.present? %>
+  <p class="text-sm">Site info: <%= @order.building_site_info %></p>
 <% end %>
+<div class= "flex inline justify-end mr-2">
+  <div data-controller="lightbox">
+    <%= link_to asset_path('instruction_parts.png'), data: { lightbox: 'instruction', title: 'Instruction' } do %>
+      <div class= "flex inline">
+        <%= image_tag('instruction_img.png', size: '20x20', class: 'inline mr-1') %>
+        <%= button_to " Instruction", class: "your-button-classes ml-2" %>
+      </div>
+    <% end %>
+  </div>
 </div>
-</div>
-
 <% if @order.order_storage_lists.any? %>
   <h2 class="mt-10 text-purple-900 mb-4">Additional/more parts from Lagermann:</h2>
   <% total_storage_weight = 0 %>
@@ -56,7 +52,7 @@
     <% @order.order_storage_lists.includes(:part).sort_by { |osl| osl.description.downcase }.each_with_index do |order_storage_list, index| %>
       <%= form.fields_for :order_storage_lists, order_storage_list do |order_storage_list_form| %>
         <div class=" ml-1 border-b-2 flex justify-between">
-          <p class="text-sm  mb-4 inline"> 
+          <p class="text-sm  mb-4 inline">
             <%= index + 1 %>.<%= order_storage_list.description %>--
           </p>
           <div class="text-right">
@@ -68,77 +64,69 @@
     <% end %>
   <% end %>
 <% end %>
-
 <h2 class="mt-4 ml-1 mr-1">Ordered Parts:</h2>
 <% total_weight = 0 %>
 <%= form_with(model: @order, url: warehouse_storage_path(@order), method: :patch) do |form| %>
-<% @order.order_lists.includes(:part).sort_by { |ol| ol.description.downcase }.each_with_index do |order_list, index| %>
-<%= form.fields_for :order_lists, order_list do |order_list_form| %>
-<div class="m-1 border-b-2 flex">
-  <div class="flex-grow">
-<% if order_list.delivery_quantity.present? %>
-  <% if order_list.delivery_quantity > order_list.quantity %>
-    <% highlight_class = 'text-amber-500' %>
-  <% elsif order_list.delivery_quantity < order_list.quantity %>
-    <% highlight_class = 'text-red-800' %>
-  <% else %>
-    <% highlight_class = 'text-green-800' %>
-  <% end %>
-  <% else %>
-  <% highlight_class = 'text-black' %>
-<% end %>
-    <p class="text-sm mb-2 <%= highlight_class %>"><%= index + 1 %>. <%= order_list.description %></p>
-  </div>
-  <div class="flex flex-grow justify-end">
-    <p class=" text-indigo-800"><strong><%= order_list.quantity %></strong>/</p>
-    <p class="<%= highlight_class %>   ">
-    <% if order_list.delivery_quantity.present? %>
-      <%= order_list.delivery_quantity %>
-    <% else %>
-      ???
+  <% @order.order_lists.includes(:part).sort_by { |ol| ol.description.downcase }.each_with_index do |order_list, index| %>
+    <%= form.fields_for :order_lists, order_list do |order_list_form| %>
+      <div class="m-1 border-b-2 flex">
+        <div class="flex-grow">
+          <% if order_list.delivery_quantity.present? %>
+            <% if order_list.delivery_quantity > order_list.quantity %>
+              <% highlight_class = 'text-amber-500' %>
+            <% elsif order_list.delivery_quantity < order_list.quantity %>
+              <% highlight_class = 'text-red-800' %>
+            <% else %>
+              <% highlight_class = 'text-green-800' %>
+            <% end %>
+          <% else %>
+            <% highlight_class = 'text-black' %>
+          <% end %>
+          <p class="text-sm mb-2 <%= highlight_class %>"><%= index + 1 %>. <%= order_list.description %></p>
+        </div>
+        <div class="flex flex-grow justify-end">
+          <p class=" text-indigo-800"><strong><%= order_list.quantity %></strong>/</p>
+          <p class="<%= highlight_class %>   ">
+            <% if order_list.delivery_quantity.present? %>
+              <%= order_list.delivery_quantity %>
+            <% else %>
+              ???
+            <% end %>
+            stk</p>
+        </div>
+        <% total_weight += order_list.quantity * order_list.weight %>
+      </div>
     <% end %>
-    stk</p>
-  </div>
-  <% total_weight += order_list.quantity * order_list.weight %>
-</div>
-<% end %>
-<% end %>
-
-<% if @order.info.present? %>
-<p class="mt-10 m-1 text-sm"><strong>Additional Info/Parts:</strong> <%= simple_format(@order.info,  class: "text-sm m-1" )%></p>
-<% end %>
-<% if @order.storage_info.present? %>
-<div class="mt-4 m-1">
-<p><strong><%= form.label :storage_info, "Storage Parts/Delivery Info:", class: " mt-2 " %></strong></p>
-<p><%= simple_format(@order.storage_info) %></p>
-</div>
-<% end %>
-
-<% if @order.new_delivery_date.present? %>
-
-
-<div class="mt-4 justify-center text-center">
-<p class="text-sm mt-4 m-1">Delivery Date wanted: <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
-<p class="text-lg"> <strong> New delivery date: <%= @order.new_delivery_date.strftime("%d-%m-%Y") %> </strong></p>
-</div>
-<% else %>
-<div class="mt-4 justify-center text-center">
-<p class="text-lg mt-4">Delivery Date: <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
-
-</div>
-<% end %>
-<% if @order.car_number.present? %>
-<div class="flex justify-center mt-4">
-
-Car number: <%= @order.car_number%>
-</div>
-<% end %>
+  <% end %>
+  <% if @order.info.present? %>
+    <p class="mt-10 m-1 text-sm"><strong>Additional Info/Parts:</strong> <%= simple_format(@order.info,  class: "text-sm m-1" )%></p>
+  <% end %>
+  <% if @order.storage_info.present? %>
+    <div class="mt-4 m-1">
+      <p><strong><%= form.label :storage_info, "Storage Parts/Delivery Info:", class: " mt-2 " %></strong></p>
+      <p><%= simple_format(@order.storage_info) %></p>
+    </div>
+  <% end %>
+  <% if @order.new_delivery_date.present? %>
+    <div class="mt-4 justify-center text-center">
+      <p class="text-sm mt-4 m-1">Delivery Date wanted: <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
+      <p class="text-lg"> <strong> New delivery date: <%= @order.new_delivery_date.strftime("%d-%m-%Y") %> </strong></p>
+    </div>
+  <% else %>
+    <div class="mt-4 justify-center text-center">
+      <p class="text-lg mt-4">Delivery Date: <%= @order.delivery_date.strftime("%d-%m-%Y") %></p>
+    </div>
+  <% end %>
+  <% if @order.car_number.present? %>
+    <div class="flex justify-center mt-4">
+      Car number: <%= @order.car_number%>
+    </div>
+  <% end %>
 <% end %>
 <p class="text-center m-4"><strong>Order Weight:</strong> <%= total_weight %>kg</p>
 <% if @order.status == "completed" || @order.status == "missing_parts" %>
   <p class="text-center m-4"><strong>Delivery Weight</strong>: <%= total_delivery_weight(@order.order_lists, @order.order_storage_lists) %>kg</p>
 <% else %>
-<p class="text-center m-4"><strong>Delivery Weight</strong>: Not completed</p>
+  <p class="text-center m-4"><strong>Delivery Weight</strong>: Not completed</p>
 <% end %>
-
 <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>

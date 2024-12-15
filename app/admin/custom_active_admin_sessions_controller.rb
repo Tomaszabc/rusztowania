@@ -1,5 +1,4 @@
+# frozen_string_literal: true
+
 class CustomActiveAdminSessionsController < ActiveAdmin::Devise::SessionsController
-  def new
-    super
-  end
 end

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Tracking
   class OrdersController < ApplicationController
-    layout "tracking"
+    layout 'tracking'
 
     def index
       @all_orders_view = false
@@ -17,7 +19,7 @@ module Tracking
         end_date = end_date.to_date.end_of_day
         @orders = recent_orders.where(created_at: start_date..end_date)
         @all_orders_view = true
-        flash[:notice] = "Date selected"
+        flash[:notice] = 'Date selected'
       end
       if site_id
         site = Site.find(site_id)
@@ -55,26 +57,26 @@ module Tracking
     end
 
     def completed_orders
-      @orders = Order.where(status: "completed").order(created_at: :desc).limit(100)
-      @status = "completed"
+      @orders = Order.where(status: 'completed').order(created_at: :desc).limit(100)
+      @status = 'completed'
       render :index
     end
 
     def pending_orders
-      @orders = Order.where(status: "pending").order(created_at: :desc).limit(100)
-      @status = "pending"
+      @orders = Order.where(status: 'pending').order(created_at: :desc).limit(100)
+      @status = 'pending'
       render :index
     end
 
     def in_progress_orders
-      @orders = Order.where(status: "in_progress").order(created_at: :desc).limit(100)
-      @status = "in progress"
+      @orders = Order.where(status: 'in_progress').order(created_at: :desc).limit(100)
+      @status = 'in progress'
       render :index
     end
 
     def missing_parts_orders
-      @orders = Order.where(status: "missing_parts").order(created_at: :desc).limit(100)
-      @status = "missing parts"
+      @orders = Order.where(status: 'missing_parts').order(created_at: :desc).limit(100)
+      @status = 'missing parts'
       render :index
     end
 
@@ -82,11 +84,12 @@ module Tracking
 
     def recent_orders
       six_months_ago = 6.months.ago
-      Order.where("created_at > ?", six_months_ago)
+      Order.where('created_at > ?', six_months_ago)
     end
 
     def order_params
-      params.require(:order).permit(:delivery_date, :new_delivery_date, :car_number, :storage_info, order_lists_attributes: [:id, :delivery_quantity, :checkbox])
+      params.require(:order).permit(:delivery_date, :new_delivery_date, :car_number, :storage_info,
+                                    order_lists_attributes: %i[id delivery_quantity checkbox])
     end
   end
 end

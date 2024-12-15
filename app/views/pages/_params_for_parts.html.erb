@@ -6,7 +6,6 @@
     </p>
   </div>
 <% end %>
-
 <div class="mt-3 mb-3 flex">
   <%= form_with(url: pages_index_path, method: :get, html: { id: 'category-form' }) do |form| %>
     <%= form.hidden_field :system, value: params[:system] %>

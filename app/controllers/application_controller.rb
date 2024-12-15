@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   before_action :auto_login_admin
   before_action :auto_login
@@ -14,17 +16,17 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
   def auto_login_admin
     admin_user = AdminUser.find_by(email: 'admin@example.com')
     sign_in(admin_user, scope: :admin_user) if admin_user && !admin_user_signed_in?
   end
 
   def auto_login
-      admin = User.find_by(email: 'admin@example.com')
-      sign_in(admin) unless current_user
+    admin = User.find_by(email: 'admin@example.com')
+    sign_in(admin) unless current_user
   end
 end
-
 
 # class ApplicationController < ActionController::Base
 # before_action :authenticate_user!
@@ -40,6 +42,3 @@ end
 #   end
 # end
 # end
-
-
-
